@@ -13,7 +13,7 @@ interface Props {
 
 export const CompanyTag = ({
     companyName,
-    bgColor,
+    bgColor="cyan.500",
     location='',
   }: Props) => {
       const workPlace = `@${ companyName } ${ location }`

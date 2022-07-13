@@ -7,10 +7,12 @@ import {
     ListItem,
     ListIcon,
     Stack,
-    Highlight
+    Highlight,
+    HStack,
 } from '@chakra-ui/react'
 
 import { GrCheckboxSelected } from 'react-icons/gr'
+import { CompanyTag } from './CompanyTag'
 
 interface Props {
   jobTitle: string
@@ -34,19 +36,9 @@ export const ExperienceCard = ({
     return (
      <Stack>
        <Heading size="md">{ jobTitle }</Heading>
-       <Text fontWeight="bold" fontSize="sm">
-         <Highlight
-          query={`@${ companyName }`}
-          styles={{
-            bg: `${ bgColor }`, 
-            p: '1', 
-            borderRadius: '20', 
-            color: '#fff'
-          }}
-          >
-          { workPlace }
-         </Highlight>
-      </Text>
+       <HStack>
+        <CompanyTag companyName={ companyName } bgColor={ bgColor } location={ location }/>
+      </HStack>
       <Text color="gray.800" fontWeight="light" fontSize="sm">{ date }</Text>
       <List spacing={ 4 }>
         { workTasks.map(workTask => {
