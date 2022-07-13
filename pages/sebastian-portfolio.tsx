@@ -32,6 +32,7 @@
 import { WorkImage } from '../components/workImage'
 import { ExperienceCard } from '../components/ExperienceCard'
 import { SimpleHighlight } from '../components/SimpleHighlight'
+import { PortfolioProject } from '../components/PortfolioProject'
 
 //gray.800, orange.500, green.500, cyan.500, purple.500
 
@@ -40,8 +41,8 @@ const man = true
 export default function SebastianPortfolio() {
   
     return (
-    <VStack spacing={ 10 } py={ 4 }>
-      <HStack w="full" justifyContent="space-between" px={ 16 } py={ 4 } pos="fixed" bgColor="#fff">
+    <VStack spacing={ 10 } pb={ 12 }>
+      <HStack w="full" justifyContent="space-between" px={ 16 } py={ 4 } pos="fixed" bgColor="#fff" >
         <LinkBox>
           <HStack>
               <LinkOverlay href="#" />
@@ -151,9 +152,9 @@ export default function SebastianPortfolio() {
                   location="Malmö Sweden"
                   date="Jan 2022 - Present"
                   workTasks={[
-                    "Feeding hundred of hungry families with bread",
-                    "Learned to keep track of time",
-                    "Something else",
+                    "Feeding hungry families all over Malmö",
+                    "Learned effective time management",
+                    "Got real good at handling trafic",
                   ]}
                   bgColor="gray.500"
                 />
@@ -216,6 +217,65 @@ export default function SebastianPortfolio() {
         />
       </Stack>
 
+      <Stack spacing={ 8 } alignItems="center">
+        <Heading>Portfolio</Heading>
+        <Text>A collection of personal projects and other work</Text>
+          <Wrap spacing={ 4 } justify="center">
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://www.youtube.com/embed/06Ou5lkGgbQ"
+              video={ true }
+              alt="Graphing Calculator"
+            />
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://www.youtube.com/embed/6SUBhdvK31A"
+              video={ true }
+              alt="Graphing Calculator"
+            />
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://www.youtube.com/embed/e3jfDur3ntk"
+              video={ true }
+              alt="Graphing Calculator"
+            />
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://www.youtube.com/embed/HKxW4fHlmUo"
+              video={ true }
+              alt="Graphing Calculator"
+            />
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://sebcodestheweb.com/img/pi.png"
+              video={ false }
+              alt="Graphing Calculator"
+            />
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://www.youtube.com/embed/TJ9IJsKirqA"
+              video={ true }
+              alt="Graphing Calculator"
+            />
+            <PortfolioProject 
+              title="Neline" 
+              description="I built my own graphing calculator" 
+              src="https://www.youtube.com/embed/7EArFLOI8ek"
+              video={ true }
+              alt="Graphing Calculator"
+              link="#"
+              linkText="Github"
+            />
+          </Wrap>
+      </Stack>
+
+
       <Stack spacing={ 8 } border="1px solid black" borderRadius="40px" p={ 8 } >
         <Heading>Contact: </Heading>
         <Text>
@@ -225,11 +285,11 @@ export default function SebastianPortfolio() {
         <HStack spacing={ 8 } align="start">
           <Stack spacing={ 2 }>
             <HStack justify="space-between" spacing={ 4 }>
-              <SimpleHighlight text="mail" />
+              <SimpleHighlight text="Mail" />
               <Text>sebastian.delgado@gmail.com</Text>
             </HStack>
             <HStack justify="space-between">
-              <SimpleHighlight text="phone" />
+              <SimpleHighlight text="Phone" />
               <Text>+4623423435</Text>
             </HStack>
             <HStack justify="space-between">

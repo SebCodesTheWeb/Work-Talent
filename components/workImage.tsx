@@ -34,7 +34,6 @@ export const WorkImage = (
         <Image 
         src={ src } 
         objectFit="cover" 
-        w="300px"
         alt={ alt} 
         borderRadius={ 4 }
         />
