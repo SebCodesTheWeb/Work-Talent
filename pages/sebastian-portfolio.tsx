@@ -48,20 +48,24 @@ export default function SebastianPortfolio() {
   
     return (
     <VStack spacing={ 10 }>
-      <HStack w="full" justifyContent="space-between" px={ 16 } py={ 4 } pos="fixed" bgColor="#fff" >
-        <LinkBox>
+      <HStack w="full" justifyContent="space-between" px={ 16 } py={ 4 } pos="fixed" bgColor="#fff" zIndex={ 1 }>
+        <LinkBox >
           <HStack>
               <LinkOverlay href="#" />
-              <Text fontWeight="bold" fontSize="lg"><em>Resume</em></Text>
-              <Icon as={ GrDocumentPdf } />
+              <SimpleButton>
+                <HStack spacing={ 2 }>
+                  <Text>Resume</Text>
+                  <Icon as={ GrDocumentPdf } />
+                </HStack>
+              </SimpleButton>
           </HStack>
         </LinkBox>
         <HStack fontSize="lg" spacing={ 4 } fontWeight="bold">
-          <Link>Home</Link>
-          <Link>Work</Link>
-          <Link>About</Link>
-          <Link>Projects</Link>
-          <Link>Contact & links</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#a">Home</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>Work</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>About</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>Projects</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>Contact & links</Link>
         </HStack>
       </HStack>
 
@@ -97,7 +101,7 @@ export default function SebastianPortfolio() {
               I am a software engineer from Malmö. Looking for new opportunities to build amazing full stack apps.
              </Highlight>
           </Text>
-          <SimpleButton>
+          <SimpleButton >
             <HStack>
               <Heading size="sm">See my works</Heading>
               <Icon as={ GrCaretDown } />
@@ -201,13 +205,17 @@ export default function SebastianPortfolio() {
           <Text>
           One of my big passions is <SimpleHighlight text="mathematics" bgColor="purple.500" fontWeight="normal" />. So often I like to code something related to math, that way I'm fully satisified! I'm currently studying single variable calculus and linear algebra at Lund University
           </Text>
-        <LinkBox>
-          <HStack alignItems="center" spacing={ 2 } ml={ -3 }>
-            <LinkOverlay href="#" />
-            <SimpleHighlight text="Resume" />
-            <Icon as={ GrDocumentPdf } />
-          </HStack>
-        </LinkBox>
+          <LinkBox >
+            <HStack>
+                <LinkOverlay href="#" />
+                <SimpleButton>
+                  <HStack spacing={ 2 }>
+                    <Text>Resume</Text>
+                    <Icon as={ GrDocumentPdf } />
+                  </HStack>
+                </SimpleButton>
+            </HStack>
+          </LinkBox>
         </Stack>
         <Image 
           src="./img/coding.svg" 
@@ -309,7 +317,7 @@ export default function SebastianPortfolio() {
               <SimpleHighlight text="Find me in" />
               <Text>Malmö Sweden</Text>
             </HStack>
-            <LinkBox>
+            <LinkBox pt={ 4 }>
               <LinkOverlay href="mailto:sebastian.delgado@gmail.com" />
               <SimpleButton>Contact</SimpleButton>
             </LinkBox>
@@ -340,7 +348,7 @@ export default function SebastianPortfolio() {
         w="full" 
         h="300px"
         pt={ 32 }
-        pb={ 16 } 
+        pb={ 20 } 
         color="#fff"
         spacing={ 4 } 
         bgImage="./img/wave.svg"

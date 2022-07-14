@@ -10,6 +10,7 @@ import {
     Stack,
     LinkBox,
     LinkOverlay,
+    Box,
   } from '@chakra-ui/react'
 
 interface Props {
@@ -33,22 +34,42 @@ export const PortfolioProject = ({
   linkText,
   bgColor='cyan.500',
   }: Props) => {
+    const srcWithAutplay = `${ src }?autoplay=1&mute=1`
       return (
         <Stack maxW="500px" spacing={ 4 }>
-          <AspectRatio ratio={ 16 / 9} w="500px" border="1px solid black" borderRadius="10px">
-            {video === true
-            ?<iframe
-              title={ alt }
-              src={ src }
-              allowFullScreen={ true }
-              />
-            :<Image 
-              src={ src } 
-              objectFit="cover" 
-              alt={ alt} 
-              borderRadius={ 4 }
-              />
-            }
+          <AspectRatio ratio={ 16 / 9} w="500px" >
+            <Box
+              display="block"
+              overflow="hidden"
+              borderRadius="25px"
+              transform="translateZ(10px)"
+              border="2px solid #718096"
+            >
+              {video === true
+              ? <iframe 
+                  src= { srcWithAutplay } 
+                  title={ alt } 
+                  frameBorder="0" 
+                  allow="
+                  accelerometer; 
+                  autoplay; 
+                  clipboard-write; 
+                  encrypted-media; 
+                  gyroscope; 
+                  picture-in-picture
+                  " 
+                  allowFullScreen={ true } 
+                  width="100%" 
+                  height="100%"
+                />
+              :<Image 
+                src={ src } 
+                objectFit="cover" 
+                alt={ alt} 
+                borderRadius={ 4 }
+                />
+              }
+            </Box>
           </AspectRatio>
           <Heading size="md">
             <SimpleHighlight text={ title } bgColor={ bgColor } fontWeight="normal"/>
