@@ -2,6 +2,11 @@
    GrDocumentPdf,
    GrCaretDown,
    GrCheckboxSelected,
+   GrLinkedin,
+   GrFacebook,
+   GrGithub,
+   GrInstagram,
+   GrYoutube,
    } from 'react-icons/gr'
  import {
     Heading,
@@ -33,6 +38,7 @@ import { WorkImage } from '../components/workImage'
 import { ExperienceCard } from '../components/ExperienceCard'
 import { SimpleHighlight } from '../components/SimpleHighlight'
 import { PortfolioProject } from '../components/PortfolioProject'
+import { SimpleButton } from '../components/SimpleButton'
 
 //gray.800, orange.500, green.500, cyan.500, purple.500
 
@@ -41,7 +47,7 @@ const man = true
 export default function SebastianPortfolio() {
   
     return (
-    <VStack spacing={ 10 } pb={ 12 }>
+    <VStack spacing={ 10 }>
       <HStack w="full" justifyContent="space-between" px={ 16 } py={ 4 } pos="fixed" bgColor="#fff" >
         <LinkBox>
           <HStack>
@@ -91,18 +97,12 @@ export default function SebastianPortfolio() {
               I am a software engineer from Malmö. Looking for new opportunities to build amazing full stack apps.
              </Highlight>
           </Text>
-          <Button 
-            maxW="300px" 
-            border="2px solid #1A202C" 
-            borderRadius={ 8 }
-            bg="transparent" 
-            _hover={ { bg: 'purple.500', color: '#fff', border: 'none'  } }
-          >
-          <HStack>
-            <Heading size="sm">See my works</Heading>
-            <Icon as={ GrCaretDown } />
-          </HStack>
-          </Button>
+          <SimpleButton>
+            <HStack>
+              <Heading size="sm">See my works</Heading>
+              <Icon as={ GrCaretDown } />
+            </HStack>
+          </SimpleButton>
         </Stack>
       </HStack>
       
@@ -217,73 +217,86 @@ export default function SebastianPortfolio() {
         />
       </Stack>
 
-      <Stack spacing={ 8 } alignItems="center">
+      <Stack spacing={ 8 } alignItems="center" pb={ 8 }>
         <Heading>Portfolio</Heading>
         <Text>A collection of personal projects and other work</Text>
           <Wrap spacing={ 4 } justify="center">
             <PortfolioProject 
               title="Neline" 
-              description="I built my own graphing calculator" 
+              description="I build my own graphing calculator wihtout libraries in vanilla js. It can plot graphs, solve differential equations and apply linear transformations" 
               src="https://www.youtube.com/embed/06Ou5lkGgbQ"
-              video={ true }
-              alt="Graphing Calculator"
-            />
-            <PortfolioProject 
-              title="Neline" 
-              description="I built my own graphing calculator" 
-              src="https://www.youtube.com/embed/6SUBhdvK31A"
-              video={ true }
-              alt="Graphing Calculator"
-            />
-            <PortfolioProject 
-              title="Neline" 
-              description="I built my own graphing calculator" 
-              src="https://www.youtube.com/embed/e3jfDur3ntk"
-              video={ true }
-              alt="Graphing Calculator"
-            />
-            <PortfolioProject 
-              title="Neline" 
-              description="I built my own graphing calculator" 
-              src="https://www.youtube.com/embed/HKxW4fHlmUo"
-              video={ true }
-              alt="Graphing Calculator"
-            />
-            <PortfolioProject 
-              title="Neline" 
-              description="I built my own graphing calculator" 
-              src="https://sebcodestheweb.com/img/pi.png"
-              video={ false }
-              alt="Graphing Calculator"
-            />
-            <PortfolioProject 
-              title="Neline" 
-              description="I built my own graphing calculator" 
-              src="https://www.youtube.com/embed/TJ9IJsKirqA"
-              video={ true }
-              alt="Graphing Calculator"
-            />
-            <PortfolioProject 
-              title="Neline" 
-              description="I built my own graphing calculator" 
-              src="https://www.youtube.com/embed/7EArFLOI8ek"
               video={ true }
               alt="Graphing Calculator"
               link="#"
               linkText="Github"
             />
+            <PortfolioProject 
+              title="Disney Landing Page" 
+              description="The Disney.com landing page, made in HTML and CSS with a focus on display: flex" 
+              src="https://www.youtube.com/embed/6SUBhdvK31A"
+              video={ true }
+              alt="Graphing Calculator"
+              link="#"
+              linkText="Demo"
+              bgColor="purple.500"
+            />
+            <PortfolioProject 
+              title="Truth Table Generator" 
+              description="A binary tree that generates a truth table to evaluate expressions on their truthiness" 
+              src="https://www.youtube.com/embed/e3jfDur3ntk"
+              video={ true }
+              alt="Graphing Calculator"
+              link="#"
+              linkText="Github"
+            />
+            <PortfolioProject 
+              title="Prime Number Computer" 
+              description="Computing Prime numbers between set values, and giving some fun facts about them" 
+              src="https://www.youtube.com/embed/HKxW4fHlmUo"
+              video={ true }
+              alt="Graphing Calculator"
+              link="#"
+              linkText="Demo"
+              bgColor="purple.500"
+            />
+            <PortfolioProject 
+              title="Estimating PI" 
+              description="Estimating the value of PI using Monte Carlo integration" 
+              src="https://sebcodestheweb.com/img/pi.png"
+              video={ false }
+              alt="Graphing Calculator"
+              link="#"
+              linkText="Github"
+              bgColor="gray.500"
+            />
+            <PortfolioProject 
+              title="NASA Landing page" 
+              description="Landing page clone of Nasa.com" 
+              src="https://www.youtube.com/embed/TJ9IJsKirqA"
+              video={ true }
+              alt="Graphing Calculator"
+              link="#"
+              linkText="Github"
+            />
+            <PortfolioProject 
+              title="Code Challenge" 
+              description="A code challenge I did on my youtube channel where I made a search image in app in 10 minutes" 
+              src="https://www.youtube.com/embed/7EArFLOI8ek"
+              video={ true }
+              alt="Graphing Calculator"
+              bgColor="gray.500"
+            />
           </Wrap>
       </Stack>
 
 
-      <Stack spacing={ 8 } border="1px solid black" borderRadius="40px" p={ 8 } >
+      <Stack spacing={ 8 } border="1px solid black" borderRadius="40px" p={ 8 } minWidth="800px">
         <Heading>Contact: </Heading>
         <Text>
         I am looking for new job opportunities! If you need a developer, I would love to talk.
         </Text>
-
         <HStack spacing={ 8 } align="start">
-          <Stack spacing={ 2 }>
+          <Stack spacing={ 4 }>
             <HStack justify="space-between" spacing={ 4 }>
               <SimpleHighlight text="Mail" />
               <Text>sebastian.delgado@gmail.com</Text>
@@ -298,32 +311,23 @@ export default function SebastianPortfolio() {
             </HStack>
             <LinkBox>
               <LinkOverlay href="mailto:sebastian.delgado@gmail.com" />
-              <Button 
-                maxW="300px" 
-                border="2px solid #1A202C" 
-                borderRadius={ 8 }
-                mt={ 4 }
-                bg="transparent" 
-                _hover={ { bg: 'purple.500', color: '#fff', border: 'none'  } }
-              >
-              Contact
-              </Button>
+              <SimpleButton>Contact</SimpleButton>
             </LinkBox>
           </Stack>
           <List fontSize="sm" fontWeight="bold">
             <Text fontWeight="bold" fontSize="lg">Skills: </Text>
             <HStack align="start" spacing={ 4 }>
-              <Stack>
+              <Stack spacing={ 4 }>
                 <ListItem><ListIcon as={ GrCheckboxSelected } /> React.js </ListItem>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />Next.js</ListItem>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />Node.js</ListItem>
               </Stack>
-              <Stack>
+              <Stack spacing={ 4 }>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />HTML and CSS</ListItem>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />TypeScript</ListItem>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />Git</ListItem>
               </Stack>
-              <Stack>
+              <Stack spacing={ 4 }>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />Numerical Analysis</ListItem>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />Chakra UI</ListItem>
                 <ListItem><ListIcon as={ GrCheckboxSelected } />UI/UX Design</ListItem>
@@ -332,7 +336,56 @@ export default function SebastianPortfolio() {
           </List>
         </HStack>
       </Stack>
+      <VStack 
+        w="full" 
+        h="300px"
+        pt={ 32 }
+        pb={ 16 } 
+        color="#fff"
+        spacing={ 4 } 
+        bgImage="./img/wave.svg"
+        bgRepeat="no-repeat"
+        bgSize="cover"
+        bgPosition="bottom"
+      >
+        <Heading>Socials</Heading>
+        <HStack 
+          align="center" 
+          spacing={ 4 } 
+          bgColor="#fff" 
+          borderRadius="40px" 
+          color="gray.500" 
+          p={ 8 }
+        >
+          <LinkBox size="lg" _hover={{ color:"cyan.500"}}>
+            <LinkOverlay href="#" />
+            <Icon as={ GrLinkedin }  boxSize="30px" />
+          </LinkBox>
 
-    </VStack>
+          <LinkBox _hover={{ color:"cyan.500"}}>
+            <LinkOverlay href="#" />
+            <Icon as={ GrFacebook } boxSize="30px"/>
+          </LinkBox>
+
+          <LinkBox _hover={{ color:"cyan.500"}}>
+            <LinkOverlay href="#" />
+            <Icon as={ GrInstagram } boxSize="30px"/>
+          </LinkBox>
+
+          <LinkBox _hover={{ color:"cyan.500"}}>
+            <LinkOverlay href="#" />
+            <Icon as={ GrGithub } boxSize="30px"/>
+          </LinkBox>
+
+          <LinkBox _hover={{ color:"cyan.500"}}>
+            <LinkOverlay href="#" />
+            <Icon as={ GrYoutube } boxSize="30px"/>
+          </LinkBox>
+
+        </HStack>
+      </VStack>
+
+
+      </VStack>
     )
   }

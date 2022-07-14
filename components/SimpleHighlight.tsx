@@ -21,7 +21,7 @@ export const SimpleHighlight = ({
           query={`${ text }`}
           styles={{
             bg: `${ bgColor }`, 
-            p: '1', 
+            p: '6px', 
             borderRadius: '20', 
             color: '#fff',
             width: "min-content",

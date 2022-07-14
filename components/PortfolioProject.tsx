@@ -1,8 +1,9 @@
 import React from 'react'
+import { SimpleButton } from './SimpleButton'
+import { SimpleHighlight } from './SimpleHighlight'
 
 import {
     Heading,
-    Button,
     Text,
     Image,
     AspectRatio,
@@ -19,6 +20,7 @@ interface Props {
     video: boolean;
     link?: string;
     linkText?: string;
+    bgColor?: string;
   }
 
 export const PortfolioProject = ({
@@ -29,9 +31,10 @@ export const PortfolioProject = ({
   video=false,
   link='',
   linkText,
+  bgColor='cyan.500',
   }: Props) => {
       return (
-        <Stack>
+        <Stack maxW="500px" spacing={ 4 }>
           <AspectRatio ratio={ 16 / 9} w="500px" border="1px solid black" borderRadius="10px">
             {video === true
             ?<iframe
@@ -47,22 +50,15 @@ export const PortfolioProject = ({
               />
             }
           </AspectRatio>
-          <Heading size="md">{ title }</Heading>
+          <Heading size="md">
+            <SimpleHighlight text={ title } bgColor={ bgColor } fontWeight="normal"/>
+          </Heading>
           <Text>{ description }</Text>
           {link===''
           ? <Text></Text>
         : <LinkBox>
               <LinkOverlay href={ link } />
-              <Button 
-                maxW="300px" 
-                border="2px solid #1A202C" 
-                borderRadius={ 8 }
-                mt={ 4 }
-                bg="transparent" 
-                _hover={ { bg: 'purple.500', color: '#fff', border: 'none'  } }
-              >
-              { linkText }
-              </Button>
+              <SimpleButton>{ linkText }</SimpleButton>
           </LinkBox>
           }
          
