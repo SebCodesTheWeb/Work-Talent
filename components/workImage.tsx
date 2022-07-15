@@ -36,6 +36,7 @@ export const WorkImage = (
         objectFit="cover" 
         alt={ alt} 
         borderRadius={ 4 }
+        border="1px solid #718096"
         />
       </AspectRatio>
       <CompanyTag companyName={ companyName } bgColor={ bgColor } />

@@ -41,9 +41,9 @@ export const PortfolioProject = ({
             <Box
               display="block"
               overflow="hidden"
-              borderRadius="25px"
+              borderRadius="15px"
               transform="translateZ(10px)"
-              border="2px solid #718096"
+              border="1px solid #718096"
             >
               {video === true
               ? <iframe 

@@ -1,5 +1,5 @@
  import { 
-   GrDocumentPdf,
+   GrDocument,
    GrCaretDown,
    GrCheckboxSelected,
    GrLinkedin,
@@ -8,6 +8,14 @@
    GrInstagram,
    GrYoutube,
    } from 'react-icons/gr'
+ import {
+     VscTriangleDown,
+   } from 'react-icons/vsc'
+  import {
+      IoDocumentOutline,
+      IoMailOutline,
+    } from 'react-icons/io5'
+     
  import {
     Heading,
     Text,
@@ -47,29 +55,27 @@ const man = true
 export default function SebastianPortfolio() {
   
     return (
-    <VStack spacing={ 10 }>
-      <HStack w="full" justifyContent="space-between" px={ 16 } py={ 4 } pos="fixed" bgColor="#fff" zIndex={ 1 }>
-        <LinkBox >
-          <HStack>
+    <VStack spacing={ 10 } id="home">
+      <HStack w="full" justifyContent="space-between" px={ 16 } py={ 6 } pos="fixed" bgColor="#fff" zIndex={ 1 }>
+        <LinkBox>
+          <SimpleButton>
+            <HStack >
               <LinkOverlay href="#" />
-              <SimpleButton>
-                <HStack spacing={ 2 }>
-                  <Text>Resume</Text>
-                  <Icon as={ GrDocumentPdf } />
-                </HStack>
-              </SimpleButton>
-          </HStack>
+              <Heading size="sm">Resume</Heading>
+              <Icon as={ IoDocumentOutline } className="icon" />
+            </HStack>
+          </SimpleButton>
         </LinkBox>
-        <HStack fontSize="lg" spacing={ 4 } fontWeight="bold">
-          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#a">Home</Link>
-          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>Work</Link>
-          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>About</Link>
-          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>Projects</Link>
-          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }}>Contact & links</Link>
+        <HStack fontSize="lg" spacing={ 4 } fontWeight="bold" >
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#home">Home</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#work">Work</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#about">About</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#portfolio">Porfolio</Link>
+          <Link _hover={{ textDecoration: 'none', color: "cyan.500" }} href="#contact">Contact</Link>
         </HStack>
       </HStack>
 
-      <HStack pt={ 20 } spacing={ 8 }>
+      <HStack pt={ 24 } spacing={ 8 }>
         <Box>
           <Image 
             src="./business-man.svg" 
@@ -101,16 +107,20 @@ export default function SebastianPortfolio() {
               I am a software engineer from Malmö. Looking for new opportunities to build amazing full stack apps.
              </Highlight>
           </Text>
-          <SimpleButton >
-            <HStack>
-              <Heading size="sm">See my works</Heading>
-              <Icon as={ GrCaretDown } />
-            </HStack>
-          </SimpleButton>
+          <LinkBox>
+            <SimpleButton>
+              <HStack>
+                <LinkOverlay href="#work" />
+                <Heading size="sm">See my works</Heading>
+                <Icon as={ VscTriangleDown } className="icon" />
+              </HStack>
+            </SimpleButton>
+          </LinkBox>
         </Stack>
       </HStack>
       
-      <Stack direction="row" alignItems="start"  p={ 16 }>
+      <Stack direction="row" alignItems="start"  p={ 16 } >
+        <span className="anchor" id="work"></span>
         <VStack spacing={ 4 } px={ 16 }>
           <Heading mb={ 4 }>Work Experience</Heading>
           <Tabs orientation="vertical" minWidth="600px" minHeight="300px" >
@@ -196,7 +206,9 @@ export default function SebastianPortfolio() {
           </HStack>
         </VStack>  
       </Stack>
-      <Stack spacing={ 12 } direction="row" pb={ 16 }>
+
+      <Stack spacing={ 12 } direction="row" py={ 8 }>
+        <span className="anchor" id="about" ></span>
         <Stack maxW="600px" spacing={ 4 }>
           <Heading>About me</Heading>
           <Text>
@@ -205,16 +217,14 @@ export default function SebastianPortfolio() {
           <Text>
           One of my big passions is <SimpleHighlight text="mathematics" bgColor="purple.500" fontWeight="normal" />. So often I like to code something related to math, that way I'm fully satisified! I'm currently studying single variable calculus and linear algebra at Lund University
           </Text>
-          <LinkBox >
-            <HStack>
+          <LinkBox pt={ 4 }>
+            <SimpleButton>
+              <HStack >
                 <LinkOverlay href="#" />
-                <SimpleButton>
-                  <HStack spacing={ 2 }>
-                    <Text>Resume</Text>
-                    <Icon as={ GrDocumentPdf } />
-                  </HStack>
-                </SimpleButton>
-            </HStack>
+                <Heading size="sm">Resume</Heading>
+                <Icon as={ IoDocumentOutline } className="icon" />
+              </HStack>
+            </SimpleButton>
           </LinkBox>
         </Stack>
         <Image 
@@ -225,7 +235,8 @@ export default function SebastianPortfolio() {
         />
       </Stack>
 
-      <Stack spacing={ 8 } alignItems="center" pb={ 8 }>
+      <Stack spacing={ 8 } alignItems="center" py={ 8 } pb={ 16 } >
+        <span className="anchor" id="portfolio" />
         <Heading>Portfolio</Heading>
         <Text>A collection of personal projects and other work</Text>
           <Wrap spacing={ 4 } justify="center">
@@ -298,7 +309,7 @@ export default function SebastianPortfolio() {
       </Stack>
 
 
-      <Stack spacing={ 8 } border="1px solid black" borderRadius="40px" p={ 8 } minWidth="800px">
+      <Stack spacing={ 8 } border="1px solid black" borderRadius="40px" p={ 8 } minWidth="800px" id="contact">
         <Heading>Contact: </Heading>
         <Text>
         I am looking for new job opportunities! If you need a developer, I would love to talk.
@@ -318,8 +329,13 @@ export default function SebastianPortfolio() {
               <Text>Malmö Sweden</Text>
             </HStack>
             <LinkBox pt={ 4 }>
-              <LinkOverlay href="mailto:sebastian.delgado@gmail.com" />
-              <SimpleButton>Contact</SimpleButton>
+              <SimpleButton>
+                <HStack >
+                  <LinkOverlay href="mailto: sebastian.delgado@gmail.com" />
+                  <Heading size="sm">Contact</Heading>
+                  <Icon as={ IoMailOutline } className="icon" />
+                </HStack>
+              </SimpleButton>
             </LinkBox>
           </Stack>
           <List fontSize="sm" fontWeight="bold">
@@ -348,7 +364,7 @@ export default function SebastianPortfolio() {
         w="full" 
         h="300px"
         pt={ 32 }
-        pb={ 20 } 
+        pb={ 32 } 
         color="#fff"
         spacing={ 4 } 
         bgImage="./img/wave.svg"
