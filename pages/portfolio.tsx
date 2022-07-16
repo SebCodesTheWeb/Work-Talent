@@ -12,6 +12,7 @@ import {
 export default function Portfolio () {
   const router = useRouter()
   const props = router.query
+  console.log(props)
   return (
     <VStack p={ 8 } >
       <HStack spacing={ 8 }>
@@ -31,6 +32,7 @@ export default function Portfolio () {
               <Text>Location: { props.location }</Text>
             </HStack>
           </Stack>
+          <Heading> {props.job1.timePeriod}</Heading>
         </Stack>
         <Box>
         <Image 

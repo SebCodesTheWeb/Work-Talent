@@ -11,6 +11,8 @@ import { Education } from '../components/form/Education'
 import { Links } from '../components/form/Links'
 import { Portfolio } from '../components/form/Portfolio'
 import { About } from '../components/form/About'
+import { Skills } from '../components/form/Skills'
+
 
 import { 
   Heading,
@@ -24,7 +26,7 @@ import {
   Select,
   Textarea,
 } from '@chakra-ui/react'
-import { Formik } from 'formik'
+import { Formik, Form } from 'formik'
 
 const Home: NextPage = () => {
   const [currentStep, setCurrentStep] = useState(1)
@@ -32,7 +34,7 @@ const Home: NextPage = () => {
   const nextStep = () => setCurrentStep((currentStep) => currentStep + 1)
   const prevFormStep = () => setCurrentStep((currentStep) => currentStep - 1)
 
-  const lastStep = 6
+  const lastStep = 7
 
   const renderForm = (handleChange: any, values: any) => {
     switch(currentStep) {
@@ -51,7 +53,9 @@ const Home: NextPage = () => {
         case 5:
           return <Portfolio handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
           break;
-        case 6:
+        case 6: 
+          return <Skills handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
+        case 7:
           return <Links handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
           break;
       }
@@ -76,6 +80,41 @@ const Home: NextPage = () => {
          e_mail: '',
          about: '',
          image: '',
+         job1: {
+            timePeriod: 'test',
+            jobTitle: '',
+            companyName: '',
+            workLocation: '',
+            achievments: '',
+           },
+         education: {
+             school: '',
+             program: '',
+             dateOfFinishing: '',
+             grades: '',
+             link: '',
+           },
+         aboutMe: {
+             shortDescription: '',
+             longDescription: '',
+           },
+         portfolio: {
+             image: '',
+             link: '',
+             projectTitle: '',
+             description: '',
+           },
+         social: {
+             linkedin: '',
+             facebook: '',
+             github: '',
+             instagram: '',
+             youtube: '',
+             blog: '',
+           },
+         skills: [],
+           
+
          }}
        onSubmit={(values, { setSubmitting }) => {
          setTimeout(() => {
@@ -93,7 +132,7 @@ const Home: NextPage = () => {
          isSubmitting,
          /* and other goodies */
        }) => (
-         <form onSubmit={handleSubmit}>
+         <Form>
            <VStack 
            alignItems="start" 
            mt={ 4 } 
@@ -109,7 +148,7 @@ const Home: NextPage = () => {
               { currentStep > 1 && (
                 <Button onClick={ prevFormStep }>Back</Button>
               )}
-              { currentStep === lastStep
+              { currentStep === lastStep && console.log(currentStep)
                ?(
                <Button>
                  <Link type="submit" href={
@@ -127,7 +166,7 @@ const Home: NextPage = () => {
               
             </HStack>
           </VStack>
-         </form>
+         </Form>
        )}
      </Formik>
       </VStack>
