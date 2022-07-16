@@ -7,6 +7,10 @@ import { useState, useRef } from 'react'
 import { FormStepsCard } from '../components/form/FormStepsCard'
 import { Contact } from '../components/form/contact'
 import { WorkExperience } from '../components/form/WorkExperience'
+import { Education } from '../components/form/Education'
+import { Links } from '../components/form/Links'
+import { Portfolio } from '../components/form/Portfolio'
+import { About } from '../components/form/About'
 
 import { 
   Heading,
@@ -28,7 +32,7 @@ const Home: NextPage = () => {
   const nextStep = () => setCurrentStep((currentStep) => currentStep + 1)
   const prevFormStep = () => setCurrentStep((currentStep) => currentStep - 1)
 
-  const lastStep = 2
+  const lastStep = 6
 
   const renderForm = (handleChange: any, values: any) => {
     switch(currentStep) {
@@ -37,6 +41,18 @@ const Home: NextPage = () => {
           break;
         case 2:
           return <WorkExperience handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
+          break;
+        case 3:
+          return <Education handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
+          break;
+        case 4:
+          return <About handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
+          break;
+        case 5:
+          return <Portfolio handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
+          break;
+        case 6:
+          return <Links handleChange={ handleChange } values={ values } currentStep={ currentStep }/>
           break;
       }
   } 

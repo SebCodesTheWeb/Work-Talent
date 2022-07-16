@@ -9,13 +9,13 @@ import {
   } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 
-export const Education = ({
+export const About = ({
     handleChange,
     values,
     currentStep,
   }: FormStepProps) => (
     <VStack alignItems="start" w="full" spacing={ 4 }>
-       <Heading as="h2" size="lg">Step { currentStep }: Education</Heading>
+       <Heading as="h2" size="lg">Step { currentStep }: About me</Heading>
     </VStack>
 
   )
