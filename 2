@@ -1,0 +1,32 @@
+import React from 'react'
+import {
+    Button,
+    HStack,
+    Heading,
+    Box,
+  } from '@chakra-ui/react'
+
+interface Props {
+    children: React.ReactNode;
+    currentStep: number;
+    prevFormStep: () => number;
+  }
+
+export const FormStepsCard: React.FC<Props> = ({
+    children,
+    currentStep, 
+    prevFormStep
+  }) => {
+    return (
+      <Box>
+        <HStack>
+          {currentStep > 0 && (
+            <Button onClick={ prevFormStep }> Back </Button>
+          )}
+          <Heading size="md"> { currentStep + 1 } </Heading>
+        </HStack>
+        { children }
+      </Box>
+    )
+
+  }
