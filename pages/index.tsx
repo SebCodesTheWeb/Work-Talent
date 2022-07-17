@@ -117,8 +117,18 @@ const Home: NextPage = () => {
 
          }}
        onSubmit={(values, { setSubmitting }) => {
-         setTimeout(() => {
+         setTimeout(async () => {
            setSubmitting(false)
+           const response = await fetch('./api/userData', {
+               method: 'POST',
+               body: JSON.stringify({ values }),
+               headers: {
+                'Content-Type': 'application/json',
+               }
+             })
+           const data = await response.json()
+           console.log(data)
+           
          }, 400);
        }}
      >
@@ -163,6 +173,7 @@ const Home: NextPage = () => {
                  <Button onClick={ nextStep }>Next</Button>
                ) 
               }
+              <Button type="submit">Finnish</Button>
               
             </HStack>
           </VStack>
