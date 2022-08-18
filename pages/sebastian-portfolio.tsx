@@ -8,7 +8,6 @@ import {
 } from 'react-icons/gr'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { IoDocumentOutline, IoMailOutline } from 'react-icons/io5'
-
 import {
   Heading,
   Text,
@@ -32,17 +31,30 @@ import {
   ListIcon,
   Wrap,
 } from '@chakra-ui/react'
-import { WorkImage } from '../components/workImage'
-import { ExperienceCard } from '../components/ExperienceCard'
-import { SimpleHighlight } from '../components/SimpleHighlight'
-import { PortfolioProject } from '../components/PortfolioProject'
-import { SimpleButton } from '../components/SimpleButton'
+import {
+  WorkImage,
+  ExperienceCard,
+  SimpleHighlight,
+  PortfolioProject,
+  SimpleButton,
+} from '../components'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../firebase/clientApp'
 
 //gray.800, orange.500, green.500, cyan.500, purple.500
 
 const man = true
 
 export default function SebastianPortfolio() {
+  const getData = async () => {
+    const querySnapshot = await getDocs(collection(db, 'test-users'))
+    console.clear()
+    console.log(querySnapshot)
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${JSON.stringify(doc.data())}`)
+    })
+  }
+  getData()
   return (
     <VStack spacing={10} id="home">
       <HStack
@@ -244,24 +256,24 @@ export default function SebastianPortfolio() {
         <span className="anchor" id="about"></span>
         <Stack maxW="600px" spacing={4}>
           <Heading>About me</Heading>
-          <Text lineHeight={ 7 }>
+          <Text lineHeight={7}>
             Hi! My name is{' '}
-            <SimpleHighlight text="Sebastian Delgado" fontWeight="normal" /> I&apos;m
-            a pupil at Procivitas Privata Gymnasium in Sweden where I am
-            currently studying the natural sciences. I code webpages and
-            software in my favourite technologies, I&apos;ve always loved tech and
-            have coded my own video games since the age of eleven
+            <SimpleHighlight text="Sebastian Delgado" fontWeight="normal" />{' '}
+            I&apos;m a pupil at Procivitas Privata Gymnasium in Sweden where I
+            am currently studying the natural sciences. I code webpages and
+            software in my favourite technologies, I&apos;ve always loved tech
+            and have coded my own video games since the age of eleven
           </Text>
-          <Text lineHeight={ 7 }>
+          <Text lineHeight={7}>
             One of my big passions is{' '}
             <SimpleHighlight
               text="mathematics"
               bgColor="purple.500"
               fontWeight="normal"
             />
-            . So often I like to code something related to math, that way I&apos;m
-            fully satisified! I&apos;m currently studying single variable calculus
-            and linear algebra at Lund University
+            . So often I like to code something related to math, that way
+            I&apos;m fully satisified! I&apos;m currently studying single
+            variable calculus and linear algebra at Lund University
           </Text>
           <LinkBox pt={4}>
             <SimpleButton>
