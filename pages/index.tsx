@@ -1,16 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useState } from 'react'
-import { 
+import {
   Contact,
   WorkExperience,
   Education,
   Links,
   Portfolio,
   About,
-  Skills
-} from '../components/form'
+  Skills,
+} from '../components'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../firebase/clientApp'
 
 import { Heading, Center, VStack, HStack, Text, Button } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
@@ -140,19 +141,15 @@ const Home: NextPage = () => {
             },
             skills: [],
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(async () => {
-              setSubmitting(false)
-              const response = await fetch('./api/userData', {
-                method: 'POST',
-                body: JSON.stringify({ values }),
-                headers: {
-                  'Content-Type': 'application/json',
-                },
+          onSubmit={async (values) => {
+            try {
+              const docRef = await addDoc(collection(db, 'test-users'), {
+                ...values,
               })
-              const data = await response.json()
-              console.log(data)
-            }, 400)
+              console.log('Document written with ID: ', docRef.id)
+            } catch (e) {
+              console.error('Error adding document: ', e)
+            }
           }}
         >
           {({ values, handleChange }) => (
@@ -176,15 +173,8 @@ const Home: NextPage = () => {
                   {currentStep > 1 && (
                     <Button onClick={prevFormStep}>Back</Button>
                   )}
-                  {currentStep === lastStep ? (
-                    <Button type="submit" >
-                      <Link
-                        href="sebastian-portfolio"
-                      >
-                        Submit
-                      </Link>
-                    </Button>
-                  ) : (
+                  <Button type="submit">Submit</Button>
+                  {currentStep < lastStep && (
                     <Button onClick={nextStep}>Next</Button>
                   )}
                 </HStack>
