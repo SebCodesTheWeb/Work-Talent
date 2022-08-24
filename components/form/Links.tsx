@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 
-export const Links = ({ handleChange, values, currentStep }: FormStepProps) => (
+export const Links = ({ handleChange, currentStep }: FormStepProps) => (
   <VStack alignItems="start" w="full" spacing={4}>
     <Heading as="h2" size="lg">
       Step {currentStep}: Social Media && Links
@@ -16,37 +16,32 @@ export const Links = ({ handleChange, values, currentStep }: FormStepProps) => (
     <Input
       name="social.linkedin"
       onChange={handleChange}
-      value={values.social.linkedin}
+      autoFocus={ true }
     />
     <FormLabel htmlFor="social.facebook">Facebook: </FormLabel>
     <Input
       name="social.facebook"
       onChange={handleChange}
-      value={values.social.facebook}
     />
     <FormLabel htmlFor="social.github">Github: </FormLabel>
     <Input
       name="social.github"
       onChange={handleChange}
-      value={values.social.github}
     />
     <FormLabel htmlFor="social.instagram">Instagram: </FormLabel>
     <Input
       name="social.instagram"
       onChange={handleChange}
-      value={values.social.instagram}
     />
     <FormLabel htmlFor="social.youtube">Youtube: </FormLabel>
     <Input
       name="social.youtube"
       onChange={handleChange}
-      value={values.social.youtube}
     />
     <FormLabel htmlFor="social.blog">Blog: </FormLabel>
     <Input
       name="social.blog"
       onChange={handleChange}
-      value={values.social.blog}
     />
   </VStack>
 )

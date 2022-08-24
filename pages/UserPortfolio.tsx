@@ -41,6 +41,7 @@ import {
   SimpleButton,
 } from '../components'
 
+
 const man = true
 
 function Page({ data }: any) {
@@ -492,6 +493,7 @@ function Page({ data }: any) {
 
 export async function getServerSideProps() {
   const querySnapshot = await getDocs(collection(db, 'test-users'))
+
   let data
   querySnapshot.forEach((doc) => {
     if (doc.id === 'sBwjAGBhg8BNvPPAjFy4') {

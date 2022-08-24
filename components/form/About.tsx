@@ -11,6 +11,7 @@ export const About = ({ handleChange, values, currentStep }: FormStepProps) => (
       Describe your title and what you are looking for in 15-30 words
     </FormLabel>
     <Textarea
+      autoFocus={true}
       name="aboutMe.shortDescription"
       onChange={handleChange}
       value={values.aboutMe.shortDescription}

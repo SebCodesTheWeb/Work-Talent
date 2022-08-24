@@ -1,49 +1,81 @@
-import React from 'react'
-import { Input, Textarea, VStack, Heading, FormLabel } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import {
+  Input,
+  Textarea,
+  VStack,
+  Heading,
+  FormLabel,
+  Stack,
+  Button,
+} from '@chakra-ui/react'
 import { FormStepProps } from './props'
+import { arrayWithLength } from '../../utils'
 
-export const Education = ({
-  handleChange,
-  values,
-  currentStep,
-}: FormStepProps) => (
-  <VStack alignItems="start" w="full" spacing={4}>
-    <Heading as="h2" size="lg">
-      Step {currentStep}: Education
-    </Heading>
-    <FormLabel htmlFor="education.school">What school did you go to?</FormLabel>
-    <Input
-      name="education.school"
-      onChange={handleChange}
-      value={values.education.school}
-    />
-    <FormLabel htmlFor="education.program">
-      What program did you study
-    </FormLabel>
-    <Input
-      name="education.program"
-      onChange={handleChange}
-      value={values.education.program}
-    />
-    <FormLabel htmlFor="education.dateOfFinishing">
-      When did you finnish school
-    </FormLabel>
-    <Input
-      name="education.dateOfFinishing"
-      onChange={handleChange}
-      value={values.education.dateOfFinishing}
-    />
-    <FormLabel htmlFor="grades">Grades</FormLabel>
-    <Input
-      name="education.grades"
-      onChange={handleChange}
-      value={values.education.grades}
-    />
-    <FormLabel htmlFor="link">Other Links:</FormLabel>
-    <Textarea
-      name="education.link"
-      onChange={handleChange}
-      value={values.education.link}
-    />
-  </VStack>
-)
+export const Education = ({ handleChange, currentStep }: FormStepProps) => {
+  const [education, setEducation] = useState(arrayWithLength(1))
+
+  const addNewEduction = () => {
+    setEducation((prevEducationCount) =>
+      arrayWithLength(prevEducationCount.length + 1)
+    )
+  }
+
+  return (
+    <VStack
+      alignItems="start"
+      w="full"
+      maxH="1000px"
+      spacing={12}
+      overflowY="scroll"
+      p={4}
+    >
+      <Heading as="h2" size="lg">
+        Step {currentStep}: Education
+      </Heading>
+      {education.map((educationNumber) => (
+        <Stack key={educationNumber} w="full" spacing={4}>
+          <Heading size="md">Education {educationNumber + 1}</Heading>
+          <FormLabel htmlFor={`education[${educationNumber}].school`}>
+            What school did you go to?
+          </FormLabel>
+          <Input
+            name={`education[${educationNumber}].school`}
+            onChange={handleChange}
+            autoFocus={ true }
+          />
+          <FormLabel htmlFor={`education[${educationNumber}].program`}>
+            What program did you study
+          </FormLabel>
+          <Input
+            name={`education[${educationNumber}].program`}
+            onChange={handleChange}
+          />
+          <FormLabel htmlFor={`education[${educationNumber}].dateOfFinishing`}>
+            When did you finnish school
+          </FormLabel>
+          <Input
+            name={`education[${educationNumber}].dateOfFinishing`}
+            onChange={handleChange}
+          />
+          <FormLabel htmlFor={`education[${educationNumber}].grade`}>
+            Grades
+          </FormLabel>
+          <Input
+            name={`education[${educationNumber}].grade`}
+            onChange={handleChange}
+          />
+          <FormLabel htmlFor={`education[${educationNumber}].link`}>
+            Other Links:
+          </FormLabel>
+          <Textarea
+            name={`education[${educationNumber}].link`}
+            onChange={handleChange}
+          />
+        </Stack>
+      ))}
+      <Button onClick={addNewEduction} color="#333" p={2}>
+        Add New Education
+      </Button>
+    </VStack>
+  )
+}
