@@ -10,18 +10,27 @@ import {
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
 
-export const Skills = ({ handleChange, currentStep }: FormStepProps) => {
-  const [skills, setSkills] = useState(arrayWithLength(1))
+interface SkillsProps extends FormStepProps {
+  skills: number[]
+  setSkills: any
+}
 
+export const Skills = ({
+  handleChange,
+  currentStep,
+  skills,
+  values,
+  setSkills,
+}: SkillsProps) => {
   const addNewSkill = () => {
-    setSkills((prevSkillCount) => arrayWithLength(prevSkillCount.length + 1))
+    setSkills((prevSkillCount: number[]) => arrayWithLength(prevSkillCount.length + 1))
   }
 
   return (
     <VStack
       alignItems="start"
       w="full"
-      maxH="1000px"
+      maxH="800px"
       spacing={6}
       overflowY="scroll"
       p={4}
@@ -38,10 +47,11 @@ export const Skills = ({ handleChange, currentStep }: FormStepProps) => {
             autoFocus={true}
             name={`skills[${skillNumber}]`}
             onChange={handleChange}
+            value={ values.skills[skillNumber]}
           />
         </Stack>
       ))}
-      <Button onClick={addNewSkill} color="#333">
+      <Button onClick={addNewSkill} color="#333" p={2}>
         Add new skill
       </Button>
     </VStack>

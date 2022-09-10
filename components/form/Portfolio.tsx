@@ -11,20 +11,30 @@ import {
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
 
-export const Portfolio = ({ handleChange, currentStep }: FormStepProps) => {
-  const [projects, setProjects] = useState(arrayWithLength(1))
+interface PortfolioProps extends FormStepProps {
+  projects: number[]
+  setProjects: any
+}
 
+export const Portfolio = ({
+  handleChange,
+  currentStep,
+  projects,
+  setProjects,
+  values,
+}: PortfolioProps) => {
   const addNewProject = () => {
-    setProjects((prevProjectsCount) =>
+    setProjects((prevProjectsCount: number[]) =>
       arrayWithLength(prevProjectsCount.length + 1)
     )
   }
 
+  console.log(values)
   return (
     <VStack
       alignItems="start"
       w="full"
-      maxH="1000px"
+      maxH="800px"
       spacing={12}
       overflowY="scroll"
       p={4}
@@ -41,7 +51,12 @@ export const Portfolio = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`portfolio[${projectNumber}].projectTitle`}
             onChange={handleChange}
-            autoFocus={ true }
+            autoFocus={true}
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].projectTitle
+                : undefined
+            }
           />
           <FormLabel htmlFor={`portfolio[${projectNumber}].description`}>
             Describe your project, goals, challenges, in under 100 words:{' '}
@@ -50,6 +65,11 @@ export const Portfolio = ({ handleChange, currentStep }: FormStepProps) => {
             name={`portfolio[${projectNumber}].description`}
             onChange={handleChange}
             placeholder="I built an app that keeps track of how many calories you've burned from a workout, built using Next JS. The main roadblock was making the app performant, which I managed by building my own simple UI library."
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].description
+                : undefined
+            }
           />
           <FormLabel htmlFor={`portfolio[${projectNumber}].image`}>
             Image of project
@@ -57,6 +77,11 @@ export const Portfolio = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`portfolio[${projectNumber}].image`}
             onChange={handleChange}
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].image
+                : undefined
+            }
           />
           <FormLabel htmlFor={`portfolio[${projectNumber}].link`}>
             External Link
@@ -64,6 +89,11 @@ export const Portfolio = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`portfolio[${projectNumber}].link`}
             onChange={handleChange}
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].link
+                : undefined
+            }
           />
         </Stack>
       ))}

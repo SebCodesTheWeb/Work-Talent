@@ -11,9 +11,18 @@ import {
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
 
-export const Education = ({ handleChange, currentStep }: FormStepProps) => {
-  const [education, setEducation] = useState(arrayWithLength(1))
+interface EducationProps extends FormStepProps {
+  education: number[]
+  setEducation: any
+}
 
+export const Education = ({
+  handleChange,
+  currentStep,
+  education,
+  setEducation,
+  values,
+}: EducationProps) => {
   const addNewEduction = () => {
     setEducation((prevEducationCount) =>
       arrayWithLength(prevEducationCount.length + 1)
@@ -24,7 +33,7 @@ export const Education = ({ handleChange, currentStep }: FormStepProps) => {
     <VStack
       alignItems="start"
       w="full"
-      maxH="1000px"
+      maxH="800px"
       spacing={12}
       overflowY="scroll"
       p={4}
@@ -41,7 +50,12 @@ export const Education = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`education[${educationNumber}].school`}
             onChange={handleChange}
-            autoFocus={ true }
+            autoFocus={true}
+            value={
+              values.education[educationNumber]
+                ? values.education[educationNumber].school
+                : undefined
+            }
           />
           <FormLabel htmlFor={`education[${educationNumber}].program`}>
             What program did you study
@@ -49,6 +63,11 @@ export const Education = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`education[${educationNumber}].program`}
             onChange={handleChange}
+            value={
+              values.education[educationNumber]
+                ? values.education[educationNumber].program
+                : undefined
+            }
           />
           <FormLabel htmlFor={`education[${educationNumber}].dateOfFinishing`}>
             When did you finnish school
@@ -56,6 +75,11 @@ export const Education = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`education[${educationNumber}].dateOfFinishing`}
             onChange={handleChange}
+            value={
+              values.education[educationNumber]
+                ? values.education[educationNumber].dateOfFinishing
+                : undefined
+            }
           />
           <FormLabel htmlFor={`education[${educationNumber}].grade`}>
             Grades
@@ -63,6 +87,11 @@ export const Education = ({ handleChange, currentStep }: FormStepProps) => {
           <Input
             name={`education[${educationNumber}].grade`}
             onChange={handleChange}
+            value={
+              values.education[educationNumber]
+                ? values.education[educationNumber].grade
+                : undefined
+            }
           />
           <FormLabel htmlFor={`education[${educationNumber}].link`}>
             Other Links:
@@ -70,6 +99,11 @@ export const Education = ({ handleChange, currentStep }: FormStepProps) => {
           <Textarea
             name={`education[${educationNumber}].link`}
             onChange={handleChange}
+            value={
+              values.education[educationNumber]
+                ? values.education[educationNumber].link
+                : undefined
+            }
           />
         </Stack>
       ))}
