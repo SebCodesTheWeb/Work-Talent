@@ -10,7 +10,7 @@ import {
   About,
   Skills,
 } from '../components'
-import { collection, addDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase/clientApp'
 
 import { Heading, Center, VStack, HStack, Text, Button } from '@chakra-ui/react'
@@ -87,7 +87,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Center pt={4} h="100vh" bgColor="gray.700" color="#fff">
+    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={ 8 }>
       <Head>
         <title> Job-talent.org </title>
       </Head>
@@ -107,30 +107,14 @@ const Home: NextPage = () => {
             e_mail: '',
             about: '',
             image: '',
-            job1: {
-              timePeriod: 'test',
-              jobTitle: '',
-              companyName: '',
-              workLocation: '',
-              achievments: '',
-            },
-            education: {
-              school: '',
-              program: '',
-              dateOfFinishing: '',
-              grades: '',
-              link: '',
-            },
+            jobRole: '',
+            jobs: [],
+            education: [],
             aboutMe: {
               shortDescription: '',
               longDescription: '',
             },
-            portfolio: {
-              image: '',
-              link: '',
-              projectTitle: '',
-              description: '',
-            },
+            portfolio: [],
             social: {
               linkedin: '',
               facebook: '',
@@ -143,10 +127,9 @@ const Home: NextPage = () => {
           }}
           onSubmit={async (values) => {
             try {
-              const docRef = await addDoc(collection(db, 'test-users'), {
+              await setDoc(doc(db, "test-users", values.firstname), {
                 ...values,
               })
-              console.log('Document written with ID: ', docRef.id)
             } catch (e) {
               console.error('Error adding document: ', e)
             }
@@ -154,6 +137,7 @@ const Home: NextPage = () => {
         >
           {({ values, handleChange }) => (
             <Form>
+            {console.log(values)}
               <VStack
                 alignItems="start"
                 mt={4}
@@ -161,7 +145,7 @@ const Home: NextPage = () => {
                 py={4}
                 px={16}
                 borderRadius={8}
-                w="600px"
+                w="max-content"
                 spacing={4}
               >
                 {renderForm(handleChange, values)}

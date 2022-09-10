@@ -20,25 +20,25 @@ export const Contact = ({
         Step {currentStep}: Basic Contact Info
       </Heading>
       <FormLabel htmlFor="firstname">First Name: </FormLabel>
-      <Input name="firstname" onChange={handleChange} value={values.email} />
+      <Input
+        name="firstname"
+        onChange={handleChange}
+        value={values.email}
+        autoFocus={true}
+      />
 
       <FormLabel htmlFor="lastname">Last Name: </FormLabel>
       <Input name="lastname" onChange={handleChange} value={values.email} />
 
-      <FormLabel htmlFor="location">Continent: </FormLabel>
-      <Select
+      <FormLabel htmlFor="jobRole">What job role are you applying for?</FormLabel>
+      <Input name="jobRole" onChange={ handleChange } value={ values.jobRole} />
+
+      <FormLabel htmlFor="location">Location/Address/City: </FormLabel>
+      <Input
         name="location"
         onChange={handleChange}
         value={values.email}
-        placeholder="Select Location"
-      >
-        <option value="europe">Europe</option>
-        <option value="north-america">North America</option>
-        <option value="south-america">South America</option>
-        <option value="Oceania">Oceania</option>
-        <option value="Asia">Asia</option>
-        <option value="Africa">Africa</option>
-      </Select>
+      />
 
       <FormLabel htmlFor="phone">Phone Number: </FormLabel>
       <Input name="phone" onChange={handleChange} value={values.email} />
