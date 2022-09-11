@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
+import FilePicker from 'chakra-ui-file-picker'
 
 interface ImageProps extends FormStepProps {
   images: number[]
@@ -47,7 +48,7 @@ export const WorkImages = ({
         <Stack key={imageNumber} w="full" spacing={4}>
           <Heading size="md">Add work related images: </Heading>
           <FormLabel htmlFor={`images[${imageNumber}].src`}></FormLabel>
-          <Input
+          {/* <Input
             name={`images[${imageNumber}].src`}
             type="file"
             onChange={(e) => {
@@ -63,7 +64,19 @@ export const WorkImages = ({
                 ? values.images[imageNumber].src
                 : undefined
             }
+          /> */}
+          <FilePicker
+            onFileChange={(files) => {
+              setImageSRCS((prev: any) =>
+                prev.map((item: any, index: number) =>
+                  index === imageNumber ? files[0] : item
+                )
+              )
+            }}
+            hideClearButton={true}
+            placeholder="Click here to upload"
           />
+
           <FormLabel htmlFor={`images[${imageNumber}].title`}>
             Name the image:
           </FormLabel>

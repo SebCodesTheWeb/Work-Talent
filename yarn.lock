@@ -1742,6 +1742,11 @@ caniuse-lite@^1.0.30001332:
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001365.tgz#72c2c3863b1a545cfd3d9953535bd2ee17568158"
   integrity sha512-VDQZ8OtpuIPMBA4YYvZXECtXbddMCUFJk1qu8Mqxfm/SZJNSr1cy4IuLCOL7RJ/YASrvJcYg1Zh+UEUQ5m6z8Q==
 
+chakra-ui-file-picker@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/chakra-ui-file-picker/-/chakra-ui-file-picker-0.2.0.tgz#db3b69b657764dcfe62a03820920d4272eb5530a"
+  integrity sha512-4keap7EkiorCMV/FomunmvUJRUtNtPjAyL4jOhuaiISM0D9P2dGoZfOPRyVDvt1y9vhsmebUu3DTwEwCDDS3hw==
+
 chakra-ui-steps@^1.7.4:
   version "1.7.4"
   resolved "https://registry.npmjs.org/chakra-ui-steps/-/chakra-ui-steps-1.7.4.tgz#9174c87b66f530f83ad7ab2568e5dd450b1e5576"
