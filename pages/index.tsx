@@ -9,9 +9,11 @@ import {
   Portfolio,
   About,
   Skills,
+  WorkImages,
 } from '../components'
 import { doc, setDoc } from 'firebase/firestore'
-import { db } from '../firebase/clientApp'
+import { db, storage } from '../firebase/clientApp'
+import { ref, uploadBytes } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
@@ -34,6 +36,8 @@ const Home: NextPage = () => {
   const [projects, setProjects] = useState([0])
   const [jobs, setJobs] = useState([0])
   const [education, setEducation] = useState([0])
+  const [images, setImages] = useState([0])
+  const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -51,22 +55,33 @@ const Home: NextPage = () => {
             handleChange={handleChange}
             values={values}
             currentStep={activeStep + 1}
-            jobs={ jobs }
+            jobs={jobs}
             setJobs={setJobs}
           />
         )
       case 2:
         return (
+          <WorkImages
+            handleChange={handleChange}
+            values={values}
+            currentStep={activeStep + 1}
+            images={images}
+            setImages={setImages}
+            setImageSRCS={setImageSRCS}
+          />
+        )
+      case 3:
+        return (
           <Education
             handleChange={handleChange}
             values={values}
             currentStep={activeStep + 1}
-            education={ education }
-            setEducation={ setEducation}
+            education={education}
+            setEducation={setEducation}
           />
         )
         break
-      case 3:
+      case 4:
         return (
           <About
             handleChange={handleChange}
@@ -74,7 +89,7 @@ const Home: NextPage = () => {
             currentStep={activeStep + 1}
           />
         )
-      case 4:
+      case 5:
         return (
           <Portfolio
             handleChange={handleChange}
@@ -84,7 +99,7 @@ const Home: NextPage = () => {
             setProjects={setProjects}
           />
         )
-      case 5:
+      case 6:
         return (
           <Skills
             handleChange={handleChange}
@@ -94,7 +109,7 @@ const Home: NextPage = () => {
             setSkills={setSkills}
           />
         )
-      case 6:
+      case 7:
         return (
           <Links
             handleChange={handleChange}
@@ -102,7 +117,7 @@ const Home: NextPage = () => {
             currentStep={activeStep + 1}
           />
         )
-      case 7:
+      case 8:
         return (
           <Stack spacing={4}>
             <Heading size="md">Portfolio Data:</Heading>
@@ -124,6 +139,7 @@ const Home: NextPage = () => {
   const steps = [
     { label: 'Contact' },
     { label: 'Work' },
+    { label: 'Images' },
     { label: 'Education' },
     { label: 'About Me' },
     { label: 'Portfolio' },
@@ -159,6 +175,7 @@ const Home: NextPage = () => {
               shortDescription: '',
               longDescription: '',
             },
+            images: [],
             portfolio: [],
             social: {
               linkedin: '',
@@ -174,6 +191,22 @@ const Home: NextPage = () => {
             try {
               await setDoc(doc(db, 'test-users', values.firstname), {
                 ...values,
+              })
+              imageSRCS.forEach((imageSRC: any, index: number) => {
+                if (imageSRC && values.images[index].title) {
+                  const imageRef = ref(
+                    storage,
+                    `images/${values.images[index].title}`
+                  )
+                  console.log(imageSRC)
+                  uploadBytes(imageRef, imageSRC)
+                    .then(() => {
+                      console.log('upload success')
+                    })
+                    .catch(() => {
+                      console.log('upload failed')
+                    })
+                }
               })
             } catch (e) {
               console.error('Error adding document: ', e)
