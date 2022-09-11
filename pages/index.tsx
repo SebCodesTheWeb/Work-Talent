@@ -38,7 +38,6 @@ const Home: NextPage = () => {
   const [education, setEducation] = useState([0])
   const [images, setImages] = useState([0])
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-  console.log(imageSRCS)
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -190,9 +189,16 @@ const Home: NextPage = () => {
           }}
           onSubmit={async (values) => {
             try {
-              await setDoc(doc(db, 'test-users', values.firstname), {
-                ...values,
-              })
+              await setDoc(
+                doc(
+                  db,
+                  'test-users',
+                  values.firstname.replace(/\s+/g, '-').toLowerCase()
+                ),
+                {
+                  ...values,
+                }
+              )
               imageSRCS.forEach((imageSRC: any, index: number) => {
                 if (imageSRC && values.images[index].title) {
                   const imageRef = ref(

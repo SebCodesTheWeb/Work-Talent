@@ -371,7 +371,7 @@ function Page({ data, images }: any) {
   )
 }
 async function getData(firstname: string) {
-  const docRef = doc(db, 'test-users', 'imageuploadtest')
+  const docRef = doc(db, 'test-users', firstname)
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
     return docSnap.data()
@@ -380,9 +380,16 @@ async function getData(firstname: string) {
 
 export async function getServerSideProps({ params }: any) {
   const data = await getData(params.firstname)
-  const images = await Promise.all(data.images.map(async (image) => {
-    return await getDownloadURL(ref(storage, `images/${image.title}`))
-  }))
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+  const images = await Promise.all(
+    data.images.map(async (image) => {
+      return await getDownloadURL(ref(storage, `images/${image.title}`))
+    })
+  )
 
   return {
     props: {
