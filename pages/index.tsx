@@ -12,82 +12,127 @@ import {
 } from '../components'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase/clientApp'
-
-import { Heading, Center, VStack, HStack, Text, Button } from '@chakra-ui/react'
+import { Step, Steps, useSteps } from 'chakra-ui-steps'
+import {
+  Box,
+  Stack,
+  Heading,
+  Center,
+  VStack,
+  HStack,
+  Text,
+  Button,
+  Flex,
+} from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 
 const Home: NextPage = () => {
-  const [currentStep, setCurrentStep] = useState(1)
-
-  const nextStep = () => setCurrentStep((currentStep) => currentStep + 1)
-  const prevFormStep = () => setCurrentStep((currentStep) => currentStep - 1)
-
-  const lastStep = 7
+  const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
+    initialStep: 0,
+  })
+  const [skills, setSkills] = useState([0])
+  const [projects, setProjects] = useState([0])
+  const [jobs, setJobs] = useState([0])
+  const [education, setEducation] = useState([0])
 
   const renderForm = (handleChange: any, values: any) => {
-    switch (currentStep) {
-      case 1:
+    switch (activeStep) {
+      case 0:
         return (
           <Contact
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
           />
         )
-      case 2:
+      case 1:
         return (
           <WorkExperience
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
+            jobs={ jobs }
+            setJobs={setJobs}
           />
         )
-      case 3:
+      case 2:
         return (
           <Education
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
+            education={ education }
+            setEducation={ setEducation}
           />
         )
         break
-      case 4:
+      case 3:
         return (
           <About
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
           />
         )
-      case 5:
+      case 4:
         return (
           <Portfolio
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
+            projects={projects}
+            setProjects={setProjects}
           />
         )
-      case 6:
+      case 5:
         return (
           <Skills
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
+            skills={skills}
+            setSkills={setSkills}
           />
         )
-      case 7:
+      case 6:
         return (
           <Links
             handleChange={handleChange}
             values={values}
-            currentStep={currentStep}
+            currentStep={activeStep + 1}
           />
+        )
+      case 7:
+        return (
+          <Stack spacing={4}>
+            <Heading size="md">Portfolio Data:</Heading>
+            <Text
+              fontWeight="bold"
+              fontSize="sm"
+              whiteSpace="pre"
+              fontFamily="monospace"
+              maxHeight="800px"
+              overflowY="scroll"
+            >
+              {JSON.stringify(values, null, 2)}
+            </Text>
+          </Stack>
         )
     }
   }
 
+  const steps = [
+    { label: 'Contact' },
+    { label: 'Work' },
+    { label: 'Education' },
+    { label: 'About Me' },
+    { label: 'Portfolio' },
+    { label: 'Skills' },
+    { label: 'Links' },
+  ]
+
   return (
-    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={ 8 }>
+    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
       <Head>
         <title> Job-talent.org </title>
       </Head>
@@ -127,7 +172,7 @@ const Home: NextPage = () => {
           }}
           onSubmit={async (values) => {
             try {
-              await setDoc(doc(db, "test-users", values.firstname), {
+              await setDoc(doc(db, 'test-users', values.firstname), {
                 ...values,
               })
             } catch (e) {
@@ -137,7 +182,6 @@ const Home: NextPage = () => {
         >
           {({ values, handleChange }) => (
             <Form>
-            {console.log(values)}
               <VStack
                 alignItems="start"
                 mt={4}
@@ -145,23 +189,59 @@ const Home: NextPage = () => {
                 py={4}
                 px={16}
                 borderRadius={8}
-                w="max-content"
+                w={{ base: 'max-content', md: '700px' }}
+                h="1000px"
                 spacing={4}
               >
-                {renderForm(handleChange, values)}
-                <HStack
-                  color="gray.700"
-                  justify={currentStep > 1 ? 'space-between' : 'end'}
-                  w="full"
-                >
-                  {currentStep > 1 && (
-                    <Button onClick={prevFormStep}>Back</Button>
-                  )}
-                  <Button type="submit">Submit</Button>
-                  {currentStep < lastStep && (
-                    <Button onClick={nextStep}>Next</Button>
-                  )}
-                </HStack>
+                <Flex alignItems="start" h="full" gap={4}>
+                  <Box w="200px" alignSelf="center">
+                    <Steps
+                      orientation="vertical"
+                      activeStep={activeStep}
+                      onClickStep={(step) => setStep(step)}
+                    >
+                      {steps.map(({ label }) => (
+                        <Step label={label} key={label} color="#fff" />
+                      ))}
+                    </Steps>
+                  </Box>
+                  <Box alignSelf="center" w="350px">
+                    {renderForm(handleChange, values)}
+                  </Box>
+                </Flex>
+                {activeStep === steps.length ? (
+                  <Flex p={4} gap={2}>
+                    <Button mx="auto" size="sm" type="submit" color="gray.700">
+                      Finish and Generate Portfolio
+                    </Button>
+                    <Button
+                      isDisabled={activeStep === 0}
+                      mr={4}
+                      onClick={prevStep}
+                      size="sm"
+                      variant="ghost"
+                      _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                    >
+                      Go Back
+                    </Button>
+                  </Flex>
+                ) : (
+                  <Flex width="100%" justify="flex-end" alignSelf="end">
+                    <Button
+                      isDisabled={activeStep === 0}
+                      mr={4}
+                      onClick={prevStep}
+                      size="sm"
+                      variant="ghost"
+                      _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                    >
+                      Prev
+                    </Button>
+                    <Button size="sm" onClick={nextStep} color="gray.700">
+                      {activeStep === steps.length - 1 ? 'Check Final' : 'Next'}
+                    </Button>
+                  </Flex>
+                )}
               </VStack>
             </Form>
           )}

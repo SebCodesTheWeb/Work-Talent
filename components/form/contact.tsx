@@ -17,7 +17,7 @@ export const Contact = ({
   return (
     <VStack alignItems="start" w="full" spacing={4}>
       <Heading as="h2" size="lg">
-        Step {currentStep}: Basic Contact Info
+        Step {currentStep}: Contact 
       </Heading>
       <FormLabel htmlFor="firstname">First Name: </FormLabel>
       <Input

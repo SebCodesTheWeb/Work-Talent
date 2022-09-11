@@ -1742,6 +1742,11 @@ caniuse-lite@^1.0.30001332:
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001365.tgz#72c2c3863b1a545cfd3d9953535bd2ee17568158"
   integrity sha512-VDQZ8OtpuIPMBA4YYvZXECtXbddMCUFJk1qu8Mqxfm/SZJNSr1cy4IuLCOL7RJ/YASrvJcYg1Zh+UEUQ5m6z8Q==
 
+chakra-ui-steps@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.npmjs.org/chakra-ui-steps/-/chakra-ui-steps-1.7.4.tgz#9174c87b66f530f83ad7ab2568e5dd450b1e5576"
+  integrity sha512-EAHW04azBL0Vz0vR9uMJ92qTKeOc86gbHGXoeRd8wAKcTyQOf7vK5eyS4BUWq8Bflb2ZXVAdLhJtVumNerEuzg==
+
 chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
