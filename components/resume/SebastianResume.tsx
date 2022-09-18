@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, HStack, Stack, Text, Heading, Link } from '@chakra-ui/react'
 
-export const ResumeTemplate = React.forwardRef(({ data }: any, ref) => {
+export const SebastianResume = React.forwardRef(({ data }: any, ref) => {
   return (
     <Box
       h="3500px"
@@ -126,4 +126,4 @@ export const ResumeTemplate = React.forwardRef(({ data }: any, ref) => {
   )
 })
 
-ResumeTemplate.displayName = 'ResumeTemplate'
+SebastianResume.displayName = 'SebastianResume'

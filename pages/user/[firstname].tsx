@@ -61,15 +61,6 @@ function Page({ data, images }: any) {
         bgColor="#fff"
         zIndex={1}
       >
-        <LinkBox>
-          <SimpleButton>
-            <HStack>
-              <LinkOverlay href="#" />
-              <Heading size="sm">Resume</Heading>
-              <Icon as={IoDocumentOutline} className="icon" />
-            </HStack>
-          </SimpleButton>
-        </LinkBox>
       <GeneratePDF data={ data }/>
         <HStack fontSize="lg" spacing={4} fontWeight="bold">
           <Link
