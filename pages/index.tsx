@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -12,7 +13,7 @@ import {
   WorkImages,
 } from '../components'
 import { doc, setDoc } from 'firebase/firestore'
-import { db, storage } from '../firebase/clientApp'
+import { db, storage, signIn, signOut, UserContext } from '../firebase'
 import { ref, uploadBytes } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
@@ -38,6 +39,7 @@ const Home: NextPage = () => {
   const [education, setEducation] = useState([0])
   const [images, setImages] = useState([0])
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  const { user } = useContext(UserContext)
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -158,6 +160,30 @@ const Home: NextPage = () => {
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>
+            <Button
+              mr={4}
+              size="md"
+              variant="ghost"
+              border="1px solid #fff"
+              _hover={{ color: 'gray.700', bgColor: '#fff' }}
+              onClick={signOut}
+            >
+              Sign Out
+            </Button>
+          {user ? (
+            <Text>Welcome back: {user.displayName} </Text>
+          ) : (
+            <Button
+              mr={4}
+              size="md"
+              variant="ghost"
+              border="1px solid #fff"
+              _hover={{ color: 'gray.700', bgColor: '#fff' }}
+              onClick={signIn}
+            >
+              Log In
+            </Button>
+          )}
         </VStack>
         <Formik
           initialValues={{
