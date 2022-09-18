@@ -189,9 +189,16 @@ const Home: NextPage = () => {
           }}
           onSubmit={async (values) => {
             try {
-              await setDoc(doc(db, 'test-users', values.firstname), {
-                ...values,
-              })
+              await setDoc(
+                doc(
+                  db,
+                  'test-users',
+                  values.firstname.replace(/\s+/g, '-').toLowerCase()
+                ),
+                {
+                  ...values,
+                }
+              )
               imageSRCS.forEach((imageSRC: any, index: number) => {
                 if (imageSRC && values.images[index].title) {
                   const imageRef = ref(

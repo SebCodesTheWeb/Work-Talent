@@ -1,6 +1,7 @@
 import React from 'react'
 import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../firebase/clientApp'
+import { ref, getDownloadURL } from 'firebase/storage'
+import { db, storage } from '../../firebase/clientApp'
 import {
   GrCheckboxSelected,
   GrLinkedin,
@@ -10,10 +11,7 @@ import {
   GrYoutube,
 } from 'react-icons/gr'
 import { VscTriangleDown } from 'react-icons/vsc'
-import {
-  IoDocumentOutline,
-  IoMailOutline,
-} from 'react-icons/io5'
+import { IoDocumentOutline, IoMailOutline } from 'react-icons/io5'
 import {
   Heading,
   Text,
@@ -37,6 +35,7 @@ import {
   SimpleGrid,
   ListIcon,
   Wrap,
+  Avatar,
 } from '@chakra-ui/react'
 import {
   WorkImage,
@@ -45,11 +44,12 @@ import {
   PortfolioProject,
   SimpleButton,
 } from '../../components'
+import dynamic from "next/dynamic";
+const GeneratePDF = dynamic(()=>import("../../components/resume/GeneratePDF"),{ssr:false});
 
 const man = true
 
-function Page(data: any) {
-  console.log(data)
+function Page({ data, images }: any) {
   return (
     <VStack spacing={10} id="home">
       <HStack
@@ -61,15 +61,7 @@ function Page(data: any) {
         bgColor="#fff"
         zIndex={1}
       >
-        <LinkBox>
-          <SimpleButton>
-            <HStack>
-              <LinkOverlay href="#" />
-              <Heading size="sm">Resume</Heading>
-              <Icon as={IoDocumentOutline} className="icon" />
-            </HStack>
-          </SimpleButton>
-        </LinkBox>
+      <GeneratePDF data={ data }/>
         <HStack fontSize="lg" spacing={4} fontWeight="bold">
           <Link
             _hover={{ textDecoration: 'none', color: 'cyan.500' }}
@@ -130,7 +122,7 @@ function Page(data: any) {
           </Heading>
           <Text fontWeight="bold">
             <Highlight
-              query={data.jobs[0].jobTitle}
+              query={data.jobRole ?? ''}
               styles={{
                 bg: 'purple.500',
                 p: '1',
@@ -153,7 +145,7 @@ function Page(data: any) {
         </Stack>
       </HStack>
 
-      <Wrap justify="center" spacing={ 16 } p={16}>
+      <Wrap justify="center" spacing={16} p={16}>
         <span className="anchor" id="work"></span>
         <VStack spacing={4} px={16}>
           <Heading mb={4}>Work Experience</Heading>
@@ -178,9 +170,7 @@ function Page(data: any) {
                     companyName={job.companyName}
                     location={job.workLocation}
                     date={job.timePeriod}
-                    workTasks={[
-                      job.achievments,
-                    ]}
+                    workTasks={[job.achievments]}
                     bgColor="purple.500"
                   />
                 </TabPanel>
@@ -190,31 +180,23 @@ function Page(data: any) {
         </VStack>
         <VStack spacing={8}>
           <Heading>Images from work </Heading>
+
           <HStack alignItems="start" spacing={4}>
-            <WorkImage
-              title="Mediatool meeting"
-              description="We had a really fun retrospective meeting"
-              src="https://lh3.googleusercontent.com/pw/AM-JKLUManvfWSGe3LFwLRcrqOUoBcFVx10yaXF6PBYXhcJYlqdqP_rNwNrpoKOLvfhdQUkLsYNnkn08VrAImNKGTN8ZxVYeS1f92__6Ut-63x7-lT2TPEdJxXc00c83zKCe6cvktLC3qwvr0E4ZzLCEpww5=w1663-h1247-no?authuser=0"
-              alt="business-man"
-              companyName="Mediatool"
-              bgColor="purple.500"
-            />
-            <WorkImage
-              title="Working from home"
-              description="This was my old tripple monitor setup before i switched to ultrawide"
-              src="https://sebcodestheweb.com/img/setup.jpg"
-              alt="Gaming Setup"
-              companyName="Mediatool"
-              bgColor="purple.500"
-            />
-            <WorkImage
-              title="A day out sailing"
-              description="This was the kids fourth day of sailing on the optimist. They are doing great!"
-              src="https://iof3.idrottonline.se/globalassets/svenska-seglarforbundet-lar-dig-segla/bilder/malmo-ss-1.png"
-              alt="optimist-sailing"
-              companyName="MSS"
-              bgColor="cyan.500"
-            />
+            {data.images &&
+              data.images.map(
+                (image: any, index: number) =>
+                  image && (
+                    <WorkImage
+                      key={image.title}
+                      title={image.title}
+                      description={image.description}
+                      src={images[index]}
+                      alt={image.title}
+                      companyName={image.context}
+                      bgColor="cyan.500"
+                    />
+                  )
+              )}
           </HStack>
         </VStack>
       </Wrap>
@@ -279,7 +261,8 @@ function Page(data: any) {
         <Heading>Contact: </Heading>
         <Text>
           I am looking for new job opportunities! If you need a{' '}
-          {data.jobs[0].jobTitle}, I would love to talk.
+          {data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'}, I would love
+          to talk.
         </Text>
         <HStack spacing={8} align="start">
           <Stack spacing={4}>
@@ -381,7 +364,7 @@ function Page(data: any) {
   )
 }
 async function getData(firstname: string) {
-  const docRef = doc(db, 'test-users', 'Sebastian Delgado')
+  const docRef = doc(db, 'test-users', firstname)
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
     return docSnap.data()
@@ -390,8 +373,22 @@ async function getData(firstname: string) {
 
 export async function getServerSideProps({ params }: any) {
   const data = await getData(params.firstname)
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+  const images = await Promise.all(
+    data.images.map(async (image) => {
+      return await getDownloadURL(ref(storage, `images/${image.title}`))
+    })
+  )
+
   return {
-    props: data, // will be passed to the page component as props
+    props: {
+      data,
+      images,
+    },
   }
 }
 
