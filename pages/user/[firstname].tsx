@@ -44,11 +44,12 @@ import {
   PortfolioProject,
   SimpleButton,
 } from '../../components'
+import dynamic from "next/dynamic";
+const GeneratePDF = dynamic(()=>import("../../components/resume/GeneratePDF"),{ssr:false});
 
 const man = true
 
 function Page({ data, images }: any) {
-  console.log(data)
   return (
     <VStack spacing={10} id="home">
       <HStack
@@ -69,6 +70,7 @@ function Page({ data, images }: any) {
             </HStack>
           </SimpleButton>
         </LinkBox>
+      <GeneratePDF data={ data }/>
         <HStack fontSize="lg" spacing={4} fontWeight="bold">
           <Link
             _hover={{ textDecoration: 'none', color: 'cyan.500' }}
