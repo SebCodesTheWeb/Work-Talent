@@ -13,79 +13,54 @@ export const ResumeTemplate = React.forwardRef(({ data }: any, ref) => {
     >
       <Stack py={32} px={32} spacing={24}>
         <Box>
-          <Heading fontSize="2em">Sebastian Delgado</Heading>
-          <Text color="blue.500">Software Engineer</Text>
+          <Heading fontSize="2em">
+            {data.firstname} {data.lastname}{' '}
+          </Heading>
+          <Text color="blue.500">{data.jobRole}</Text>
         </Box>
         <HStack alignItems="start" justifyContent="space-between">
           <Stack spacing={24} w="65%">
             <Stack spacing={8}>
               <Heading fontSize="1.5em">Summary</Heading>
               <Text fontWeight="semibold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
-                pariatur quae odit animi rem ducimus, ullam cumque atque eaque
-                similique, voluptate impedit debitis inventore facere amet esse.
-                Minima inventore minus error ab magni, quisquam dolorem
-                architecto fuga numquam saepe! Facere inventore atque
-                reprehenderit laudantium totam odit autem unde quos officiis.
+                {data.aboutMe.longDescription}
                 <br />
-              <Link pl={ 4 } color="blue.500">Read more: job-talent.org/sebastian-delgado</Link>
+                <Link pl={4} color="blue.500">
+                  Read more: job-talent.org/{data.firstname}
+                </Link>
               </Text>
             </Stack>
             <Stack spacing={12}>
               <Heading fontSize="1.4em">Work Experience</Heading>
               <Stack spacing={16}>
-                <Stack>
-                  <Heading>Software Engineer</Heading>
-                  <Text color="blue.500"> JAN 2021 - JUNE 2022</Text>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dignissimos fuga reprehenderit nisi, quos quod suscipit
-                    laboriosam quae! Saepe, explicabo doloribus!
-                  </Text>
-                </Stack>
-                <Stack>
-                  <Heading>Software Engineer</Heading>
-                  <Text color="blue.500"> JAN 2021 - JUNE 2022</Text>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dignissimos fuga reprehenderit nisi, quos quod suscipit
-                    laboriosam quae! Saepe, explicabo doloribus!
-                  </Text>
-                </Stack>
-                <Stack>
-                  <Heading>Software Engineer</Heading>
-                  <Text color="blue.500"> JAN 2021 - JUNE 2022</Text>
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dignissimos fuga reprehenderit nisi, quos quod suscipit
-                    laboriosam quae! Saepe, explicabo doloribus!
-                  </Text>
-                </Stack>
+                {data.jobs?.map(
+                  (job: any, index: number) =>
+                    index < 3 && (
+                      <Stack>
+                        <Heading>{job.jobTitle}</Heading>
+                        <Text color="blue.500">{job.timePeriod} </Text>
+                        <Text>{job.achievments}</Text>
+                      </Stack>
+                    )
+                )}
               </Stack>
             </Stack>
             <Stack spacing={8}>
               <Heading fontSize="1.3em">Projects</Heading>
               <Stack spacing={16}>
-                <Text>
-                  <strong>Neline</strong> <br />
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Repudiandae quis provident consectetur quae ducimus fuga
-                  dolorem iste assumenda sequi vitae. leijfaliejföaliej fa.
-                  <br />
-                  <Link color="blue.600" pl={8}>
-                    Link: https://fjaelfijejflaij.com
-                  </Link>
-                </Text>
-                <Text>
-                  <strong>Neline</strong> <br />
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Repudiandae quis provident consectetur quae ducimus fuga
-                  dolorem iste assumenda sequi vitae. leijfaliejföaliej fa.
-                  <br />
-                  <Link color="blue.600" pl={8}>
-                    Link: https://fjaelfijejflaij.com
-                  </Link>
-                </Text>
+                {data.projects?.map(
+                  (project: any, index: number) =>
+                    index < 2 && (
+                      <Text>
+                        <strong>{project.projectTitle}</strong> <br />
+                        {project.description}
+                        <br />
+                        <Link color="blue.600" pl={8}>
+                          Link: {project.link}
+                        </Link>
+                      </Text>
+                    )
+                )}
               </Stack>
             </Stack>
           </Stack>
@@ -93,31 +68,34 @@ export const ResumeTemplate = React.forwardRef(({ data }: any, ref) => {
             <Stack spacing={8}>
               <Heading fontSize="1.1em">Contact</Heading>
               <Stack spacing={8}>
-                <Text color="blue.500">+4732739427</Text>
-                <Text color="blue.500">lajief@fliaje.com</Text>
-                <Text color="blue.500">github.com/lfjaeij</Text>
-                <Text color="blue.500">Linkedinjföailej</Text>
+                <Text color="blue.500">{data.phone}</Text>
+                <Text color="blue.500">{data.e_mail}</Text>
+                <Text color="blue.500">{data.social.linkedin}</Text>
+                <Text color="blue.500">{data.social.github}</Text>
+                <Text color="blue.500">{data.social.blog}</Text>
+                <Text color="blue.500">{data.social.youtube}</Text>
               </Stack>
             </Stack>
             <Stack spacing={8}>
               <Heading fontSize="1.1em">Skills</Heading>
               <Stack spacing={8}>
-                <Text>aliefjl</Text>
-                <Text>aliefjl</Text>
-                <Text>aliefjl</Text>
-                <Text>aliefjl</Text>
-                <Text>aliefjl</Text>
-                <Text>aliefjl</Text>
-                <Text>aliefjl</Text>
+                {data.skills?.map((skill: string) => (
+                  <Text key={skill}>{skill}</Text>
+                ))}
               </Stack>
             </Stack>
             <Stack spacing={8}>
               <Heading fontSize="1.1em">Education</Heading>
-              <Stack spacing={8}>
-                <Text>Stanford University </Text>
-                <Text color="blue.500">JAN 2018 - JUNE 2021</Text>
-                <Text>Computer Science</Text>
-              </Stack>
+              {data.education?.map((education: any, index: number) => (
+                <Stack spacing={8} key={`education-${index}`}>
+                  <Text>{education.school}</Text>
+                  <Text color="blue.500">
+                    Class of {education.dateOfFinishing}
+                  </Text>
+                  <Text>{education.program}</Text>
+                  <Text>{education.grade}</Text>
+                </Stack>
+              ))}
             </Stack>
           </Stack>
         </HStack>
