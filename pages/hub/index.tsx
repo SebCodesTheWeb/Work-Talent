@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { UserContext, promiseSignIn } from '../firebase'
+import { UserContext, promiseSignIn } from '../../firebase'
 import {
   Heading,
   Center,
@@ -15,10 +15,13 @@ import {
 const Home: NextPage = () => {
   const { user } = useContext(UserContext)
   const router = useRouter()
+  if(user) {
+    router.push(`/hub/${user.uid}`)
+  }
 
   const handleLogin = () => {
     promiseSignIn().then(({ user }) => {
-      router.push(`/${user.uid}`)
+      router.push(`/hub/${user.uid}`)
     })
   }
 
