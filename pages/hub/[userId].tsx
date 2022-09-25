@@ -93,6 +93,10 @@ const Home: NextPage = ({ portfolios }: any) => {
     onClose()
   }
 
+  const editPortfolio = (index: number) => {
+    router.push(`/edit/${user?.uid}/${portfolios[index].portfolioName}`)
+  }
+
   return (
     <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
       <Head>
@@ -164,7 +168,16 @@ const Home: NextPage = ({ portfolios }: any) => {
               >
                 <VStack>
                   <Heading size="md">{portfolio.portfolioName}</Heading>
-                  <Text>Portfolio: {index + 1}</Text>
+                  <Button
+                    mr={4}
+                    size="md"
+                    variant="ghost"
+                    border="1px solid #fff"
+                    _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                    onClick={() => editPortfolio(index)}
+                  >
+                    Edit
+                  </Button>
                 </VStack>
               </Center>
             ))}
