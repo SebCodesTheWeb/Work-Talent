@@ -82,10 +82,11 @@ const Home: NextPage = ({ portfolios }: any) => {
 
   const initializeUserPortfolio = async () => {
     try {
-      await setDoc(doc(db, 'test-users', portfolioName), {
+      const portfolioId = uniqid()
+      await setDoc(doc(db, 'test-users', portfolioId), {
         userId: user?.uid,
         portfolioName,
-        portfolioId: uniqid(),
+        portfolioId,
         ...initialValues,
       })
       router.reload()

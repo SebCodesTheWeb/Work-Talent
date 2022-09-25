@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
+import { useRouter }from 'next/router'
 import { useState } from 'react'
 import {
   Contact,
@@ -37,6 +38,7 @@ const Home: NextPage = ({ portfolioData }: any) => {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
     initialStep: 0,
   })
+  const router = useRouter()
   const [skills, setSkills] = useState([0])
   const [projects, setProjects] = useState([0])
   const [jobs, setJobs] = useState([0])
@@ -44,6 +46,9 @@ const Home: NextPage = ({ portfolioData }: any) => {
   const [images, setImages] = useState([0])
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
   const { user } = useContext(UserContext)
+
+  console.log(portfolioData)
+
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -235,6 +240,7 @@ const Home: NextPage = ({ portfolioData }: any) => {
                     })
                 }
               })
+              router.push(`/hub/${values.firstname.replace(/\s+/g, '-').toLowerCase()}`)
             } catch (e) {
               console.error('Error adding document: ', e)
             }
@@ -271,7 +277,12 @@ const Home: NextPage = ({ portfolioData }: any) => {
                 </Flex>
                 {activeStep === steps.length ? (
                   <Flex p={4} gap={2}>
-                    <Button mx="auto" size="sm" type="submit" color="gray.700">
+                    <Button
+                      mx="auto"
+                      size="sm"
+                      type="submit"
+                      color="gray.700"
+                    >
                       Finish and Generate Portfolio
                     </Button>
                     <Button

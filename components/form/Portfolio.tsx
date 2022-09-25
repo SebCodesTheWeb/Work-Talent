@@ -29,7 +29,6 @@ export const Portfolio = ({
     )
   }
 
-  console.log(values)
   return (
     <VStack
       alignItems="start"
