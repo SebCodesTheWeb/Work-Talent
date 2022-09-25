@@ -7,6 +7,7 @@ import {
   Heading,
   Center,
   VStack,
+  Spinner,
   Text,
   Button,
   Image,
@@ -17,6 +18,11 @@ const Home: NextPage = () => {
   const router = useRouter()
   if(user) {
     router.push(`/hub/${user.uid}`)
+    return (
+    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
+      <Spinner />
+    </Center>
+    )
   }
 
   const handleLogin = () => {

@@ -33,19 +33,19 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
+import { arrayWithLength } from '../../utils'
 
-const Home: NextPage = ({ portfolioData }: any) => {
+const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
     initialStep: 0,
   })
   const router = useRouter()
-  const [skills, setSkills] = useState([0])
-  const [projects, setProjects] = useState([0])
-  const [jobs, setJobs] = useState([0])
-  const [education, setEducation] = useState([0])
-  const [images, setImages] = useState([0])
+  const [skills, setSkills] = useState(arrayWithLength(portfolioData.skillLength))
+  const [projects, setProjects] = useState(arrayWithLength(portfolioData.projectLength))
+  const [jobs, setJobs] = useState(arrayWithLength(portfolioData.jobLength))
+  const [education, setEducation] = useState(arrayWithLength(portfolioData.educationLength))
+  const [images, setImages] = useState(arrayWithLength(portfolioData.imageLength))
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-  const { user } = useContext(UserContext)
 
   console.log(portfolioData)
 
@@ -218,10 +218,15 @@ const Home: NextPage = ({ portfolioData }: any) => {
                 doc(
                   db,
                   'test-users',
-                  values.firstname.replace(/\s+/g, '-').toLowerCase()
+                  portfolioId,
                 ),
                 {
                   ...values,
+                  skillLength: skills.length,
+                  projectLength: projects.length,
+                  jobLength: jobs.length,
+                  educationLength: education.length,
+                  imageLength: images.length,
                 }
               )
               imageSRCS.forEach((imageSRC: any, index: number) => {
@@ -240,7 +245,7 @@ const Home: NextPage = ({ portfolioData }: any) => {
                     })
                 }
               })
-              router.push(`/hub/${values.firstname.replace(/\s+/g, '-').toLowerCase()}`)
+              router.push(`/user/${portfolioId}`)
             } catch (e) {
               console.error('Error adding document: ', e)
             }
@@ -331,6 +336,7 @@ export async function getServerSideProps({ params }: any) {
   return {
     props: {
       portfolioData,
+      portfolioId,
     },
   }
 }
