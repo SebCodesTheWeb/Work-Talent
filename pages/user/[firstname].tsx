@@ -1,5 +1,5 @@
 import React from 'react'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/clientApp'
 import {
@@ -364,11 +364,9 @@ function Page({ data, images }: any) {
   )
 }
 async function getData(firstname: string) {
-  const docRef = doc(db, 'test-users', firstname)
-  const docSnap = await getDoc(docRef)
-  if (docSnap.exists()) {
-    return docSnap.data()
-  }
+  const docRef = query(collection(db, 'test-users'), where('portfolioURL', '==', firstname))
+  const docSnap = await getDocs(docRef) as any
+  return docSnap[0]?.data() 
 }
 
 export async function getServerSideProps({ params }: any) {

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
@@ -22,10 +22,19 @@ import {
   Box,
   Image,
   Stack,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  Input,
   Heading,
   Center,
   VStack,
   HStack,
+  useDisclosure,
   LinkBox,
   LinkOverlay,
   Text,
@@ -53,9 +62,10 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   const [images, setImages] = useState(
     arrayWithLength(portfolioData.imageLength)
   )
-  const [imageSRCS, setImageSRCS] = useState(portfolioData.imageSRCS)
+  const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
 
-  console.log(portfolioData)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [portfolioURL, setPortfolioURL] = useState('')
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -86,7 +96,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             images={images}
             setImages={setImages}
             setImageSRCS={setImageSRCS}
-            imageSRCS={ imageSRCS }
+            imageSRCS={imageSRCS}
           />
         )
       case 3:
@@ -191,35 +201,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
           </Text>
         </VStack>
         <Formik
-          initialValues={
-            portfolioData || {
-              firstname: '',
-              lastname: '',
-              location: '',
-              phone: '',
-              e_mail: '',
-              about: '',
-              image: '',
-              jobRole: '',
-              jobs: [],
-              education: [],
-              aboutMe: {
-                shortDescription: '',
-                longDescription: '',
-              },
-              images: [],
-              portfolio: [],
-              social: {
-                linkedin: '',
-                facebook: '',
-                github: '',
-                instagram: '',
-                youtube: '',
-                blog: '',
-              },
-              skills: [],
-            }
-          }
+          initialValues={portfolioData}
           onSubmit={async (values) => {
             try {
               await setDoc(doc(db, 'test-users', portfolioId), {
@@ -229,7 +211,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 jobLength: jobs.length,
                 educationLength: education.length,
                 imageLength: images.length,
-                imageSRCS: imageSRCS,
+                portfolioURL,
               })
               imageSRCS.forEach((imageSRC: any, index: number) => {
                 if (imageSRC && values.images[index].title) {
@@ -247,13 +229,13 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     })
                 }
               })
-              router.push(`/user/${portfolioId}`)
+              router.push(`/user/${portfolioURL}`)
             } catch (e) {
               console.error('Error adding document: ', e)
             }
           }}
         >
-          {({ values, handleChange }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <Form>
               <VStack
                 alignItems="start"
@@ -282,10 +264,45 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     {renderForm(handleChange, values)}
                   </Box>
                 </Flex>
+                <Modal isOpen={isOpen} onClose={onClose} isCentered={true}>
+                  <ModalOverlay />
+                  <ModalContent
+                    bgColor="gray.700"
+                    color="#fff"
+                    border="1px solid #fff"
+                  >
+                    <ModalHeader>Webpage name</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      <HStack>
+                        <Text fontSize="lg">https://jobtalent.org/</Text>
+                        <Input
+                          value={portfolioURL}
+                          onChange={(e) => setPortfolioURL(e.target.value)}
+                        />
+                      </HStack>
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        colorScheme="teal"
+                        mr={3}
+                        type="submit"
+                        onClick={ handleSubmit }
+                      >
+                        Generate webpage
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
                 {activeStep === steps.length ? (
                   <Flex p={4} gap={2}>
-                    <Button mx="auto" size="sm" type="submit" color="gray.700">
-                      Finish and Generate Portfolio
+                    <Button
+                      mx="auto"
+                      size="sm"
+                      color="gray.700"
+                      onClick={onOpen}
+                    >
+                      Choose Webpage name
                     </Button>
                     <Button
                       isDisabled={activeStep === 0}

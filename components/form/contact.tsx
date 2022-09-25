@@ -14,6 +14,7 @@ export const Contact = ({
   values,
   currentStep,
 }: FormStepProps) => {
+  console.log('Hej')
   return (
     <VStack alignItems="start" w="full" spacing={4}>
       <Heading as="h2" size="lg">
@@ -23,7 +24,7 @@ export const Contact = ({
       <Input
         name="firstname"
         onChange={handleChange}
-        value={values.email}
+        value={values.firstname}
         autoFocus={true}
       />
 
