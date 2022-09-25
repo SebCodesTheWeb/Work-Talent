@@ -33,6 +33,10 @@ export const signIn = async () => {
     })
 }
 
+export const promiseSignIn = async ( ) => {
+  return signInWithPopup(auth, googleAuthProvider)
+}
+
 export const signOut = async () => {
   await googleSignOut(auth)
     .then((user) => {

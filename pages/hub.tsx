@@ -1,10 +1,8 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
-import { doc, setDoc } from 'firebase/firestore'
-import { db, storage, signIn, signOut, UserContext } from '../firebase'
-import { ref, uploadBytes } from 'firebase/storage'
+import { useRouter } from 'next/router'
+import { UserContext, promiseSignIn } from '../firebase'
 import {
   Heading,
   Center,
@@ -12,62 +10,16 @@ import {
   Text,
   Button,
   Image,
-  Input,
-  SimpleGrid,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
 } from '@chakra-ui/react'
-
-const initialValues = {
-  portfolioName: '',
-  firstname: '',
-  lastname: '',
-  location: '',
-  phone: '',
-  e_mail: '',
-  about: '',
-  image: '',
-  jobRole: '',
-  jobs: [],
-  education: [],
-  aboutMe: {
-    shortDescription: '',
-    longDescription: '',
-  },
-  images: [],
-  portfolio: [],
-  social: {
-    linkedin: '',
-    facebook: '',
-    github: '',
-    instagram: '',
-    youtube: '',
-    blog: '',
-  },
-  skills: [],
-}
 
 const Home: NextPage = () => {
   const { user } = useContext(UserContext)
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [ showModal, setShowModal] = useState(false)
-  console.log(showModal)
-  const name = 'jflakj'
+  const router = useRouter()
 
-  const initializeUserPortfolio = async () => {
-    try {
-      await setDoc(doc(db, 'test-users', name), {
-        ...initialValues,
-      })
-    } catch (e) {
-      console.error('Error adding document: ', e)
-    }
+  const handleLogin = () => {
+    promiseSignIn().then(({ user }) => {
+      router.push(`/${user.uid}`)
+    })
   }
 
   return (
@@ -76,38 +28,12 @@ const Home: NextPage = () => {
         <title> Job-talent.org </title>
       </Head>
       <VStack>
-        <VStack>
+        <VStack p={4}>
           <Image src="./img/logo_white.png" alt="Job-talent logo" w="150px" />
           <Heading>Job Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>
-          {user && (
-            <Button
-              mr={4}
-              size="md"
-              variant="ghost"
-              border="1px solid #fff"
-              _hover={{ color: 'gray.700', bgColor: '#fff' }}
-              onClick={signOut}
-            >
-              Sign Out
-            </Button>
-          )}
-          {user ? (
-            <Text>Welcome back: {user.displayName} </Text>
-          ) : (
-            <Button
-              mr={4}
-              size="md"
-              variant="ghost"
-              border="1px solid #fff"
-              _hover={{ color: 'gray.700', bgColor: '#fff' }}
-              onClick={signIn}
-            >
-              Log In
-            </Button>
-          )}
         </VStack>
         <VStack
           alignItems="start"
@@ -120,36 +46,16 @@ const Home: NextPage = () => {
           spacing={4}
         >
           <Heading>Your Portfolios: </Heading>
-          <Modal isOpen={isOpen} onClose={onClose} isCentered={ true }>
-            <ModalOverlay />
-            <ModalContent bgColor="gray.700" color="#fff" border="1px solid #fff">
-              <ModalHeader>Portfolio Name</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <Input />
-                </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="teal" mr={3} onClick={onClose}>
-                  Create
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-
-          <SimpleGrid columns={4} h="600px">
-            a
-          </SimpleGrid>
+          <Text>Please login to create a new one or edit existing ones.</Text>
           <Button
-            alignSelf="end"
             mr={4}
-            size="md"
+            size="lg"
             variant="ghost"
             border="1px solid #fff"
             _hover={{ color: 'gray.700', bgColor: '#fff' }}
-            onClick={ onOpen }
+            onClick={handleLogin}
           >
-            Add new portfolio
+            Log In
           </Button>
         </VStack>
       </VStack>
