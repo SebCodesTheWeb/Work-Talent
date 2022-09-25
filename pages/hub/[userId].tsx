@@ -79,7 +79,7 @@ const initialValues = {
   jobLength: 0,
   educationLength: 0,
   imageLength: 0,
-  imageSRCS: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  makePublic: false,
 }
 
 const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
@@ -102,6 +102,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
         userId: user?.uid,
         portfolioName,
         portfolioId,
+        portfolioURL: uniqid(),
         ...initialValues,
       })
       router.reload()
@@ -112,6 +113,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   }
 
   const editPortfolio = (index: number) => {
+    setLoading(true)
     router.push(`/edit/${portfolios[index].portfolioId}`)
   }
 
@@ -316,7 +318,7 @@ export async function getServerSideProps({ params }: any) {
   const portfolios: any[] = []
   portfolioData.forEach((portfolio) => portfolios.push(portfolio.data()))
 
-  const publicPortfolioQuery = collection(db, 'test-users')
+  const publicPortfolioQuery = query(collection(db, 'test-users'), where('makePublic', '==', true))
   const publicPortfolioData = await getDocs(publicPortfolioQuery)
   const publicPortfolios: any[] = []
   publicPortfolioData.forEach((portfolio) =>

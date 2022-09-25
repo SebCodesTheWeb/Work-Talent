@@ -20,6 +20,7 @@ import { ref, uploadBytes } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
+  Switch,
   Image,
   Stack,
   ModalBody,
@@ -67,6 +68,8 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [portfolioURL, setPortfolioURL] = useState(portfolioData.portfolioURL)
+  const [makePublic, setMakePublic] = useState(portfolioData.makePublic)
+  console.log(makePublic)
   const [loading, setLoading] = useState(false)
   if (loading) {
     return (
@@ -76,7 +79,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     )
   }
 
-  const handleWebPageGeneration = (handleSubmit) => {
+  const handleWebPageGeneration = (handleSubmit: any) => {
     handleSubmit()
     setLoading(true)
   }
@@ -226,6 +229,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 educationLength: education.length,
                 imageLength: images.length,
                 portfolioURL,
+                makePublic,
               })
               imageSRCS.forEach((imageSRC: any, index: number) => {
                 if (imageSRC && values.images[index].title) {
@@ -288,13 +292,23 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     <ModalHeader>Webpage name</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                      <HStack>
-                        <Text fontSize="lg">https://jobtalent.org/</Text>
-                        <Input
-                          value={portfolioURL}
-                          onChange={(e) => setPortfolioURL(e.target.value)}
-                        />
-                      </HStack>
+                      <Stack spacing={ 4 }>
+                        <HStack>
+                          <Text fontSize="lg">https://jobtalent.org/</Text>
+                          <Input
+                            value={portfolioURL}
+                            onChange={(e) => setPortfolioURL(e.target.value)}
+                          />
+                        </HStack>
+                        <HStack>
+                          <Text>Make portfolio public</Text>
+                          <Switch
+                            value={makePublic}
+                            colorScheme="teal"
+                            onChange={() => setMakePublic((prev: boolean) => !prev)}
+                          />
+                        </HStack>
+                      </Stack>
                     </ModalBody>
                     <ModalFooter>
                       <Button

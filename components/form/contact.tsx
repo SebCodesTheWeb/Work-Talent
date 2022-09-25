@@ -55,7 +55,7 @@ export const Contact = ({
         {' '}
         Short text about yourself and job title:{' '}
       </FormLabel>
-      <Textarea name="about" onChange={handleChange} value={values.aboutMe.shortDescription} />
+      <Textarea name="about" onChange={handleChange} value={values.about} />
 
       <FormLabel htmlFor="image">Paste Image URL: </FormLabel>
       <Input name="image" onChange={handleChange} value={values.image} />

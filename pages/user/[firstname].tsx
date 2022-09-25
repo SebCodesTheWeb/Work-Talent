@@ -284,7 +284,7 @@ function Page({ data, images }: any) {
             <LinkBox pt={4}>
               <SimpleButton>
                 <HStack>
-                  <LinkOverlay href="mailto: sebastian.delgado@gmail.com" />
+                  <LinkOverlay href={`mailto: ${data.e_mail}`} />
                   <Heading size="sm">Contact</Heading>
                   <Icon as={IoMailOutline} className="icon" />
                 </HStack>
@@ -318,7 +318,7 @@ function Page({ data, images }: any) {
         bgSize="cover"
         bgPosition="bottom"
       >
-        {data.social.lenght > 0 && (
+        {Object.keys(data.social).length > 0 && (
           <>
             <Heading>Socials</Heading>
             <HStack
@@ -331,31 +331,31 @@ function Page({ data, images }: any) {
             >
               {data.social.linkedin && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.linkedin} />
+                  <LinkOverlay href={data.social.linkedin} isExternal={true} />
                   <Icon as={GrLinkedin} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.facebook && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.facebook} />
+                  <LinkOverlay href={data.social.facebook} isExternal={true} />
                   <Icon as={GrFacebook} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.instagram && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.instagram} />
+                  <LinkOverlay href={data.social.instagram} isExternal={true} />
                   <Icon as={GrInstagram} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.github && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.github} />
+                  <LinkOverlay href={data.social.github} isExternal={true} />
                   <Icon as={GrGithub} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.youtube && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.youtube} />
+                  <LinkOverlay href={data.social.youtube} isExternal={true} />
                   <Icon as={GrYoutube} boxSize="30px" />
                 </LinkBox>
               )}
