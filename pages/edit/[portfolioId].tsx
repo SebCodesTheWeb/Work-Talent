@@ -69,7 +69,6 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [portfolioURL, setPortfolioURL] = useState(portfolioData.portfolioURL)
   const [makePublic, setMakePublic] = useState(portfolioData.makePublic)
-  console.log(makePublic)
   const [loading, setLoading] = useState(false)
   if (loading) {
     return (

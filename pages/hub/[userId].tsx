@@ -97,6 +97,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
 
   const initializeUserPortfolio = async () => {
     try {
+      setLoading(true)
       const portfolioId = uniqid()
       await setDoc(doc(db, 'test-users', portfolioId), {
         userId: user?.uid,
