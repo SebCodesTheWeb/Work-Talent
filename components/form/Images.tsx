@@ -16,6 +16,7 @@ interface ImageProps extends FormStepProps {
   images: number[]
   setImages: any
   setImageSRCS: any
+  imageSRCS: any[]
 }
 
 export const WorkImages = ({
@@ -25,6 +26,7 @@ export const WorkImages = ({
   setImages,
   values,
   setImageSRCS,
+  imageSRCS,
 }: ImageProps) => {
   const addNewImage = () => {
     setImages((prevImageCount: number[]) =>
@@ -74,7 +76,11 @@ export const WorkImages = ({
               )
             }}
             hideClearButton={true}
-            placeholder="Click here to upload"
+            placeholder={
+              imageSRCS[imageNumber]
+                ? `${URL.createObjectURL(imageSRCS[imageNumber])}`
+                : 'Click to upload image'
+            }
           />
 
           <FormLabel htmlFor={`images[${imageNumber}].title`}>

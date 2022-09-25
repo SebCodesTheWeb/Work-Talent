@@ -71,6 +71,7 @@ const initialValues = {
   jobLength: 0,
   educationLength: 0,
   imageLength: 0,
+  imageSRCS: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 }
 
 const Home: NextPage = ({ portfolios }: any) => {
@@ -165,7 +166,14 @@ const Home: NextPage = ({ portfolios }: any) => {
               </ModalFooter>
             </ModalContent>
           </Modal>
-          <SimpleGrid columns={4} h="550px" gap={16} py={4} pr={ 16 } overflowY="scroll">
+          <SimpleGrid
+            columns={4}
+            h="550px"
+            gap={16}
+            py={4}
+            pr={16}
+            overflowY="scroll"
+          >
             {portfolios.map((portfolio: any, index: number) => (
               <Center
                 w="200px"

@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { useRouter }from 'next/router'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import {
   Contact,
@@ -40,15 +40,22 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     initialStep: 0,
   })
   const router = useRouter()
-  const [skills, setSkills] = useState(arrayWithLength(portfolioData.skillLength))
-  const [projects, setProjects] = useState(arrayWithLength(portfolioData.projectLength))
+  const [skills, setSkills] = useState(
+    arrayWithLength(portfolioData.skillLength)
+  )
+  const [projects, setProjects] = useState(
+    arrayWithLength(portfolioData.projectLength)
+  )
   const [jobs, setJobs] = useState(arrayWithLength(portfolioData.jobLength))
-  const [education, setEducation] = useState(arrayWithLength(portfolioData.educationLength))
-  const [images, setImages] = useState(arrayWithLength(portfolioData.imageLength))
-  const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  const [education, setEducation] = useState(
+    arrayWithLength(portfolioData.educationLength)
+  )
+  const [images, setImages] = useState(
+    arrayWithLength(portfolioData.imageLength)
+  )
+  const [imageSRCS, setImageSRCS] = useState(portfolioData.imageSRCS)
 
   console.log(portfolioData)
-
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -79,6 +86,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             images={images}
             setImages={setImages}
             setImageSRCS={setImageSRCS}
+            imageSRCS={ imageSRCS }
           />
         )
       case 3:
@@ -214,21 +222,15 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
           }
           onSubmit={async (values) => {
             try {
-              await setDoc(
-                doc(
-                  db,
-                  'test-users',
-                  portfolioId,
-                ),
-                {
-                  ...values,
-                  skillLength: skills.length,
-                  projectLength: projects.length,
-                  jobLength: jobs.length,
-                  educationLength: education.length,
-                  imageLength: images.length,
-                }
-              )
+              await setDoc(doc(db, 'test-users', portfolioId), {
+                ...values,
+                skillLength: skills.length,
+                projectLength: projects.length,
+                jobLength: jobs.length,
+                educationLength: education.length,
+                imageLength: images.length,
+                imageSRCS: imageSRCS,
+              })
               imageSRCS.forEach((imageSRC: any, index: number) => {
                 if (imageSRC && values.images[index].title) {
                   const imageRef = ref(
@@ -282,12 +284,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 </Flex>
                 {activeStep === steps.length ? (
                   <Flex p={4} gap={2}>
-                    <Button
-                      mx="auto"
-                      size="sm"
-                      type="submit"
-                      color="gray.700"
-                    >
+                    <Button mx="auto" size="sm" type="submit" color="gray.700">
                       Finish and Generate Portfolio
                     </Button>
                     <Button
