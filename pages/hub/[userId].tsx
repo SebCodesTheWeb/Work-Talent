@@ -22,11 +22,13 @@ import {
 import { ref, uploadBytes } from 'firebase/storage'
 import {
   Heading,
+  Spinner,
   Center,
   VStack,
   Text,
   Button,
   Image,
+  HStack,
   Input,
   SimpleGrid,
   Modal,
@@ -84,6 +86,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   const { user } = useContext(UserContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [portfolioName, setPortfolioName] = useState('')
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleLogOut = () => {
@@ -110,6 +113,24 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
 
   const editPortfolio = (index: number) => {
     router.push(`/edit/${portfolios[index].portfolioId}`)
+  }
+
+  const viewPortfolio = (index: number) => {
+    setLoading(true)
+    router.push(`/user/${portfolios[index].portfolioURL}`)
+  }
+
+  const viewPublicPortfolio = (index: number) => {
+    setLoading(true)
+    router.push(`/user/${publicPortfolios[index].portfolioURL}`)
+  }
+
+  if (loading) {
+    return (
+      <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
+        <Spinner />
+      </Center>
+    )
   }
 
   return (
@@ -151,9 +172,13 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
               <Tab>Other{"'"}s Portfolios</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel pt={ 8 } p={ 0 } >
+              <TabPanel pt={8} p={0}>
                 <Heading>Your Portfolios: </Heading>
-                <Text>{portfolios.length === 0? 'It looks like you don\'t have any portfolio added yet!' : `Welcome  ${user?.displayName}, here you can, create, view and edit your portfolio webpages`}</Text>
+                <Text>
+                  {portfolios.length === 0
+                    ? "It looks like you don't have any portfolio added yet!"
+                    : `Welcome  ${user?.displayName}, here you can, create, view and edit your portfolio webpages`}
+                </Text>
                 <Modal isOpen={isOpen} onClose={onClose} isCentered={true}>
                   <ModalOverlay />
                   <ModalContent
@@ -184,7 +209,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                   columns={4}
                   h="500px"
                   gap={16}
-                  mt={ 8 }
+                  mt={8}
                   pr={16}
                   overflowY="scroll"
                 >
@@ -196,47 +221,59 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                       key={`${user?.uid}-${portfolio.portfolioName}`}
                       borderRadius={8}
                     >
-                      <VStack>
+                      <VStack spacing={8}>
                         <Heading size="md">{portfolio.portfolioName}</Heading>
-                        <Button
-                          mr={4}
-                          size="md"
-                          variant="ghost"
-                          border="1px solid #fff"
-                          _hover={{ color: 'gray.700', bgColor: '#fff' }}
-                          onClick={() => editPortfolio(index)}
-                        >
-                          Edit
-                        </Button>
+                        <HStack>
+                          <Button
+                            size="md"
+                            variant="ghost"
+                            border="1px solid #fff"
+                            _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            onClick={() => editPortfolio(index)}
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            size="md"
+                            variant="ghost"
+                            border="1px solid #fff"
+                            _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            onClick={() => viewPortfolio(index)}
+                          >
+                            View
+                          </Button>
+                        </HStack>
                       </VStack>
                     </Center>
                   ))}
                 </SimpleGrid>
                 <Flex w="full" alignSelf="end" justifyContent="end">
-                <Button
-                  mr={4}
-                  size="md"
-                  variant="ghost"
-                  border="1px solid #fff"
-                  _hover={{ color: 'gray.700', bgColor: '#fff' }}
-                  onClick={onOpen}
-                >
-                  Add new portfolio
-                </Button>
+                  <Button
+                    mr={4}
+                    size="md"
+                    variant="ghost"
+                    border="1px solid #fff"
+                    _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                    onClick={onOpen}
+                  >
+                    Add new portfolio
+                  </Button>
                 </Flex>
               </TabPanel>
-              <TabPanel pt={ 8 } p={ 0 }>
+              <TabPanel pt={8} p={0}>
                 <Heading>Public portfolios</Heading>
-                <Text>This are portfolios that have been generated using Job Talent</Text>
+                <Text>
+                  This are portfolios that have been generated using Job Talent
+                </Text>
                 <SimpleGrid
                   columns={4}
                   h="500px"
                   gap={16}
-                  mt={ 8 }
+                  mt={8}
                   pr={16}
                   overflowY="scroll"
                 >
-                  {publicPortfolios.map((portfolio: any) => (
+                  {publicPortfolios.map((portfolio: any, index: number) => (
                     <Center
                       w="200px"
                       h="200px"
@@ -252,6 +289,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                           variant="ghost"
                           border="1px solid #fff"
                           _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                          onClick={ () => viewPublicPortfolio(index)}
                         >
                           View
                         </Button>
@@ -281,7 +319,9 @@ export async function getServerSideProps({ params }: any) {
   const publicPortfolioQuery = collection(db, 'test-users')
   const publicPortfolioData = await getDocs(publicPortfolioQuery)
   const publicPortfolios: any[] = []
-  publicPortfolioData.forEach((portfolio) => publicPortfolios.push(portfolio.data()))
+  publicPortfolioData.forEach((portfolio) =>
+    publicPortfolios.push(portfolio.data())
+  )
   return {
     props: {
       portfolios,
