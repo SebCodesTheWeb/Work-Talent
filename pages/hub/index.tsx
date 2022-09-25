@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { UserContext, promiseSignIn } from '../firebase'
+import { UserContext, promiseSignIn } from '../../firebase'
 import {
   Heading,
   Center,

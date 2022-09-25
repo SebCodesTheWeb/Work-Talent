@@ -108,7 +108,13 @@ export const WorkExperience = ({
           />
         </Stack>
       ))}
-      <Button onClick={addNewJob} color="#333" p={2}>
+      <Button
+        onClick={addNewJob}
+        p={4}
+        variant="ghost"
+        border="1px solid #fff"
+        _hover={{ color: 'gray.700', bgColor: '#fff' }}
+      >
         Add new job
       </Button>
     </VStack>

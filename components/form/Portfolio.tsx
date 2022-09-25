@@ -29,7 +29,6 @@ export const Portfolio = ({
     )
   }
 
-  console.log(values)
   return (
     <VStack
       alignItems="start"
@@ -97,7 +96,13 @@ export const Portfolio = ({
           />
         </Stack>
       ))}
-      <Button onClick={addNewProject} color="#333" p={2}>
+      <Button
+        onClick={addNewProject}
+        p={4}
+        variant="ghost"
+        border="1px solid #fff"
+        _hover={{ color: 'gray.700', bgColor: '#fff' }}
+      >
         Add New Project
       </Button>
     </VStack>

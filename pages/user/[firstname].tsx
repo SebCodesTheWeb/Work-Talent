@@ -1,5 +1,5 @@
 import React from 'react'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/clientApp'
 import {
@@ -44,10 +44,23 @@ import {
   PortfolioProject,
   SimpleButton,
 } from '../../components'
-import dynamic from "next/dynamic";
-const GeneratePDF = dynamic(()=>import("../../components/resume/GeneratePDF"),{ssr:false});
+import dynamic from 'next/dynamic'
+const GeneratePDF = dynamic(
+  () => import('../../components/resume/GeneratePDF'),
+  { ssr: false }
+)
 
 const man = true
+
+const socialLinksEmpty = (socials: any) => {
+  Object.values(socials).forEach((social) => {
+    if(social !== '') {
+      return false  
+    }
+  })
+  return true
+}
+
 
 function Page({ data, images }: any) {
   return (
@@ -61,7 +74,7 @@ function Page({ data, images }: any) {
         bgColor="#fff"
         zIndex={1}
       >
-      <GeneratePDF data={ data }/>
+        <GeneratePDF data={data} />
         <HStack fontSize="lg" spacing={4} fontWeight="bold">
           <Link
             _hover={{ textDecoration: 'none', color: 'cyan.500' }}
@@ -106,7 +119,9 @@ function Page({ data, images }: any) {
           />
         </Box>
         <Stack maxW="500px" spacing={4}>
-          <Text as="em">Hi nice to meet you! My name is </Text>
+          <Text as="em">
+            Hi nice to meet you!{data.firstname && 'My name is'}{' '}
+          </Text>
           <Heading>
             <Highlight
               query={data.lastname}
@@ -147,64 +162,69 @@ function Page({ data, images }: any) {
 
       <Wrap justify="center" spacing={16} p={16}>
         <span className="anchor" id="work"></span>
-        <VStack spacing={4} px={16}>
-          <Heading mb={4}>Work Experience</Heading>
-          <Tabs orientation="vertical" minWidth="600px" minHeight="300px">
-            <TabList>
-              {data.jobs.map((job: any) => (
-                <Tab w="200px" key={job.jobTitle}>
-                  {job.jobTitle}
-                </Tab>
-              ))}
-            </TabList>
-            <TabPanels
-              border="1px solid black"
-              borderRadius="40px"
-              p={4}
-              h="full"
-            >
-              {data.jobs.map((job: any) => (
-                <TabPanel pt={0} key={job.timePeriod}>
-                  <ExperienceCard
-                    jobTitle={job.jobTitle}
-                    companyName={job.companyName}
-                    location={job.workLocation}
-                    date={job.timePeriod}
-                    workTasks={[job.achievments]}
-                    bgColor="purple.500"
-                  />
-                </TabPanel>
-              ))}
-            </TabPanels>
-          </Tabs>
-        </VStack>
-        <VStack spacing={8}>
-          <Heading>Images from work </Heading>
-
-          <HStack alignItems="start" spacing={4}>
-            {data.images &&
-              data.images.map(
-                (image: any, index: number) =>
-                  image && (
-                    <WorkImage
-                      key={image.title}
-                      title={image.title}
-                      description={image.description}
-                      src={images[index]}
-                      alt={image.title}
-                      companyName={image.context}
-                      bgColor="cyan.500"
+        {data.jobs.length > 0 && (
+          <VStack spacing={4} px={16}>
+            <Heading mb={4}>Work Experience</Heading>
+            <Tabs orientation="vertical" minWidth="600px" minHeight="300px">
+              <TabList>
+                {data.jobs.map((job: any) => (
+                  <Tab w="200px" key={job.jobTitle}>
+                    {job.jobTitle}
+                  </Tab>
+                ))}
+              </TabList>
+              <TabPanels
+                border="1px solid black"
+                borderRadius="40px"
+                p={4}
+                h="full"
+              >
+                {data.jobs.map((job: any) => (
+                  <TabPanel pt={0} key={job.timePeriod}>
+                    <ExperienceCard
+                      jobTitle={job.jobTitle}
+                      companyName={job.companyName}
+                      location={job.workLocation}
+                      date={job.timePeriod}
+                      workTasks={[job.achievments]}
+                      bgColor="purple.500"
                     />
-                  )
-              )}
-          </HStack>
-        </VStack>
+                  </TabPanel>
+                ))}
+              </TabPanels>
+            </Tabs>
+          </VStack>
+        )}
+        {data.images.length > 0 && (
+          <VStack spacing={8}>
+            <Heading>Images from work </Heading>
+
+            <HStack alignItems="start" spacing={4}>
+              {data.images &&
+                data.images.map(
+                  (image: any, index: number) =>
+                    image && (
+                      <WorkImage
+                        key={image.title}
+                        title={image.title}
+                        description={image.description}
+                        src={images[index]}
+                        alt={image.title}
+                        companyName={image.context}
+                        bgColor="cyan.500"
+                      />
+                    )
+                )}
+            </HStack>
+          </VStack>
+        )}
       </Wrap>
 
       <Stack spacing={12} direction="row" py={8}>
         <span className="anchor" id="about"></span>
         <Stack maxW="600px" spacing={4}>
           <Heading>About me</Heading>
+          {data.aboutMe.longDescription && (
           <Text lineHeight={7}>
             Hi! My name is{''}
             <SimpleHighlight
@@ -213,6 +233,8 @@ function Page({ data, images }: any) {
             />
             {data.aboutMe.longDescription}
           </Text>
+
+          )}
           <LinkBox pt={4}>
             <SimpleButton>
               <HStack>
@@ -231,24 +253,26 @@ function Page({ data, images }: any) {
         />
       </Stack>
 
-      <Stack spacing={8} alignItems="center" py={8} pb={16}>
-        <span className="anchor" id="portfolio" />
-        <Heading>Portfolio</Heading>
-        <Text>A collection of personal projects and other work</Text>
-        <Wrap spacing={4} justify="center">
-          {data.portfolio.map((project: any) => (
-            <PortfolioProject
-              key={project.projectTitle}
-              title={project.projectTitle}
-              description={project.description}
-              video={false}
-              src={project.image}
-              alt={project.image}
-              link={project.link}
-            />
-          ))}
-        </Wrap>
-      </Stack>
+      {data.portfolio.length > 0 && (
+        <Stack spacing={8} alignItems="center" py={8} pb={16}>
+          <span className="anchor" id="portfolio" />
+          <Heading>Portfolio</Heading>
+          <Text>A collection of personal projects and other work</Text>
+          <Wrap spacing={4} justify="center">
+            {data.portfolio.map((project: any) => (
+              <PortfolioProject
+                key={project.projectTitle}
+                title={project.projectTitle}
+                description={project.description}
+                video={false}
+                src={project.image}
+                alt={project.image}
+                link={project.link}
+              />
+            ))}
+          </Wrap>
+        </Stack>
+      )}
 
       <Stack
         spacing={8}
@@ -266,41 +290,49 @@ function Page({ data, images }: any) {
         </Text>
         <HStack spacing={8} align="start">
           <Stack spacing={4}>
-            <HStack justify="space-between" spacing={4}>
-              <SimpleHighlight text="Mail" />
-              <Text>{data.e_mail}</Text>
-            </HStack>
-            <HStack justify="space-between">
-              <SimpleHighlight text="Phone" />
-              <Text>{data.phone}</Text>
-            </HStack>
-            <HStack justify="space-between">
-              <SimpleHighlight text="Find me in" />
-              <Text>{data.location}</Text>
-            </HStack>
+            {data.e_mail && (
+              <HStack justify="space-between" spacing={4}>
+                <SimpleHighlight text="Mail" />
+                <Text>{data.e_mail}</Text>
+              </HStack>
+            )}
+            {data.phone && (
+              <HStack justify="space-between">
+                <SimpleHighlight text="Phone" />
+                <Text>{data.phone}</Text>
+              </HStack>
+            )}
+            {data.location && (
+              <HStack justify="space-between">
+                <SimpleHighlight text="Find me in" />
+                <Text>{data.location}</Text>
+              </HStack>
+            )}
             <LinkBox pt={4}>
               <SimpleButton>
                 <HStack>
-                  <LinkOverlay href="mailto: sebastian.delgado@gmail.com" />
+                  <LinkOverlay href={`mailto: ${data.e_mail}`} />
                   <Heading size="sm">Contact</Heading>
                   <Icon as={IoMailOutline} className="icon" />
                 </HStack>
               </SimpleButton>
             </LinkBox>
           </Stack>
-          <List fontSize="sm" fontWeight="bold">
-            <Text fontWeight="bold" fontSize="lg">
-              Skills:{' '}
-            </Text>
-            <SimpleGrid spacing={4} columns={4}>
-              {data.skills.map((skill: any) => (
-                <ListItem key={skill}>
-                  <ListIcon as={GrCheckboxSelected} />
-                  {skill}
-                </ListItem>
-              ))}
-            </SimpleGrid>
-          </List>
+          {data.skills.length > 0 && (
+            <List fontSize="sm" fontWeight="bold">
+              <Text fontWeight="bold" fontSize="lg">
+                Skills:{' '}
+              </Text>
+              <SimpleGrid spacing={4} columns={4}>
+                {data.skills.map((skill: any) => (
+                  <ListItem key={skill}>
+                    <ListIcon as={GrCheckboxSelected} />
+                    {skill}
+                  </ListItem>
+                ))}
+              </SimpleGrid>
+            </List>
+          )}
         </HStack>
       </Stack>
       <VStack
@@ -315,7 +347,7 @@ function Page({ data, images }: any) {
         bgSize="cover"
         bgPosition="bottom"
       >
-        {data.social.lenght > 0 && (
+        {!socialLinksEmpty(data.social) && (
           <>
             <Heading>Socials</Heading>
             <HStack
@@ -328,31 +360,31 @@ function Page({ data, images }: any) {
             >
               {data.social.linkedin && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.linkedin} />
+                  <LinkOverlay href={data.social.linkedin} isExternal={true} />
                   <Icon as={GrLinkedin} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.facebook && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.facebook} />
+                  <LinkOverlay href={data.social.facebook} isExternal={true} />
                   <Icon as={GrFacebook} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.instagram && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.instagram} />
+                  <LinkOverlay href={data.social.instagram} isExternal={true} />
                   <Icon as={GrInstagram} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.github && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.github} />
+                  <LinkOverlay href={data.social.github} isExternal={true} />
                   <Icon as={GrGithub} boxSize="30px" />
                 </LinkBox>
               )}
               {data.social.youtube && (
                 <LinkBox _hover={{ color: 'cyan.500' }}>
-                  <LinkOverlay href={data.social.youtube} />
+                  <LinkOverlay href={data.social.youtube} isExternal={true} />
                   <Icon as={GrYoutube} boxSize="30px" />
                 </LinkBox>
               )}
@@ -364,11 +396,14 @@ function Page({ data, images }: any) {
   )
 }
 async function getData(firstname: string) {
-  const docRef = doc(db, 'test-users', firstname)
-  const docSnap = await getDoc(docRef)
-  if (docSnap.exists()) {
-    return docSnap.data()
-  }
+  const userQuery = query(
+    collection(db, 'test-users'),
+    where('portfolioURL', '==', firstname)
+  )
+  const portfolioData = await getDocs(userQuery)
+  const portfolios: any[] = []
+  portfolioData.forEach((portfolio) => portfolios.push(portfolio.data()))
+  return portfolios[0]
 }
 
 export async function getServerSideProps({ params }: any) {
