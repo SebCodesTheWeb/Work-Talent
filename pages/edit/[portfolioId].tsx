@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import NextLink from 'next/link'
 import { useState } from 'react'
 import {
   Contact,
@@ -11,25 +12,28 @@ import {
   About,
   Skills,
   WorkImages,
-} from '../../../../components'
+} from '../../components'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { db, storage, signIn, signOut, UserContext } from '../../../../firebase'
+import { db, storage, signIn, signOut, UserContext } from '../../firebase'
 import { ref, uploadBytes } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
+  Image,
   Stack,
   Heading,
   Center,
   VStack,
   HStack,
+  LinkBox,
+  LinkOverlay,
   Text,
   Button,
   Flex,
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 
-const Home: NextPage = ({ userId, portfolioName }) => {
+const Home: NextPage = ({ portfolioData }: any) => {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
     initialStep: 0,
   })
@@ -156,63 +160,53 @@ const Home: NextPage = ({ userId, portfolioName }) => {
       </Head>
       <VStack>
         <VStack>
-          <Heading>Job Talent</Heading>
+          <LinkBox>
+            <VStack>
+              <NextLink href="/" passHref={true}>
+                <LinkOverlay />
+              </NextLink>
+              <Image
+                src="/img/logo_white.png"
+                alt="Job-talent logo"
+                w="150px"
+              />
+              <Heading>Job Talent</Heading>
+            </VStack>
+          </LinkBox>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>
-          <Button
-            mr={4}
-            size="md"
-            variant="ghost"
-            border="1px solid #fff"
-            _hover={{ color: 'gray.700', bgColor: '#fff' }}
-            onClick={signOut}
-          >
-            Sign Out
-          </Button>
-          {user ? (
-            <Text>Welcome back: {user.displayName} </Text>
-          ) : (
-            <Button
-              mr={4}
-              size="md"
-              variant="ghost"
-              border="1px solid #fff"
-              _hover={{ color: 'gray.700', bgColor: '#fff' }}
-              onClick={signIn}
-            >
-              Log In
-            </Button>
-          )}
         </VStack>
         <Formik
-          initialValues={{
-            firstname: '',
-            lastname: '',
-            location: '',
-            phone: '',
-            e_mail: '',
-            about: '',
-            image: '',
-            jobRole: '',
-            jobs: [],
-            education: [],
-            aboutMe: {
-              shortDescription: '',
-              longDescription: '',
-            },
-            images: [],
-            portfolio: [],
-            social: {
-              linkedin: '',
-              facebook: '',
-              github: '',
-              instagram: '',
-              youtube: '',
-              blog: '',
-            },
-            skills: [],
-          }}
+          initialValues={
+            portfolioData || {
+              firstname: '',
+              lastname: '',
+              location: '',
+              phone: '',
+              e_mail: '',
+              about: '',
+              image: '',
+              jobRole: '',
+              jobs: [],
+              education: [],
+              aboutMe: {
+                shortDescription: '',
+                longDescription: '',
+              },
+              images: [],
+              portfolio: [],
+              social: {
+                linkedin: '',
+                facebook: '',
+                github: '',
+                instagram: '',
+                youtube: '',
+                blog: '',
+              },
+              skills: [],
+            }
+          }
           onSubmit={async (values) => {
             try {
               await setDoc(
@@ -318,16 +312,13 @@ const Home: NextPage = ({ userId, portfolioName }) => {
 }
 
 export async function getServerSideProps({ params }: any) {
-  const userId = params.user
-  const portfolioName = params.portfolioName
-  const docRef = doc(db, 'test-users', portfolioName)
+  const portfolioId = params.portfolioId
+  const docRef = doc(db, 'test-users', portfolioId)
   const docSnap = await getDoc(docRef)
   const portfolioData = docSnap.exists() ? docSnap.data() : null
 
   return {
     props: {
-      userId,
-      portfolioName,
       portfolioData,
     },
   }

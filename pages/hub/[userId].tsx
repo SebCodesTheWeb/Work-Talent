@@ -38,6 +38,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react'
+import uniqid from 'uniqid'
 
 const initialValues = {
   firstname: '',
@@ -84,6 +85,7 @@ const Home: NextPage = ({ portfolios }: any) => {
       await setDoc(doc(db, 'test-users', portfolioName), {
         userId: user?.uid,
         portfolioName,
+        portfolioId: uniqid(),
         ...initialValues,
       })
       router.reload()
@@ -94,7 +96,7 @@ const Home: NextPage = ({ portfolios }: any) => {
   }
 
   const editPortfolio = (index: number) => {
-    router.push(`/edit/${user?.uid}/${portfolios[index].portfolioName}`)
+    router.push(`/edit/${portfolios[index].portfolioId}`)
   }
 
   return (
