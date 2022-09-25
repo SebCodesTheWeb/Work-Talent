@@ -23,7 +23,9 @@ export const Skills = ({
   setSkills,
 }: SkillsProps) => {
   const addNewSkill = () => {
-    setSkills((prevSkillCount: number[]) => arrayWithLength(prevSkillCount.length + 1))
+    setSkills((prevSkillCount: number[]) =>
+      arrayWithLength(prevSkillCount.length + 1)
+    )
   }
 
   return (
@@ -47,11 +49,17 @@ export const Skills = ({
             autoFocus={true}
             name={`skills[${skillNumber}]`}
             onChange={handleChange}
-            value={ values.skills[skillNumber]}
+            value={values.skills[skillNumber]}
           />
         </Stack>
       ))}
-      <Button onClick={addNewSkill} color="#333" p={2}>
+      <Button
+        onClick={addNewSkill}
+        p={4}
+        variant="ghost"
+        border="1px solid #fff"
+        _hover={{ color: 'gray.700', bgColor: '#fff' }}
+      >
         Add new skill
       </Button>
     </VStack>

@@ -341,7 +341,14 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     >
                       Prev
                     </Button>
-                    <Button size="sm" onClick={nextStep} color="gray.700">
+                    <Button
+                      size="sm"
+                      onClick={nextStep}
+                      variant="ghost"
+                      mr={4}
+                      border="1px solid #fff"
+                      _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                    >
                       {activeStep === steps.length - 1 ? 'Check Final' : 'Next'}
                     </Button>
                   </Flex>

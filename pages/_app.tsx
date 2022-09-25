@@ -22,8 +22,12 @@ const CustomSteps = {
       },
       iconLabel: {
         ...StepsStyleConfig.baseStyle(props).iconLabel,
-        color: '#2D3748',
+        color: '#fff',
       },
+      stepIconContainer: {
+        ...StepsStyleConfig.baseStyle(props).stepIconContainer,
+        backgroundColor: '#2D3748 !important',
+      }
     }
   },
 }

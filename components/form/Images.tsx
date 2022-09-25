@@ -124,7 +124,13 @@ export const WorkImages = ({
           />
         </Stack>
       ))}
-      <Button onClick={addNewImage} color="#333" p={2}>
+      <Button
+        onClick={addNewImage}
+        p={4}
+        variant="ghost"
+        border="1px solid #fff"
+        _hover={{ color: 'gray.700', bgColor: '#fff' }}
+      >
         Add new image
       </Button>
     </VStack>
