@@ -44,8 +44,11 @@ import {
   PortfolioProject,
   SimpleButton,
 } from '../../components'
-import dynamic from "next/dynamic";
-const GeneratePDF = dynamic(()=>import("../../components/resume/GeneratePDF"),{ssr:false});
+import dynamic from 'next/dynamic'
+const GeneratePDF = dynamic(
+  () => import('../../components/resume/GeneratePDF'),
+  { ssr: false }
+)
 
 const man = true
 
@@ -61,7 +64,7 @@ function Page({ data, images }: any) {
         bgColor="#fff"
         zIndex={1}
       >
-      <GeneratePDF data={ data }/>
+        <GeneratePDF data={data} />
         <HStack fontSize="lg" spacing={4} fontWeight="bold">
           <Link
             _hover={{ textDecoration: 'none', color: 'cyan.500' }}
@@ -364,9 +367,14 @@ function Page({ data, images }: any) {
   )
 }
 async function getData(firstname: string) {
-  const docRef = query(collection(db, 'test-users'), where('portfolioURL', '==', firstname))
-  const docSnap = await getDocs(docRef) as any
-  return docSnap[0]?.data() 
+  const userQuery = query(
+    collection(db, 'test-users'),
+    where('portfolioURL', '==', firstname)
+  )
+  const portfolioData = await getDocs(userQuery)
+  const portfolios: any[] = []
+  portfolioData.forEach((portfolio) => portfolios.push(portfolio.data()))
+  return portfolios[0]
 }
 
 export async function getServerSideProps({ params }: any) {

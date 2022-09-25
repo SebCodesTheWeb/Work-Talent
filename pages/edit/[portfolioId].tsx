@@ -39,6 +39,7 @@ import {
   LinkOverlay,
   Text,
   Button,
+  Spinner,
   Flex,
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
@@ -65,7 +66,20 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [portfolioURL, setPortfolioURL] = useState('')
+  const [portfolioURL, setPortfolioURL] = useState(portfolioData.portfolioURL)
+  const [loading, setLoading] = useState(false)
+  if (loading) {
+    return (
+      <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
+        <Spinner />
+      </Center>
+    )
+  }
+
+  const handleWebPageGeneration = (handleSubmit) => {
+    handleSubmit()
+    setLoading(true)
+  }
 
   const renderForm = (handleChange: any, values: any) => {
     switch (activeStep) {
@@ -287,7 +301,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                         colorScheme="teal"
                         mr={3}
                         type="submit"
-                        onClick={ handleSubmit }
+                        onClick={() => handleWebPageGeneration(handleSubmit)}
                       >
                         Generate webpage
                       </Button>
