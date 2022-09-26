@@ -193,7 +193,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   ]
 
   return (
-    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
+    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8} alignItems="start">
       <Head>
         <title> Job-talent.org </title>
       </Head>
@@ -207,9 +207,9 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
               <Image
                 src="/img/logo_white.png"
                 alt="Job-talent logo"
-                w="150px"
+            w={{ base: '100px', '2xl': '150px' }}
               />
-              <Heading>Job Talent</Heading>
+              <Heading size={{base: 'sm', '2xl': '150px'}}>Job Talent</Heading>
             </VStack>
           </LinkBox>
           <Text as="em">
@@ -262,7 +262,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 px={16}
                 borderRadius={8}
                 w={{ base: 'max-content', md: '700px' }}
-                h="1000px"
+                h={{base: '500px', '2xl': '1000px'}}
                 spacing={4}
               >
                 <Flex alignItems="start" h="full" gap={4}>
