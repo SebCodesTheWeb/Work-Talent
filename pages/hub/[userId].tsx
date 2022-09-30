@@ -90,8 +90,8 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   const router = useRouter()
 
   const handleLogOut = () => {
-    promiseSignOut().then((user) => {
-      router.push('/hub')
+    promiseSignOut().then(() => {
+      router.push('/')
     })
   }
 
@@ -137,24 +137,31 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   }
 
   return (
-    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8} alignItems="start">
+    <Center
+      pt={4}
+      minH="100vh"
+      bgColor="gray.700"
+      color="#fff"
+      py={8}
+      alignItems="start"
+    >
       <Head>
         <title> Job-talent.org </title>
       </Head>
       <VStack>
-        <VStack p={4}>
+        <VStack p={2}>
           <Image
             src="/img/logo_white.png"
             alt="Job-talent logo"
             w={{ base: '100px', '2xl': '150px' }}
           />
-          <Heading size={{base: 'sm', '2xl': '150px'}}>Job Talent</Heading>
+          <Heading size={{ base: 'sm', '2xl': '150px' }}>Job Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>
           <Button
             mr={4}
-            size={{base: 'sm', '2xl': 'md'}}
+            size={{ base: 'sm', '2xl': 'md' }}
             variant="ghost"
             border="1px solid #fff"
             _hover={{ color: 'gray.700', bgColor: '#fff' }}
@@ -165,8 +172,8 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
         </VStack>
         <VStack
           alignItems="start"
-          mt={4}
           border="1px solid #fff"
+          mt={4}
           p={16}
           borderRadius={8}
           w={{ base: 'max-content', md: '1000px', '2xl': '1200px' }}
@@ -180,7 +187,9 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
             </TabList>
             <TabPanels>
               <TabPanel pt={8} p={0}>
-                <Heading size={{base: 'md', '2xl': 'lg'}}>Your Portfolios: </Heading>
+                <Heading size={{ base: 'md', '2xl': 'lg' }}>
+                  Your Portfolios:{' '}
+                </Heading>
                 <Text>
                   {portfolios.length === 0
                     ? "It looks like you don't have any portfolio added yet!"
@@ -214,7 +223,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 </Modal>
                 <SimpleGrid
                   columns={4}
-                  h={{base: '200px', '2xl': '500px'}}
+                  h={{ base: '200px', '2xl': '500px' }}
                   gap={16}
                   mt={8}
                   pr={16}
@@ -222,17 +231,22 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 >
                   {portfolios.map((portfolio: any, index: number) => (
                     <Center
-                      w={{base: '150px', '2xl': '200px'}}
-                      h={{base: '150px', '2xl': '200px'}}
+                      w={{ base: '150px', '2xl': '200px' }}
+                      h={{ base: '150px', '2xl': '200px' }}
                       border="1px solid #fff"
                       key={`${user?.uid}-${portfolio.portfolioName}`}
                       borderRadius={8}
                     >
                       <VStack spacing={8}>
-                        <Heading size={{base: 'sm', '2xl': 'md'}} textAlign="center">{portfolio.portfolioName}</Heading>
+                        <Heading
+                          size={{ base: 'sm', '2xl': 'md' }}
+                          textAlign="center"
+                        >
+                          {portfolio.portfolioName}
+                        </Heading>
                         <HStack>
                           <Button
-                            size={{base: 'sm', '2xl': 'md'}}
+                            size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
@@ -241,7 +255,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             Edit
                           </Button>
                           <Button
-                            size={{base: 'sm', '2xl': 'md'}}
+                            size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
@@ -268,13 +282,15 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 </Flex>
               </TabPanel>
               <TabPanel pt={8} p={0}>
-                <Heading size={{base: 'md', '2xl': 'lg'}}>Public portfolios</Heading>
+                <Heading size={{ base: 'md', '2xl': 'lg' }}>
+                  Public portfolios
+                </Heading>
                 <Text>
                   This are portfolios that have been generated using Job Talent
                 </Text>
                 <SimpleGrid
                   columns={4}
-                  h={{base: '200px', '2xl': '500px'}}
+                  h={{ base: '200px', '2xl': '500px' }}
                   gap={16}
                   mt={8}
                   pr={16}
@@ -282,17 +298,22 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 >
                   {publicPortfolios.map((portfolio: any, index: number) => (
                     <Center
-                      w={{base: '150px', '2xl': '200px'}}
-                      h={{base: '150px', '2xl': '200px'}}
+                      w={{ base: '150px', '2xl': '200px' }}
+                      h={{ base: '150px', '2xl': '200px' }}
                       border="1px solid #fff"
                       key={`${uniqid()}`}
                       borderRadius={8}
                     >
                       <VStack>
-                        <Heading size={{base: 'sm', '2xl': 'md'}} textAlign="center">{portfolio.portfolioName}</Heading>
+                        <Heading
+                          size={{ base: 'sm', '2xl': 'md' }}
+                          textAlign="center"
+                        >
+                          {portfolio.portfolioName}
+                        </Heading>
                         <Button
                           mr={4}
-                            size={{base: 'sm', '2xl': 'md'}}
+                          size={{ base: 'sm', '2xl': 'md' }}
                           variant="ghost"
                           border="1px solid #fff"
                           _hover={{ color: 'gray.700', bgColor: '#fff' }}
