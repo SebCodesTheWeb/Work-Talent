@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -11,18 +11,12 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore'
-import {
-  db,
-  storage,
-  signIn,
-  signOut,
-  UserContext,
-  promiseSignOut,
-} from '../../firebase'
-import { ref, uploadBytes } from 'firebase/storage'
+import { db, UserContext, promiseSignOut } from '../../firebase'
 import {
   Heading,
   Spinner,
+  Icon,
+  SimpleGrid,
   Center,
   VStack,
   Text,
@@ -30,7 +24,6 @@ import {
   Image,
   HStack,
   Input,
-  SimpleGrid,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -45,8 +38,15 @@ import {
   TabPanels,
   TabPanel,
   Tab,
+  Stack,
 } from '@chakra-ui/react'
 import uniqid from 'uniqid'
+import {
+  AiFillFileAdd,
+  AiOutlineEye,
+  AiOutlinePlusCircle,
+} from 'react-icons/ai'
+import { TbEdit } from 'react-icons/tb'
 
 const initialValues = {
   firstname: '',
@@ -80,6 +80,7 @@ const initialValues = {
   educationLength: 0,
   imageLength: 0,
   makePublic: false,
+  gender: 'man',
 }
 
 const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
@@ -90,8 +91,8 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   const router = useRouter()
 
   const handleLogOut = () => {
-    promiseSignOut().then((user) => {
-      router.push('/hub')
+    promiseSignOut().then(() => {
+      router.push('/')
     })
   }
 
@@ -120,12 +121,12 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
 
   const viewPortfolio = (index: number) => {
     setLoading(true)
-    router.push(`/user/${portfolios[index].portfolioURL}`)
+    router.push(`/${portfolios[index].portfolioURL}`)
   }
 
   const viewPublicPortfolio = (index: number) => {
     setLoading(true)
-    router.push(`/user/${publicPortfolios[index].portfolioURL}`)
+    router.push(`/${publicPortfolios[index].portfolioURL}`)
   }
 
   if (loading) {
@@ -137,20 +138,31 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   }
 
   return (
-    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
+    <Center
+      pt={4}
+      minH="100vh"
+      bgColor="gray.700"
+      color="#fff"
+      py={8}
+      alignItems="start"
+    >
       <Head>
         <title> Job-talent.org </title>
       </Head>
       <VStack>
-        <VStack p={4}>
-          <Image src="/img/logo_white.png" alt="Job-talent logo" w="150px" />
-          <Heading>Job Talent</Heading>
+        <VStack p={2}>
+          <Image
+            src="/img/logo_white.png"
+            alt="Job-talent logo"
+            w={{ base: '100px', '2xl': '150px' }}
+          />
+          <Heading size={{ base: 'sm', '2xl': '150px' }}>Job Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>
           <Button
             mr={4}
-            size="md"
+            size={{ base: 'sm', '2xl': 'md' }}
             variant="ghost"
             border="1px solid #fff"
             _hover={{ color: 'gray.700', bgColor: '#fff' }}
@@ -161,12 +173,12 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
         </VStack>
         <VStack
           alignItems="start"
-          mt={4}
           border="1px solid #fff"
+          mt={4}
           p={16}
           borderRadius={8}
-          w={{ base: 'max-content', md: '1200px' }}
-          h="800px"
+          w={{ base: 'max-content', md: '1000px', '2xl': '1200px' }}
+          h={{ base: '500px', '2xl': '800px' }}
           spacing={4}
         >
           <Tabs colorScheme="#fff" variant="enclosed">
@@ -176,7 +188,9 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
             </TabList>
             <TabPanels>
               <TabPanel pt={8} p={0}>
-                <Heading>Your Portfolios: </Heading>
+                <Heading size={{ base: 'md', '2xl': 'lg' }}>
+                  Your Portfolios:{' '}
+                </Heading>
                 <Text>
                   {portfolios.length === 0
                     ? "It looks like you don't have any portfolio added yet!"
@@ -203,49 +217,66 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                         mr={3}
                         onClick={initializeUserPortfolio}
                       >
-                        Create
+                        <HStack>
+                          <Text>Create</Text>
+                          <Icon as={AiFillFileAdd} />
+                        </HStack>
                       </Button>
                     </ModalFooter>
                   </ModalContent>
                 </Modal>
                 <SimpleGrid
                   columns={4}
-                  h="500px"
+                  h={{ base: '200px', '2xl': '500px' }}
                   gap={16}
                   mt={8}
                   pr={16}
+                  pb={4}
                   overflowY="scroll"
                 >
                   {portfolios.map((portfolio: any, index: number) => (
                     <Center
-                      w="200px"
-                      h="200px"
+                      w={{ base: '150px', '2xl': '200px' }}
+                      h={{ base: '150px', '2xl': '200px' }}
                       border="1px solid #fff"
                       key={`${user?.uid}-${portfolio.portfolioName}`}
                       borderRadius={8}
                     >
-                      <VStack spacing={8}>
-                        <Heading size="md">{portfolio.portfolioName}</Heading>
-                        <HStack>
+                      <VStack spacing={4}>
+                        <Heading
+                          size={{ base: 'sm', '2xl': 'md' }}
+                          textAlign="center"
+                          textOverflow="wrap"
+                          maxW="150px"
+                        >
+                          {portfolio.portfolioName}
+                        </Heading>
+                        <Stack>
                           <Button
-                            size="md"
+                            size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
                             onClick={() => editPortfolio(index)}
                           >
-                            Edit
+                            <HStack>
+                              <Text>Edit</Text>
+                              <Icon as={TbEdit} />
+                            </HStack>
                           </Button>
                           <Button
-                            size="md"
+                            size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
                             onClick={() => viewPortfolio(index)}
                           >
-                            View
+                            <HStack>
+                              <Text>View</Text>
+                              <Icon as={AiOutlineEye} color="#fff" />
+                            </HStack>
                           </Button>
-                        </HStack>
+                        </Stack>
                       </VStack>
                     </Center>
                   ))}
@@ -259,18 +290,23 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                     _hover={{ color: 'gray.700', bgColor: '#fff' }}
                     onClick={onOpen}
                   >
-                    Add new portfolio
+                    <HStack>
+                      <Text>Add new portfolio</Text>
+                      <Icon as={AiOutlinePlusCircle} />
+                    </HStack>
                   </Button>
                 </Flex>
               </TabPanel>
               <TabPanel pt={8} p={0}>
-                <Heading>Public portfolios</Heading>
+                <Heading size={{ base: 'md', '2xl': 'lg' }}>
+                  Public portfolios
+                </Heading>
                 <Text>
                   This are portfolios that have been generated using Job Talent
                 </Text>
                 <SimpleGrid
                   columns={4}
-                  h="500px"
+                  h={{ base: '200px', '2xl': '500px' }}
                   gap={16}
                   mt={8}
                   pr={16}
@@ -278,23 +314,33 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 >
                   {publicPortfolios.map((portfolio: any, index: number) => (
                     <Center
-                      w="200px"
-                      h="200px"
+                      w={{ base: '150px', '2xl': '200px' }}
+                      h={{ base: '150px', '2xl': '200px' }}
                       border="1px solid #fff"
                       key={`${uniqid()}`}
                       borderRadius={8}
                     >
                       <VStack>
-                        <Heading size="md">{portfolio.portfolioName}</Heading>
+                        <Heading
+                          size={{ base: 'sm', '2xl': 'md' }}
+                          textAlign="center"
+                          textOverflow="wrap"
+                          maxW="150px"
+                        >
+                          {portfolio.portfolioName}
+                        </Heading>
                         <Button
                           mr={4}
-                          size="md"
+                          size={{ base: 'sm', '2xl': 'md' }}
                           variant="ghost"
                           border="1px solid #fff"
                           _hover={{ color: 'gray.700', bgColor: '#fff' }}
-                          onClick={ () => viewPublicPortfolio(index)}
+                          onClick={() => viewPublicPortfolio(index)}
                         >
-                          View
+                          <HStack>
+                            <Text>View</Text>
+                            <Icon as={AiOutlineEye} />
+                          </HStack>
                         </Button>
                       </VStack>
                     </Center>
@@ -319,7 +365,10 @@ export async function getServerSideProps({ params }: any) {
   const portfolios: any[] = []
   portfolioData.forEach((portfolio) => portfolios.push(portfolio.data()))
 
-  const publicPortfolioQuery = query(collection(db, 'test-users'), where('makePublic', '==', true))
+  const publicPortfolioQuery = query(
+    collection(db, 'test-users'),
+    where('makePublic', '==', true)
+  )
   const publicPortfolioData = await getDocs(publicPortfolioQuery)
   const publicPortfolios: any[] = []
   publicPortfolioData.forEach((portfolio) =>

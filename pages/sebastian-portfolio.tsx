@@ -41,8 +41,6 @@ import {
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase/clientApp'
 
-//gray.800, orange.500, green.500, cyan.500, purple.500
-
 const man = true
 
 export default function SebastianPortfolio() {
@@ -112,7 +110,7 @@ export default function SebastianPortfolio() {
       <HStack pt={24} spacing={8}>
         <Box>
           <Image
-            src="./business-man.svg"
+            src="/img/business-man.svg"
             alt="business-person"
             boxSize="600px"
             objectFit={man ? 'cover' : 'contain'}

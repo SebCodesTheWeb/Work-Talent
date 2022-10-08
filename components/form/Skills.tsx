@@ -1,14 +1,8 @@
-import React, { useState } from 'react'
-import {
-  Input,
-  Button,
-  Stack,
-  VStack,
-  Heading,
-  FormLabel,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import React from 'react'
+import { Input, Stack, Heading, FormLabel } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
+import { FormWrapper } from './FormWrapper'
 
 interface SkillsProps extends FormStepProps {
   skills: number[]
@@ -29,14 +23,7 @@ export const Skills = ({
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      maxH="800px"
-      spacing={6}
-      overflowY="scroll"
-      p={4}
-    >
+    <FormWrapper name="skill" onClick={addNewSkill} spacing={ 4 }>
       <Heading as="h2" size="lg">
         Step {currentStep}: Skills
       </Heading>
@@ -53,15 +40,6 @@ export const Skills = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewSkill}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        Add new skill
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }

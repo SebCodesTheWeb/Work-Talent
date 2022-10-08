@@ -1,15 +1,8 @@
-import React, { useState } from 'react'
-import {
-  Input,
-  Textarea,
-  VStack,
-  Heading,
-  FormLabel,
-  Stack,
-  Button,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import React from 'react'
+import { Input, Textarea, Heading, FormLabel, Stack } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
+import { FormWrapper } from './FormWrapper'
 
 interface EducationProps extends FormStepProps {
   education: number[]
@@ -24,20 +17,13 @@ export const Education = ({
   values,
 }: EducationProps) => {
   const addNewEduction = () => {
-    setEducation((prevEducationCount) =>
+    setEducation((prevEducationCount: number[]) =>
       arrayWithLength(prevEducationCount.length + 1)
     )
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      maxH="800px"
-      spacing={12}
-      overflowY="scroll"
-      p={4}
-    >
+    <FormWrapper name="education" onClick={addNewEduction}>
       <Heading as="h2" size="lg">
         Step {currentStep}: Education
       </Heading>
@@ -107,15 +93,6 @@ export const Education = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewEduction}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        Add New Education
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }

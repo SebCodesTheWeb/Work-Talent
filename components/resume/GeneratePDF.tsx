@@ -11,7 +11,7 @@ type props = {
 }
 
 const GeneratePdf = ({ data }: props) => {
-  const ref = React.useRef<HTMLElement>(null)
+  const ref = React.useRef<HTMLDivElement>(null)
   const [resumeVisible, setResumeVisible] = React.useState(false)
 
   React.useEffect(() => {

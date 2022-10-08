@@ -1,15 +1,8 @@
-import React, { useState } from 'react'
-import {
-  Input,
-  Textarea,
-  VStack,
-  Heading,
-  FormLabel,
-  Stack,
-  Button,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import React from 'react'
+import { Input, Textarea, Heading, FormLabel, Stack } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
+import {FormWrapper} from './FormWrapper'
 
 interface PortfolioProps extends FormStepProps {
   projects: number[]
@@ -30,14 +23,7 @@ export const Portfolio = ({
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      maxH="800px"
-      spacing={12}
-      overflowY="scroll"
-      p={4}
-    >
+    <FormWrapper name="portfolio" onClick={addNewProject}>
       <Heading as="h2" size="lg">
         Step {currentStep}: Portfolio{' '}
       </Heading>
@@ -96,15 +82,6 @@ export const Portfolio = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewProject}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        Add New Project
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }

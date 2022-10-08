@@ -1,15 +1,8 @@
-import React, { useState } from 'react'
-import {
-  Input,
-  Button,
-  Textarea,
-  VStack,
-  Heading,
-  FormLabel,
-  Stack,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import React from 'react'
+import { Input, Textarea, Heading, FormLabel, Stack } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
+import { FormWrapper } from './FormWrapper'
 
 interface WorkExperienceProps extends FormStepProps {
   jobs: number[]
@@ -24,18 +17,13 @@ export const WorkExperience = ({
   values,
 }: WorkExperienceProps) => {
   const addNewJob = () => {
-    setJobs((prevJobCount) => arrayWithLength(prevJobCount.length + 1))
+    setJobs((prevJobCount: number[]) =>
+      arrayWithLength(prevJobCount.length + 1)
+    )
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      spacing={12}
-      maxH="800px"
-      overflowY="scroll"
-      p={4}
-    >
+    <FormWrapper name="job" onClick={addNewJob}>
       <Heading as="h2" size="lg">
         Step {currentStep}: Work Experience
       </Heading>
@@ -108,15 +96,6 @@ export const WorkExperience = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewJob}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        Add new job
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }

@@ -1,16 +1,9 @@
 import React from 'react'
-import {
-  Input,
-  Button,
-  VStack,
-  Heading,
-  FormLabel,
-  Textarea,
-  Stack,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import { Input, Heading, FormLabel, Textarea, Stack } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
 import FilePicker from 'chakra-ui-file-picker'
+import { FormWrapper } from './FormWrapper'
 
 interface ImageProps extends FormStepProps {
   images: number[]
@@ -35,14 +28,7 @@ export const WorkImages = ({
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      spacing={12}
-      maxH="800px"
-      overflowY="scroll"
-      p={4}
-    >
+    <FormWrapper name="image" onClick={addNewImage}>
       <Heading as="h2" size="lg">
         Step {currentStep}: Work Images
       </Heading>
@@ -50,23 +36,6 @@ export const WorkImages = ({
         <Stack key={imageNumber} w="full" spacing={4}>
           <Heading size="md">Add work related images: </Heading>
           <FormLabel htmlFor={`images[${imageNumber}].src`}></FormLabel>
-          {/* <Input
-            name={`images[${imageNumber}].src`}
-            type="file"
-            onChange={(e) => {
-              setImageSRCS((prev: any) =>
-                prev.map((item: any, index: number) =>
-                  index === imageNumber ? e.target.files[0] : item
-                )
-              )
-            }}
-            autoFocus={true}
-            value={
-              values.images[imageNumber]
-                ? values.images[imageNumber].src
-                : undefined
-            }
-          /> */}
           <FilePicker
             onFileChange={(files) => {
               setImageSRCS((prev: any) =>
@@ -124,15 +93,6 @@ export const WorkImages = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewImage}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        Add new image
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }
