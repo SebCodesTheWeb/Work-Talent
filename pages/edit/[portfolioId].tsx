@@ -265,8 +265,8 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 h={{base: '550px', '2xl': '1000px'}}
                 spacing={4}
               >
-                <Flex alignItems="start" h="full" gap={4} overflowY="scroll" pr={ 2 }>
-                  <Box w="200px" alignSelf="center" h="full">
+                <Flex alignItems="center" h="full" gap={4} overflowY="scroll" pr={ 2 } pt={8}>
+                  <Box w="200px" h="full">
                     <Steps
                       orientation="vertical"
                       activeStep={activeStep}
@@ -277,7 +277,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                       ))}
                     </Steps>
                   </Box>
-                  <Box alignSelf="center" w="350px" h="full">
+                  <Box w="350px" h="full" >
                     {renderForm(handleChange, values)}
                   </Box>
                 </Flex>
