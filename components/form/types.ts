@@ -5,3 +5,10 @@ export interface FormStepProps {
   handleChange: ChangeEventHandler
   values: any
 }
+
+export interface FormWrapperProps {
+  children: React.ReactNode
+  name?: string
+  onClick?: () => void
+  spacing?: number
+}

@@ -1,20 +1,9 @@
 import React from 'react'
-import {
-  Input,
-  Button,
-  VStack,
-  Heading,
-  HStack,
-  Text,
-  Icon,
-  FormLabel,
-  Textarea,
-  Stack,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import { Input, Heading, FormLabel, Textarea, Stack } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
 import FilePicker from 'chakra-ui-file-picker'
-import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { FormWrapper } from './FormWrapper'
 
 interface ImageProps extends FormStepProps {
   images: number[]
@@ -39,14 +28,7 @@ export const WorkImages = ({
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      spacing={12}
-      maxH="800px"
-      overflowY={{ base: 'visible', '2xl': 'scroll' }}
-      pr={4}
-    >
+    <FormWrapper name="image" onClick={addNewImage}>
       <Heading as="h2" size="lg">
         Step {currentStep}: Work Images
       </Heading>
@@ -111,18 +93,6 @@ export const WorkImages = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewImage}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        <HStack>
-          <Text>Add new image</Text>
-          <Icon as={AiOutlinePlusCircle} />
-        </HStack>
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }

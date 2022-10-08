@@ -1,6 +1,6 @@
 import React from 'react'
 import { Input, VStack, Heading, FormLabel } from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import { FormStepProps } from './types'
 
 export const Links = ({ handleChange, currentStep, values }: FormStepProps) => (
   <VStack alignItems="start" w="full" spacing={4}>

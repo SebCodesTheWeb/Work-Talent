@@ -1,6 +1,6 @@
 import React from 'react'
 import { Input, Textarea, Heading, VStack, FormLabel } from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import { FormStepProps } from './types'
 
 export const Contact = ({
   handleChange,

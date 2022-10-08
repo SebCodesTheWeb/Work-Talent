@@ -1,19 +1,8 @@
 import React from 'react'
-import {
-  Input,
-  Textarea,
-  HStack,
-  Text,
-  Icon,
-  VStack,
-  Heading,
-  FormLabel,
-  Stack,
-  Button,
-} from '@chakra-ui/react'
-import { FormStepProps } from './props'
+import { Input, Textarea, Heading, FormLabel, Stack } from '@chakra-ui/react'
+import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
-import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { FormWrapper } from './FormWrapper'
 
 interface EducationProps extends FormStepProps {
   education: number[]
@@ -34,14 +23,7 @@ export const Education = ({
   }
 
   return (
-    <VStack
-      alignItems="start"
-      w="full"
-      maxH="800px"
-      spacing={12}
-      overflowY={{ base: 'visible', '2xl': 'scroll' }}
-      p={4}
-    >
+    <FormWrapper name="education" onClick={addNewEduction}>
       <Heading as="h2" size="lg">
         Step {currentStep}: Education
       </Heading>
@@ -111,18 +93,6 @@ export const Education = ({
           />
         </Stack>
       ))}
-      <Button
-        onClick={addNewEduction}
-        p={4}
-        variant="ghost"
-        border="1px solid #fff"
-        _hover={{ color: 'gray.700', bgColor: '#fff' }}
-      >
-        <HStack>
-          <Text>Add new education entry</Text>
-          <Icon as={AiOutlinePlusCircle} />
-        </HStack>
-      </Button>
-    </VStack>
+    </FormWrapper>
   )
 }
