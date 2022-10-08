@@ -11,11 +11,15 @@ import {
   GrYoutube,
 } from 'react-icons/gr'
 import { VscTriangleDown } from 'react-icons/vsc'
+import { BiLinkExternal} from 'react-icons/bi'
 import { IoDocumentOutline, IoMailOutline } from 'react-icons/io5'
 import {
   Heading,
   Text,
+  Button,
+  Tooltip,
   Image,
+  AspectRatio,
   Stack,
   VStack,
   HStack,
@@ -75,6 +79,14 @@ function Page({ data, images }: any) {
         zIndex={1}
       >
         <GeneratePDF data={data} />
+        <LinkBox>
+          <Tooltip label="This website was built with job-talent">
+            <Button bgColor="#333" position="fixed" bottom="25px" right="25px" color="#fff" _hover={{}} w="60px" h="50px">
+              <LinkOverlay href="/" isExternal={true}/>
+                <Image src="/img/logo_white.png" alt="job-talent logo" boxSize="30px" objectFit="cover" />
+            </Button>
+          </Tooltip>
+        </LinkBox>
         <HStack fontSize="lg" spacing={4} fontWeight="bold">
           <Link
             _hover={{ textDecoration: 'none', color: 'cyan.500' }}
