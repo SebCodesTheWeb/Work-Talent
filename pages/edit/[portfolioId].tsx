@@ -42,9 +42,11 @@ import {
   Button,
   Spinner,
   Flex,
+  Icon,
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 import { arrayWithLength } from '../../utils'
+import { AiFillFileAdd} from 'react-icons/ai'
 
 const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
@@ -193,7 +195,14 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   ]
 
   return (
-    <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8} alignItems="start">
+    <Center
+      pt={4}
+      minH="100vh"
+      bgColor="gray.700"
+      color="#fff"
+      py={8}
+      alignItems="start"
+    >
       <Head>
         <title> Job-talent.org </title>
       </Head>
@@ -207,9 +216,11 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
               <Image
                 src="/img/logo_white.png"
                 alt="Job-talent logo"
-            w={{ base: '100px', '2xl': '150px' }}
+                w={{ base: '100px', '2xl': '150px' }}
               />
-              <Heading size={{base: 'sm', '2xl': '150px'}}>Job Talent</Heading>
+              <Heading size={{ base: 'sm', '2xl': '150px' }}>
+                Job Talent
+              </Heading>
             </VStack>
           </LinkBox>
           <Text as="em">
@@ -262,10 +273,17 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 px={16}
                 borderRadius={8}
                 w={{ base: 'max-content', md: '700px' }}
-                h={{base: '550px', '2xl': '1000px'}}
+                h={{ base: '550px', '2xl': '1000px' }}
                 spacing={4}
               >
-                <Flex alignItems="center" h="full" gap={4} overflowY="scroll" pr={ 2 } pt={8}>
+                <Flex
+                  alignItems="center"
+                  h="full"
+                  gap={4}
+                  overflowY="scroll"
+                  pr={2}
+                  pt={8}
+                >
                   <Box w="200px" h="full">
                     <Steps
                       orientation="vertical"
@@ -277,7 +295,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                       ))}
                     </Steps>
                   </Box>
-                  <Box w="350px" h="full" >
+                  <Box w="350px" h="full">
                     {renderForm(handleChange, values)}
                   </Box>
                 </Flex>
@@ -291,7 +309,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     <ModalHeader>Webpage name</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                      <Stack spacing={ 4 }>
+                      <Stack spacing={4}>
                         <HStack>
                           <Text fontSize="lg">https://jobtalent.org/</Text>
                           <Input
@@ -304,7 +322,9 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                           <Switch
                             value={makePublic}
                             colorScheme="teal"
-                            onChange={() => setMakePublic((prev: boolean) => !prev)}
+                            onChange={() =>
+                              setMakePublic((prev: boolean) => !prev)
+                            }
                           />
                         </HStack>
                       </Stack>
@@ -316,7 +336,10 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                         type="submit"
                         onClick={() => handleWebPageGeneration(handleSubmit)}
                       >
-                        Generate webpage
+                        <HStack>
+                          <Text>Generate webpage</Text>
+                          <Icon as={AiFillFileAdd} />
+                        </HStack>
                       </Button>
                     </ModalFooter>
                   </ModalContent>

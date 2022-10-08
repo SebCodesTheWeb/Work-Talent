@@ -14,7 +14,7 @@ import {
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
 import FilePicker from 'chakra-ui-file-picker'
-import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { AiOutlinePlusCircle} from 'react-icons/ai'
 
 interface ImageProps extends FormStepProps {
   images: number[]
