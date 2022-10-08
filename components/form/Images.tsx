@@ -4,6 +4,9 @@ import {
   Button,
   VStack,
   Heading,
+  HStack,
+  Text,
+  Icon,
   FormLabel,
   Textarea,
   Stack,
@@ -11,6 +14,7 @@ import {
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
 import FilePicker from 'chakra-ui-file-picker'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 interface ImageProps extends FormStepProps {
   images: number[]
@@ -40,7 +44,7 @@ export const WorkImages = ({
       w="full"
       spacing={12}
       maxH="800px"
-      overflowY={{base: 'visible', '2xl': 'scroll'}}
+      overflowY={{ base: 'visible', '2xl': 'scroll' }}
       p={4}
     >
       <Heading as="h2" size="lg">
@@ -50,23 +54,6 @@ export const WorkImages = ({
         <Stack key={imageNumber} w="full" spacing={4}>
           <Heading size="md">Add work related images: </Heading>
           <FormLabel htmlFor={`images[${imageNumber}].src`}></FormLabel>
-          {/* <Input
-            name={`images[${imageNumber}].src`}
-            type="file"
-            onChange={(e) => {
-              setImageSRCS((prev: any) =>
-                prev.map((item: any, index: number) =>
-                  index === imageNumber ? e.target.files[0] : item
-                )
-              )
-            }}
-            autoFocus={true}
-            value={
-              values.images[imageNumber]
-                ? values.images[imageNumber].src
-                : undefined
-            }
-          /> */}
           <FilePicker
             onFileChange={(files) => {
               setImageSRCS((prev: any) =>
@@ -131,7 +118,10 @@ export const WorkImages = ({
         border="1px solid #fff"
         _hover={{ color: 'gray.700', bgColor: '#fff' }}
       >
-        Add new image
+        <HStack>
+          <Text>Add new image</Text>
+          <Icon as={AiOutlinePlusCircle} />
+        </HStack>
       </Button>
     </VStack>
   )

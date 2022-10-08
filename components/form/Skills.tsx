@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import {
   Input,
+  HStack,
+  Text,
+  Icon,
   Button,
   Stack,
   VStack,
@@ -9,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 interface SkillsProps extends FormStepProps {
   skills: number[]
@@ -34,7 +38,7 @@ export const Skills = ({
       w="full"
       maxH="800px"
       spacing={6}
-      overflowY={{base: 'visible', '2xl': 'scroll'}}
+      overflowY={{ base: 'visible', '2xl': 'scroll' }}
       p={4}
     >
       <Heading as="h2" size="lg">
@@ -60,7 +64,10 @@ export const Skills = ({
         border="1px solid #fff"
         _hover={{ color: 'gray.700', bgColor: '#fff' }}
       >
-        Add new skill
+        <HStack>
+          <Text>Add new skill</Text>
+          <Icon as={AiOutlinePlusCircle} />
+        </HStack>
       </Button>
     </VStack>
   )

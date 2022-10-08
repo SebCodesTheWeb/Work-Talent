@@ -7,9 +7,13 @@ import {
   Heading,
   FormLabel,
   Stack,
+  HStack,
+  Text,
+  Icon,
 } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 interface WorkExperienceProps extends FormStepProps {
   jobs: number[]
@@ -33,7 +37,7 @@ export const WorkExperience = ({
       w="full"
       spacing={12}
       maxH="800px"
-      overflowY={{base: 'visible', '2xl': 'scroll'}}
+      overflowY={{ base: 'visible', '2xl': 'scroll' }}
       p={4}
     >
       <Heading as="h2" size="lg">
@@ -115,7 +119,10 @@ export const WorkExperience = ({
         border="1px solid #fff"
         _hover={{ color: 'gray.700', bgColor: '#fff' }}
       >
-        Add new job
+        <HStack>
+          <Text>Add new job</Text>
+          <Icon as={AiOutlinePlusCircle} />
+        </HStack>
       </Button>
     </VStack>
   )

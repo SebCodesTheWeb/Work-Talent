@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import {
   Input,
   Textarea,
+  HStack,
+  Icon,
+  Text,
   VStack,
   Heading,
   FormLabel,
@@ -10,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
+import { AiOutlinePlusCircle} from 'react-icons/ai'
 
 interface PortfolioProps extends FormStepProps {
   projects: number[]
@@ -103,7 +107,10 @@ export const Portfolio = ({
         border="1px solid #fff"
         _hover={{ color: 'gray.700', bgColor: '#fff' }}
       >
-        Add New Project
+        <HStack>
+          <Text>Add new portfolio</Text>
+          <Icon as={AiOutlinePlusCircle} />Z
+        </HStack>
       </Button>
     </VStack>
   )

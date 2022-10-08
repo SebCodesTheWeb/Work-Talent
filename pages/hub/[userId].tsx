@@ -23,6 +23,7 @@ import { ref, uploadBytes } from 'firebase/storage'
 import {
   Heading,
   Spinner,
+  Icon,
   Center,
   VStack,
   Text,
@@ -30,6 +31,7 @@ import {
   Image,
   HStack,
   Input,
+  IconButton,
   SimpleGrid,
   Modal,
   ModalOverlay,
@@ -45,8 +47,11 @@ import {
   TabPanels,
   TabPanel,
   Tab,
+  Stack,
 } from '@chakra-ui/react'
 import uniqid from 'uniqid'
+import { AiFillFileAdd, AiOutlineEye } from 'react-icons/ai'
+import { TbEdit } from 'react-icons/tb'
 
 const initialValues = {
   firstname: '',
@@ -216,7 +221,10 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                         mr={3}
                         onClick={initializeUserPortfolio}
                       >
-                        Create
+                        <HStack>
+                          <Text>Create</Text>
+                          <Icon as={AiFillFileAdd} />
+                        </HStack>
                       </Button>
                     </ModalFooter>
                   </ModalContent>
@@ -227,7 +235,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                   gap={16}
                   mt={8}
                   pr={16}
-                  pb={ 4 }
+                  pb={4}
                   overflowY="scroll"
                 >
                   {portfolios.map((portfolio: any, index: number) => (
@@ -238,14 +246,14 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                       key={`${user?.uid}-${portfolio.portfolioName}`}
                       borderRadius={8}
                     >
-                      <VStack spacing={8}>
+                      <VStack spacing={4}>
                         <Heading
                           size={{ base: 'sm', '2xl': 'md' }}
                           textAlign="center"
                         >
                           {portfolio.portfolioName}
                         </Heading>
-                        <HStack>
+                        <Stack>
                           <Button
                             size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
@@ -253,7 +261,10 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
                             onClick={() => editPortfolio(index)}
                           >
-                            Edit
+                            <HStack>
+                              <Text>Edit</Text>
+                              <Icon as={TbEdit} />
+                            </HStack>
                           </Button>
                           <Button
                             size={{ base: 'sm', '2xl': 'md' }}
@@ -262,9 +273,12 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
                             onClick={() => viewPortfolio(index)}
                           >
-                            View
+                            <HStack>
+                              <Text>View</Text>
+                              <Icon as={AiOutlineEye} color="#fff"/>
+                            </HStack>
                           </Button>
-                        </HStack>
+                        </Stack>
                       </VStack>
                     </Center>
                   ))}
@@ -320,7 +334,10 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                           _hover={{ color: 'gray.700', bgColor: '#fff' }}
                           onClick={() => viewPublicPortfolio(index)}
                         >
-                          View
+                          <HStack>
+                            <Text>View</Text>
+                            <Icon as={ AiOutlineEye } />
+                          </HStack>
                         </Button>
                       </VStack>
                     </Center>
