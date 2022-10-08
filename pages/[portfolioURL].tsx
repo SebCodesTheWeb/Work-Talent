@@ -76,7 +76,7 @@ function Page({ data, images }: any) {
       >
         <GeneratePDF data={data} />
         <LinkBox>
-          <Tooltip label="This website was built with job-talent">
+          <Tooltip label="This website is powered by job-talent.org">
             <Button
               bgColor="#333"
               position="fixed"
