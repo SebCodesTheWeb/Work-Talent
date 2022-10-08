@@ -80,6 +80,7 @@ const initialValues = {
   educationLength: 0,
   imageLength: 0,
   makePublic: false,
+  gender: 'man',
 }
 
 const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
