@@ -323,6 +323,8 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                         <Heading
                           size={{ base: 'sm', '2xl': 'md' }}
                           textAlign="center"
+                          textOverflow="wrap"
+                          maxW="150px"
                         >
                           {portfolio.portfolioName}
                         </Heading>

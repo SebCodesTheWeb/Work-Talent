@@ -85,7 +85,7 @@ function Page({ data, images }: any) {
               color="#fff"
               _hover={{}}
               w="60px"
-              h="50px"
+              h="60px"
             >
               <LinkOverlay href="/" isExternal={true} />
               <Image
