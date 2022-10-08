@@ -34,7 +34,7 @@ export const Skills = ({
       w="full"
       maxH="800px"
       spacing={6}
-      overflowY="scroll"
+      overflowY={{base: 'visible', '2xl': 'scroll'}}
       p={4}
     >
       <Heading as="h2" size="lg">

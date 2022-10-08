@@ -35,7 +35,7 @@ export const Portfolio = ({
       w="full"
       maxH="800px"
       spacing={12}
-      overflowY="scroll"
+      overflowY={{base: 'visible', '2xl': 'scroll'}}
       p={4}
     >
       <Heading as="h2" size="lg">

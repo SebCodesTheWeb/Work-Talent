@@ -40,7 +40,7 @@ export const WorkImages = ({
       w="full"
       spacing={12}
       maxH="800px"
-      overflowY="scroll"
+      overflowY={{base: 'visible', '2xl': 'scroll'}}
       p={4}
     >
       <Heading as="h2" size="lg">
