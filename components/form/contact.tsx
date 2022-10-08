@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Input,
-  Textarea,
-  Select,
-  Heading,
-  VStack,
-  FormLabel,
-} from '@chakra-ui/react'
+import { Input, Textarea, Heading, VStack, FormLabel } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 
 export const Contact = ({
@@ -17,7 +10,7 @@ export const Contact = ({
   return (
     <VStack alignItems="start" w="full" spacing={4}>
       <Heading as="h2" size="lg">
-        Step {currentStep}: Contact 
+        Step {currentStep}: Contact
       </Heading>
       <FormLabel htmlFor="firstname">First Name: </FormLabel>
       <Input
@@ -30,15 +23,13 @@ export const Contact = ({
       <FormLabel htmlFor="lastname">Last Name: </FormLabel>
       <Input name="lastname" onChange={handleChange} value={values.lastname} />
 
-      <FormLabel htmlFor="jobRole">What job role are you applying for?</FormLabel>
-      <Input name="jobRole" onChange={ handleChange } value={ values.jobRole} />
+      <FormLabel htmlFor="jobRole">
+        What job role are you applying for?
+      </FormLabel>
+      <Input name="jobRole" onChange={handleChange} value={values.jobRole} />
 
       <FormLabel htmlFor="location">Location/Address/City: </FormLabel>
-      <Input
-        name="location"
-        onChange={handleChange}
-        value={values.location}
-      />
+      <Input name="location" onChange={handleChange} value={values.location} />
 
       <FormLabel htmlFor="phone">Phone Number: </FormLabel>
       <Input name="phone" onChange={handleChange} value={values.phone} />

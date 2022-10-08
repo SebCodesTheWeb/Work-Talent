@@ -1,5 +1,5 @@
 import React from 'react'
-import { doc, getDocs, collection, query, where } from 'firebase/firestore'
+import { getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/clientApp'
 import {
@@ -11,7 +11,6 @@ import {
   GrYoutube,
 } from 'react-icons/gr'
 import { VscTriangleDown } from 'react-icons/vsc'
-import { BiLinkExternal} from 'react-icons/bi'
 import { IoDocumentOutline, IoMailOutline } from 'react-icons/io5'
 import {
   Heading,
@@ -19,7 +18,6 @@ import {
   Button,
   Tooltip,
   Image,
-  AspectRatio,
   Stack,
   VStack,
   HStack,
@@ -39,7 +37,6 @@ import {
   SimpleGrid,
   ListIcon,
   Wrap,
-  Avatar,
 } from '@chakra-ui/react'
 import {
   WorkImage,
@@ -58,13 +55,12 @@ const man = true
 
 const socialLinksEmpty = (socials: any) => {
   Object.values(socials).forEach((social) => {
-    if(social !== '') {
-      return false  
+    if (social !== '') {
+      return false
     }
   })
   return true
 }
-
 
 function Page({ data, images }: any) {
   return (
@@ -81,9 +77,23 @@ function Page({ data, images }: any) {
         <GeneratePDF data={data} />
         <LinkBox>
           <Tooltip label="This website was built with job-talent">
-            <Button bgColor="#333" position="fixed" bottom="25px" right="25px" color="#fff" _hover={{}} w="60px" h="50px">
-              <LinkOverlay href="/" isExternal={true}/>
-                <Image src="/img/logo_white.png" alt="job-talent logo" boxSize="30px" objectFit="cover" />
+            <Button
+              bgColor="#333"
+              position="fixed"
+              bottom="25px"
+              right="25px"
+              color="#fff"
+              _hover={{}}
+              w="60px"
+              h="50px"
+            >
+              <LinkOverlay href="/" isExternal={true} />
+              <Image
+                src="/img/logo_white.png"
+                alt="job-talent logo"
+                boxSize="30px"
+                objectFit="cover"
+              />
             </Button>
           </Tooltip>
         </LinkBox>
@@ -237,15 +247,14 @@ function Page({ data, images }: any) {
         <Stack maxW="600px" spacing={4}>
           <Heading>About me</Heading>
           {data.aboutMe.longDescription && (
-          <Text lineHeight={7}>
-            Hi! My name is{''}
-            <SimpleHighlight
-              text={`${data.firstname} ${data.lastname}`}
-              fontWeight="normal"
-            />
-            {data.aboutMe.longDescription}
-          </Text>
-
+            <Text lineHeight={7}>
+              Hi! My name is{''}
+              <SimpleHighlight
+                text={`${data.firstname} ${data.lastname}`}
+                fontWeight="normal"
+              />
+              {data.aboutMe.longDescription}
+            </Text>
           )}
           <LinkBox pt={4}>
             <SimpleButton>
@@ -426,7 +435,7 @@ export async function getServerSideProps({ params }: any) {
     }
   }
   const images = await Promise.all(
-    data.images.map(async (image) => {
+    data.images.map(async (image: any) => {
       return await getDownloadURL(ref(storage, `images/${image.title}`))
     })
   )

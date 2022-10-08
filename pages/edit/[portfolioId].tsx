@@ -1,4 +1,3 @@
-import { useContext, useRef } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
@@ -15,7 +14,7 @@ import {
   WorkImages,
 } from '../../components'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { db, storage, signIn, signOut, UserContext } from '../../firebase'
+import { db, storage } from '../../firebase'
 import { ref, uploadBytes } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
@@ -46,10 +45,10 @@ import {
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 import { arrayWithLength } from '../../utils'
-import { AiFillFileAdd} from 'react-icons/ai'
+import { AiFillFileAdd } from 'react-icons/ai'
 
 const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
-  const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
+  const { nextStep, prevStep, setStep, activeStep } = useSteps({
     initialStep: 0,
   })
   const router = useRouter()

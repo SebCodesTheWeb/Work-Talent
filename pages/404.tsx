@@ -13,7 +13,9 @@ export default function FourOhFour() {
   return (
     <Center h="100vh" bgColor="gray.700" color="#fff">
       <VStack spacing={8}>
-        <Heading size="4xl" fontFamily="monospace" >404</Heading>
+        <Heading size="4xl" fontFamily="monospace">
+          404
+        </Heading>
         <Text>
           Sorry, the portfolio you are looking for seems to be missing, check
           for valid URL?

@@ -14,7 +14,7 @@ import {
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
 import FilePicker from 'chakra-ui-file-picker'
-import { AiOutlinePlusCircle} from 'react-icons/ai'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 interface ImageProps extends FormStepProps {
   images: number[]
@@ -45,7 +45,7 @@ export const WorkImages = ({
       spacing={12}
       maxH="800px"
       overflowY={{ base: 'visible', '2xl': 'scroll' }}
-      pr={ 4 }
+      pr={4}
     >
       <Heading as="h2" size="lg">
         Step {currentStep}: Work Images

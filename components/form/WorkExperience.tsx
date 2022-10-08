@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Input,
   Button,
@@ -28,7 +28,9 @@ export const WorkExperience = ({
   values,
 }: WorkExperienceProps) => {
   const addNewJob = () => {
-    setJobs((prevJobCount) => arrayWithLength(prevJobCount.length + 1))
+    setJobs((prevJobCount: number[]) =>
+      arrayWithLength(prevJobCount.length + 1)
+    )
   }
 
   return (

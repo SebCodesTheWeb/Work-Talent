@@ -1,5 +1,10 @@
 import { initializeApp, getApps } from 'firebase/app'
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as googleSignOut } from 'firebase/auth'
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut as googleSignOut,
+} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
@@ -33,11 +38,11 @@ export const signIn = async () => {
     })
 }
 
-export const promiseSignIn = async ( ) => {
+export const promiseSignIn = async () => {
   return signInWithPopup(auth, googleAuthProvider)
 }
 
-export const promiseSignOut = async ( ) => {
+export const promiseSignOut = async () => {
   return googleSignOut(auth)
 }
 

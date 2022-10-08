@@ -27,7 +27,7 @@ const CustomSteps = {
       stepIconContainer: {
         ...StepsStyleConfig.baseStyle(props).stepIconContainer,
         backgroundColor: '#2D3748 !important',
-      }
+      },
     }
   },
 }

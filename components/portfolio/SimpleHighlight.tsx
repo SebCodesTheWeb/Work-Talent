@@ -1,7 +1,5 @@
 import React from 'react'
-
 import { Highlight } from '@chakra-ui/react'
-
 interface Props {
   text: string
   bgColor?: string

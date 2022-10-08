@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Input,
   Textarea,
@@ -28,7 +28,7 @@ export const Education = ({
   values,
 }: EducationProps) => {
   const addNewEduction = () => {
-    setEducation((prevEducationCount) =>
+    setEducation((prevEducationCount: number[]) =>
       arrayWithLength(prevEducationCount.length + 1)
     )
   }

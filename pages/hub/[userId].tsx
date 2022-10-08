@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -11,19 +11,12 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore'
-import {
-  db,
-  storage,
-  signIn,
-  signOut,
-  UserContext,
-  promiseSignOut,
-} from '../../firebase'
-import { ref, uploadBytes } from 'firebase/storage'
+import { db, UserContext, promiseSignOut } from '../../firebase'
 import {
   Heading,
   Spinner,
   Icon,
+  SimpleGrid,
   Center,
   VStack,
   Text,
@@ -31,8 +24,6 @@ import {
   Image,
   HStack,
   Input,
-  IconButton,
-  SimpleGrid,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -50,7 +41,11 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import uniqid from 'uniqid'
-import { AiFillFileAdd, AiOutlineEye } from 'react-icons/ai'
+import {
+  AiFillFileAdd,
+  AiOutlineEye,
+  AiOutlinePlusCircle,
+} from 'react-icons/ai'
 import { TbEdit } from 'react-icons/tb'
 
 const initialValues = {
@@ -277,7 +272,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                           >
                             <HStack>
                               <Text>View</Text>
-                              <Icon as={AiOutlineEye} color="#fff"/>
+                              <Icon as={AiOutlineEye} color="#fff" />
                             </HStack>
                           </Button>
                         </Stack>
@@ -294,7 +289,10 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                     _hover={{ color: 'gray.700', bgColor: '#fff' }}
                     onClick={onOpen}
                   >
-                    Add new portfolio
+                    <HStack>
+                      <Text>Add new portfolio</Text>
+                      <Icon as={AiOutlinePlusCircle} />
+                    </HStack>
                   </Button>
                 </Flex>
               </TabPanel>
@@ -338,7 +336,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                         >
                           <HStack>
                             <Text>View</Text>
-                            <Icon as={ AiOutlineEye } />
+                            <Icon as={AiOutlineEye} />
                           </HStack>
                         </Button>
                       </VStack>

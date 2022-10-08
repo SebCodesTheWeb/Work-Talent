@@ -1,7 +1,7 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from 'react'
 
 export interface FormStepProps {
-    currentStep: number;
-    handleChange: ChangeEventHandler;
-    values: any
+  currentStep: number
+  handleChange: ChangeEventHandler
+  values: any
 }

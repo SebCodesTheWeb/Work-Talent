@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Input,
   Textarea,
@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FormStepProps } from './props'
 import { arrayWithLength } from '../../utils'
-import { AiOutlinePlusCircle} from 'react-icons/ai'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 
 interface PortfolioProps extends FormStepProps {
   projects: number[]
@@ -39,7 +39,7 @@ export const Portfolio = ({
       w="full"
       maxH="800px"
       spacing={12}
-      overflowY={{base: 'visible', '2xl': 'scroll'}}
+      overflowY={{ base: 'visible', '2xl': 'scroll' }}
       p={4}
     >
       <Heading as="h2" size="lg">

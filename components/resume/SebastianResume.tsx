@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, HStack, Stack, Text, Heading, Link } from '@chakra-ui/react'
 
-export const SebastianResume = React.forwardRef(({ data }: any, ref) => {
+export const SebastianResume = React.forwardRef((ref) => {
   return (
     <Box
       h="3500px"

@@ -41,7 +41,6 @@ import {
   SimpleButton,
 } from '../components'
 
-
 const man = true
 
 function Page({ data }: any) {
@@ -121,7 +120,7 @@ function Page({ data }: any) {
                 color: '#fff',
               }}
             >
-              { `${data.firstname} ${data.lastname}`} 
+              {`${data.firstname} ${data.lastname}`}
             </Highlight>
           </Heading>
           <Text fontWeight="bold">
@@ -134,7 +133,7 @@ function Page({ data }: any) {
                 color: '#fff',
               }}
             >
-              { data.aboutMe.shortDescription }
+              {data.aboutMe.shortDescription}
             </Highlight>
           </Text>
           <LinkBox>
@@ -248,8 +247,11 @@ function Page({ data }: any) {
           <Heading>About me</Heading>
           <Text lineHeight={7}>
             Hi! My name is{' '}
-            <SimpleHighlight text={`${ data.firstname} ${ data.lastname}`} fontWeight="normal" />
-             { data.aboutMe.longDescription }
+            <SimpleHighlight
+              text={`${data.firstname} ${data.lastname}`}
+              fontWeight="normal"
+            />
+            {data.aboutMe.longDescription}
           </Text>
           <Text lineHeight={7}>
             One of my big passions is{' '}
@@ -370,11 +372,11 @@ function Page({ data }: any) {
           <Stack spacing={4}>
             <HStack justify="space-between" spacing={4}>
               <SimpleHighlight text="Mail" />
-              <Text>{ data.e_mail }</Text>
+              <Text>{data.e_mail}</Text>
             </HStack>
             <HStack justify="space-between">
               <SimpleHighlight text="Phone" />
-              <Text>{ data.phone }</Text>
+              <Text>{data.phone}</Text>
             </HStack>
             <HStack justify="space-between">
               <SimpleHighlight text="Find me in" />

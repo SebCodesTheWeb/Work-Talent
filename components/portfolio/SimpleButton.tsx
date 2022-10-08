@@ -13,7 +13,7 @@ export const SimpleButton = ({ children, onClick }: Props) => {
       borderRadius={8}
       bg="transparent"
       _hover={{ bg: 'purple.500', color: '#fff', borderColor: 'transparent' }}
-      onClick={ onClick }
+      onClick={onClick}
     >
       {children}
     </Button>
