@@ -227,6 +227,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                   gap={16}
                   mt={8}
                   pr={16}
+                  pb={ 4 }
                   overflowY="scroll"
                 >
                   {portfolios.map((portfolio: any, index: number) => (
