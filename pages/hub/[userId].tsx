@@ -120,12 +120,12 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
 
   const viewPortfolio = (index: number) => {
     setLoading(true)
-    router.push(`/user/${portfolios[index].portfolioURL}`)
+    router.push(`/${portfolios[index].portfolioURL}`)
   }
 
   const viewPublicPortfolio = (index: number) => {
     setLoading(true)
-    router.push(`/user/${publicPortfolios[index].portfolioURL}`)
+    router.push(`/${publicPortfolios[index].portfolioURL}`)
   }
 
   if (loading) {

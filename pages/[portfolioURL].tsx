@@ -1,7 +1,7 @@
 import React from 'react'
 import { getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
-import { db, storage } from '../../firebase/clientApp'
+import { db, storage } from '../firebase/clientApp'
 import {
   GrCheckboxSelected,
   GrLinkedin,
@@ -44,10 +44,10 @@ import {
   SimpleHighlight,
   PortfolioProject,
   SimpleButton,
-} from '../../components'
+} from '../components'
 import dynamic from 'next/dynamic'
 const GeneratePDF = dynamic(
-  () => import('../../components/resume/GeneratePDF'),
+  () => import('../components/resume/GeneratePDF'),
   { ssr: false }
 )
 
@@ -134,7 +134,7 @@ function Page({ data, images }: any) {
       <HStack pt={24} spacing={8}>
         <Box>
           <Image
-            src="../../business-man.svg"
+            src="/img/business-man.svg"
             alt="business-person"
             boxSize="600px"
             objectFit={man ? 'cover' : 'contain'}
@@ -416,10 +416,10 @@ function Page({ data, images }: any) {
     </VStack>
   )
 }
-async function getData(firstname: string) {
+async function getData(portfolioURL: string) {
   const userQuery = query(
     collection(db, 'test-users'),
-    where('portfolioURL', '==', firstname)
+    where('portfolioURL', '==', portfolioURL)
   )
   const portfolioData = await getDocs(userQuery)
   const portfolios: any[] = []
@@ -428,7 +428,7 @@ async function getData(firstname: string) {
 }
 
 export async function getServerSideProps({ params }: any) {
-  const data = await getData(params.firstname)
+  const data = await getData(params.portfolioURL)
   if (!data) {
     return {
       notFound: true,

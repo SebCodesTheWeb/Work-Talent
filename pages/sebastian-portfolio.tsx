@@ -110,7 +110,7 @@ export default function SebastianPortfolio() {
       <HStack pt={24} spacing={8}>
         <Box>
           <Image
-            src="./business-man.svg"
+            src="/img/business-man.svg"
             alt="business-person"
             boxSize="600px"
             objectFit={man ? 'cover' : 'contain'}

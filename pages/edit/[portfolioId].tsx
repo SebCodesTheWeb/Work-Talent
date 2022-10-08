@@ -256,7 +256,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     })
                 }
               })
-              router.push(`/user/${portfolioURL}`)
+              router.push(`/${portfolioURL}`)
             } catch (e) {
               console.error('Error adding document: ', e)
             }
