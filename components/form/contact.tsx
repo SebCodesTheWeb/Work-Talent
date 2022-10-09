@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Textarea, Heading, VStack, FormLabel } from '@chakra-ui/react'
+import { Input, Heading, VStack, FormLabel } from '@chakra-ui/react'
 import { FormStepProps } from './types'
 
 export const Contact = ({

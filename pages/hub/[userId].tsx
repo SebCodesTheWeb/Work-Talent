@@ -60,6 +60,7 @@ const initialValues = {
   aboutMe: {
     shortDescription: '',
     longDescription: '',
+    highlight: '',
   },
   images: [],
   portfolio: [],
@@ -98,7 +99,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
     try {
       setLoading(true)
       const portfolioId = uniqid()
-      await setDoc(doc(db, 'test-users', portfolioId), {
+      await setDoc(doc(db, 'portfolios', portfolioId), {
         userId: user?.uid,
         portfolioName,
         portfolioId,
@@ -118,13 +119,11 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   }
 
   const viewPortfolio = (index: number) => {
-    setLoading(true)
-    router.push(`/${portfolios[index].portfolioURL}`)
+    window.open(`/${portfolios[index].portfolioURL}`)
   }
 
   const viewPublicPortfolio = (index: number) => {
-    setLoading(true)
-    router.push(`/${publicPortfolios[index].portfolioURL}`)
+    window.open(`/${publicPortfolios[index].portfolioURL}`)
   }
 
   if (loading) {
@@ -179,7 +178,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
           h={{ base: '500px', '2xl': '800px' }}
           spacing={4}
         >
-          <Tabs colorScheme="#fff" variant="enclosed">
+          <Tabs colorScheme="#fff" variant="enclosed" width="full">
             <TabList>
               <Tab>Your Portfolios</Tab>
               <Tab>Other{"'"}s Portfolios</Tab>
@@ -356,7 +355,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
 export async function getServerSideProps({ params }: any) {
   const userId = params.userId
   const userQuery = query(
-    collection(db, 'test-users'),
+    collection(db, 'portfolios'),
     where('userId', '==', userId)
   )
   const portfolioData = await getDocs(userQuery)
@@ -364,7 +363,7 @@ export async function getServerSideProps({ params }: any) {
   portfolioData.forEach((portfolio) => portfolios.push(portfolio.data()))
 
   const publicPortfolioQuery = query(
-    collection(db, 'test-users'),
+    collection(db, 'portfolios'),
     where('makePublic', '==', true)
   )
   const publicPortfolioData = await getDocs(publicPortfolioQuery)

@@ -52,6 +52,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     initialStep: 0,
   })
   const router = useRouter()
+  let redirect = false
   const [skills, setSkills] = useState(
     arrayWithLength(portfolioData.skillLength)
   )
@@ -80,6 +81,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   }
 
   const handleWebPageGeneration = (handleSubmit: any) => {
+    redirect = true
     handleSubmit()
     setLoading(true)
   }
@@ -230,7 +232,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
           initialValues={portfolioData}
           onSubmit={async (values) => {
             try {
-              await setDoc(doc(db, 'test-users', portfolioId), {
+              await setDoc(doc(db, 'portfolios', portfolioId), {
                 ...values,
                 skillLength: skills.length,
                 projectLength: projects.length,
@@ -246,17 +248,14 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     storage,
                     `images/${values.images[index].title}`
                   )
-                  console.log(imageSRC)
-                  uploadBytes(imageRef, imageSRC)
-                    .then(() => {
-                      console.log('upload success')
-                    })
-                    .catch(() => {
-                      console.log('upload failed')
-                    })
+                  uploadBytes(imageRef, imageSRC).catch(() => {
+                    throw new Error('upload failed')
+                  })
                 }
               })
-              router.push(`/${portfolioURL}`)
+              if (redirect) {
+                router.push(`/${portfolioURL}`)
+              }
             } catch (e) {
               console.error('Error adding document: ', e)
             }
@@ -320,6 +319,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                           <Text>Make portfolio public</Text>
                           <Switch
                             value={makePublic}
+                            isChecked={makePublic}
                             colorScheme="teal"
                             onChange={() =>
                               setMakePublic((prev: boolean) => !prev)
@@ -379,6 +379,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     <Button
                       size="sm"
                       onClick={nextStep}
+                      type="submit"
                       variant="ghost"
                       mr={4}
                       border="1px solid #fff"
@@ -399,7 +400,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
 
 export async function getServerSideProps({ params }: any) {
   const portfolioId = params.portfolioId
-  const docRef = doc(db, 'test-users', portfolioId)
+  const docRef = doc(db, 'portfolios', portfolioId)
   const docSnap = await getDoc(docRef)
   const portfolioData = docSnap.exists() ? docSnap.data() : null
 

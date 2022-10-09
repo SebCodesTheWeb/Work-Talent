@@ -1,7 +1,6 @@
 import React from 'react'
 import { SimpleButton } from './SimpleButton'
 import { SimpleHighlight } from './SimpleHighlight'
-
 import {
   Heading,
   Text,
@@ -10,8 +9,11 @@ import {
   Stack,
   LinkBox,
   LinkOverlay,
+  HStack,
   Box,
+  Icon,
 } from '@chakra-ui/react'
+import { BiLinkExternal } from 'react-icons/bi'
 
 interface Props {
   title: string
@@ -19,8 +21,8 @@ interface Props {
   alt?: string
   src: string
   video: boolean
-  link?: string
-  linkText?: string
+  links?: string[]
+  linkTexts?: string[]
   bgColor?: string
 }
 
@@ -30,14 +32,14 @@ export const PortfolioProject = ({
   alt,
   src,
   video = false,
-  link = '',
-  linkText,
+  links = [],
+  linkTexts,
   bgColor = 'cyan.500',
 }: Props) => {
   const srcWithAutplay = `${src}?autoplay=1&mute=1`
   return (
     <Stack maxW="500px" spacing={4}>
-      <AspectRatio ratio={16 / 9} w="500px">
+      <AspectRatio ratio={16 / 9} w={{base: 'full', md: '500px'}}>
         <Box
           display="block"
           overflow="hidden"
@@ -71,14 +73,23 @@ export const PortfolioProject = ({
         <SimpleHighlight text={title} bgColor={bgColor} fontWeight="normal" />
       </Heading>
       <Text>{description}</Text>
-      {link === '' ? (
-        <Text></Text>
-      ) : (
-        <LinkBox>
-          <LinkOverlay href={link} />
-          <SimpleButton>{linkText}</SimpleButton>
-        </LinkBox>
-      )}
+      <HStack>
+        {links.map((link: string, index: number) =>
+          link === '' ? (
+            <Text key={`${link}-${index}`}></Text>
+          ) : (
+            <LinkBox key={link}>
+              <SimpleButton>
+                <HStack>
+                  <LinkOverlay href={link} isExternal={true} />
+                  <Text>{linkTexts && linkTexts[index]}</Text>
+                  <Icon as={BiLinkExternal} />
+                </HStack>
+              </SimpleButton>
+            </LinkBox>
+          )
+        )}
+      </HStack>
     </Stack>
   )
 }

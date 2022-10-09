@@ -38,21 +38,10 @@ import {
   PortfolioProject,
   SimpleButton,
 } from '../components'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase/clientApp'
 
 const man = true
 
 export default function SebastianPortfolio() {
-  const getData = async () => {
-    const querySnapshot = await getDocs(collection(db, 'test-users'))
-    console.clear()
-    console.log(querySnapshot)
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${JSON.stringify(doc.data())}`)
-    })
-  }
-  getData()
   return (
     <VStack spacing={10} id="home">
       <HStack
@@ -179,11 +168,9 @@ export default function SebastianPortfolio() {
                   companyName="Mediatool"
                   location="Malmö Sweden"
                   date="Jun 2022 - Present"
-                  workTasks={[
-                    'Substantial work on UI/UX library',
-                    'Solved various bugs',
-                    'Implemented the first O(-1) algorithm',
-                  ]}
+                  workTasks={
+                    'Substantial work on UI/UX library, Solved various bugs, Implemented the first O(-1) algorithm'
+                  }
                   bgColor="purple.500"
                 />
               </TabPanel>
@@ -193,11 +180,9 @@ export default function SebastianPortfolio() {
                   companyName="MSS"
                   location="Malmö Sweden"
                   date="May 2019 - Jun 2021"
-                  workTasks={[
-                    'Teached hundreds of students how to sail',
-                    'Helped with fixing boats and broken stuff',
-                    'Participated and helped organize events and races',
-                  ]}
+                  workTasks={
+                    'Teached hundreds of students how to sail, Helped with fixing boats and broken stuff, Participated and helped organize events and races'
+                  }
                   bgColor="cyan.500"
                 />
               </TabPanel>
@@ -208,11 +193,9 @@ export default function SebastianPortfolio() {
                   companyName="Nybakat UF"
                   location="Malmö Sweden"
                   date="Jan 2022 - Present"
-                  workTasks={[
-                    'Feeding hungry families all over Malmö',
-                    'Learned effective time management',
-                    'Got real good at handling trafic',
-                  ]}
+                  workTasks={
+                    'Feeding hungry families all over Malmö, Learned effective time management, Got real good at handling trafic'
+                  }
                   bgColor="gray.500"
                 />
               </TabPanel>
@@ -302,8 +285,8 @@ export default function SebastianPortfolio() {
             src="https://www.youtube.com/embed/06Ou5lkGgbQ"
             video={true}
             alt="Graphing Calculator"
-            link="#"
-            linkText="Github"
+            links={['#']}
+            linkTexts={['Github']}
           />
           <PortfolioProject
             title="Disney Landing Page"
@@ -311,9 +294,9 @@ export default function SebastianPortfolio() {
             src="https://www.youtube.com/embed/6SUBhdvK31A"
             video={true}
             alt="Graphing Calculator"
-            link="#"
-            linkText="Demo"
             bgColor="purple.500"
+            links={['#']}
+            linkTexts={['Demo']}
           />
           <PortfolioProject
             title="Truth Table Generator"
@@ -321,8 +304,8 @@ export default function SebastianPortfolio() {
             src="https://www.youtube.com/embed/e3jfDur3ntk"
             video={true}
             alt="Graphing Calculator"
-            link="#"
-            linkText="Github"
+            links={['#']}
+            linkTexts={['Github']}
           />
           <PortfolioProject
             title="Prime Number Computer"
@@ -330,8 +313,8 @@ export default function SebastianPortfolio() {
             src="https://www.youtube.com/embed/HKxW4fHlmUo"
             video={true}
             alt="Graphing Calculator"
-            link="#"
-            linkText="Demo"
+            links={['#']}
+            linkTexts={['Demo']}
             bgColor="purple.500"
           />
           <PortfolioProject
@@ -340,8 +323,8 @@ export default function SebastianPortfolio() {
             src="https://sebcodestheweb.com/img/pi.png"
             video={false}
             alt="Graphing Calculator"
-            link="#"
-            linkText="Github"
+            links={['#']}
+            linkTexts={['Demo']}
             bgColor="gray.500"
           />
           <PortfolioProject
@@ -350,8 +333,8 @@ export default function SebastianPortfolio() {
             src="https://www.youtube.com/embed/TJ9IJsKirqA"
             video={true}
             alt="Graphing Calculator"
-            link="#"
-            linkText="Github"
+            links={['#']}
+            linkTexts={['Github']}
           />
           <PortfolioProject
             title="Code Challenge"

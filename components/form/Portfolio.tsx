@@ -1,9 +1,15 @@
 import React from 'react'
-import { Input, Textarea, Heading, FormLabel, Stack } from '@chakra-ui/react'
+import {
+  Input,
+  Textarea,
+  Heading,
+  FormLabel,
+  Stack,
+  Switch,
+} from '@chakra-ui/react'
 import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
-import {FormWrapper} from './FormWrapper'
-
+import { FormWrapper } from './FormWrapper'
 interface PortfolioProps extends FormStepProps {
   projects: number[]
   setProjects: any
@@ -57,7 +63,7 @@ export const Portfolio = ({
             }
           />
           <FormLabel htmlFor={`portfolio[${projectNumber}].image`}>
-            Image of project
+            Image or video of project
           </FormLabel>
           <Input
             name={`portfolio[${projectNumber}].image`}
@@ -68,15 +74,66 @@ export const Portfolio = ({
                 : undefined
             }
           />
-          <FormLabel htmlFor={`portfolio[${projectNumber}].link`}>
+          <FormLabel htmlFor={`portfolio[${projectNumber}].isVideo`}>
+            Is this link a video?
+          </FormLabel>
+          <Switch
+            name={`portfolio[${projectNumber}].isVideo`}
+            onChange={handleChange}
+            isChecked={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].isVideo
+                : undefined
+            }
+          />
+
+          <FormLabel htmlFor={`portfolio[${projectNumber}].linkOne`}>
             External Link
           </FormLabel>
           <Input
-            name={`portfolio[${projectNumber}].link`}
+            name={`portfolio[${projectNumber}].linkOne`}
             onChange={handleChange}
             value={
               values.portfolio[projectNumber]
-                ? values.portfolio[projectNumber].link
+                ? values.portfolio[projectNumber].linkOne
+                : undefined
+            }
+          />
+          <FormLabel htmlFor={`portfolio[${projectNumber}].linkLabelOne`}>
+            Where does this link lead to
+          </FormLabel>
+          <Input
+            name={`portfolio[${projectNumber}].linkLabelOne`}
+            onChange={handleChange}
+            placeholder="Facebook"
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].linkLabelOne
+                : undefined
+            }
+          />
+          <FormLabel htmlFor={`portfolio[${projectNumber}].linkTwo`}>
+            External Link
+          </FormLabel>
+          <Input
+            name={`portfolio[${projectNumber}].linkTwo`}
+            onChange={handleChange}
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].linkTwo
+                : undefined
+            }
+          />
+          <FormLabel htmlFor={`portfolio[${projectNumber}].linkLabelTwo`}>
+            Where does this link lead to
+          </FormLabel>
+          <Input
+            name={`portfolio[${projectNumber}].linkLabelTwo`}
+            onChange={handleChange}
+            placeholder="Facebook"
+            value={
+              values.portfolio[projectNumber]
+                ? values.portfolio[projectNumber].linkLabelTwo
                 : undefined
             }
           />

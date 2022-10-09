@@ -19,85 +19,101 @@ export const ResumeTemplate = React.forwardRef(
             </Heading>
             <Text color="blue.500">{data.jobRole}</Text>
           </Box>
-          <HStack alignItems="start" justifyContent="space-between">
+          <HStack alignItems="start" justifyContent="space-between" spacing={8}>
             <Stack spacing={24} w="65%">
-              <Stack spacing={8}>
-                <Heading fontSize="1.5em">Summary</Heading>
-                <Text fontWeight="semibold">
-                  {data.aboutMe.longDescription}
-                  <br />
-                  <Link pl={4} color="blue.500">
-                    Read more: job-talent.org/{data.firstname}
-                  </Link>
-                </Text>
-              </Stack>
-              <Stack spacing={12}>
-                <Heading fontSize="1.4em">Work Experience</Heading>
-                <Stack spacing={16}>
-                  {data.jobs?.map(
-                    (job: any, index: number) =>
-                      index < 3 && (
-                        <Stack>
-                          <Heading>{job.jobTitle}</Heading>
-                          <Text color="blue.500">{job.timePeriod} </Text>
-                          <Text>{job.achievments}</Text>
-                        </Stack>
-                      )
-                  )}
+              {data.aboutMe.longDescription && (
+                <Stack spacing={8}>
+                  <Heading fontSize="1.5em">Summary</Heading>
+                  <Text fontWeight="semibold">
+                    {data.aboutMe.longDescription}
+                    <br />
+                    <Link pl={4} color="blue.500">
+                      Read more: job-talent.org/{data.firstname}
+                    </Link>
+                  </Text>
                 </Stack>
-              </Stack>
-              <Stack spacing={8}>
-                <Heading fontSize="1.3em">Projects</Heading>
-                <Stack spacing={16}>
-                  {data.projects?.map(
-                    (project: any, index: number) =>
-                      index < 2 && (
-                        <Text>
-                          <strong>{project.projectTitle}</strong> <br />
-                          {project.description}
-                          <br />
-                          <Link color="blue.600" pl={8}>
-                            Link: {project.link}
-                          </Link>
-                        </Text>
-                      )
-                  )}
+              )}
+              {data.jobs.length > 0 && (
+                <Stack spacing={12}>
+                  <Heading fontSize="1.4em">Work Experience</Heading>
+                  <Stack spacing={16}>
+                    {data.jobs?.map(
+                      (job: any, index: number) =>
+                        index < 3 && (
+                          <Stack key={`${job.jobTitle}-${index}`}>
+                            <Heading>{job.jobTitle}</Heading>
+                            <Text color="blue.500">{job.timePeriod} </Text>
+                            <Text>{job.achievments}</Text>
+                          </Stack>
+                        )
+                    )}
+                  </Stack>
                 </Stack>
-              </Stack>
+              )}
+              {data.portfolio.length > 0 && (
+                <Stack spacing={8}>
+                  <Heading fontSize="1.3em">Projects</Heading>
+                  <Stack spacing={16}>
+                    {data.portfolio?.map(
+                      (project: any, index: number) =>
+                        index < 2 && (
+                          <Text key={`${project.projectTitle}-index`}>
+                            <strong>{project.projectTitle}</strong> <br />
+                            {project.description}
+                            <br />
+                            <Link color="blue.600" pl={8}>
+                              Link: {project.link}
+                            </Link>
+                          </Text>
+                        )
+                    )}
+                  </Stack>
+                </Stack>
+              )}
             </Stack>
-            <Stack spacing={32}>
+            <Stack spacing={32} w="35%">
               <Stack spacing={8}>
                 <Heading fontSize="1.1em">Contact</Heading>
                 <Stack spacing={8}>
-                  <Text color="blue.500">{data.phone}</Text>
-                  <Text color="blue.500">{data.e_mail}</Text>
-                  <Text color="blue.500">{data.social.linkedin}</Text>
-                  <Text color="blue.500">{data.social.github}</Text>
-                  <Text color="blue.500">{data.social.blog}</Text>
-                  <Text color="blue.500">{data.social.youtube}</Text>
+                  {data.phone && <Text color="blue.500">{data.phone}</Text>}
+                  {data.e_mail && <Text color="blue.500">{data.e_mail}</Text>}
+                  {data.social.linkedin && (
+                    <Text color="blue.500">{data.social.linkedin}</Text>
+                  )}
+                  {data.social.github && (
+                    <Text color="blue.500">{data.social.github}</Text>
+                  )}
+                  {data.social.blog && (
+                    <Text color="blue.500">{data.social.blog}</Text>
+                  )}
+                  {data.social.youtube && (
+                    <Text color="blue.500">{data.social.youtube}</Text>
+                  )}
                 </Stack>
               </Stack>
-              <Stack spacing={8}>
-                <Heading fontSize="1.1em">Skills</Heading>
+              {data.skills.length > 0 && (
                 <Stack spacing={8}>
-                  {data.skills?.map((skill: string) => (
-                    <Text key={skill}>{skill}</Text>
+                  <Heading fontSize="1.1em">Skills</Heading>
+                  <Stack spacing={8}>
+                    {data.skills?.map((skill: string) => (
+                      <Text key={skill}>{skill}</Text>
+                    ))}
+                  </Stack>
+                </Stack>
+              )}
+              {data.education.length > 0 && (
+                <Stack spacing={8}>
+                  <Heading fontSize="1.1em">Education</Heading>
+                  {data.education?.map((education: any, index: number) => (
+                    <Stack spacing={8} key={`education-${index}`}>
+                      <Text>{education.school}</Text>
+                      <Text color="blue.500">{education.dateOfFinishing}</Text>
+                      <Text>{education.program}</Text>
+                      <Text>Grades: {education.grade}</Text>
+                    </Stack>
                   ))}
                 </Stack>
-              </Stack>
-              <Stack spacing={8}>
-                <Heading fontSize="1.1em">Education</Heading>
-                {data.education?.map((education: any, index: number) => (
-                  <Stack spacing={8} key={`education-${index}`}>
-                    <Text>{education.school}</Text>
-                    <Text color="blue.500">
-                      Class of {education.dateOfFinishing}
-                    </Text>
-                    <Text>{education.program}</Text>
-                    <Text>{education.grade}</Text>
-                  </Stack>
-                ))}
-              </Stack>
+              )}
             </Stack>
           </HStack>
         </Stack>
