@@ -65,7 +65,7 @@ const socialLinksEmpty = (socials: any) => {
 }
 
 function Page({ data, images }: any) {
-  const [loading, setLoading ] = useState(true)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(false)
   }, [])
@@ -83,15 +83,21 @@ function Page({ data, images }: any) {
       <Head>
         <title>{data.firstname} Portfolio</title>
         <meta charSet="UTF-8" />
-        <meta name="description" content={`Web portfolio and resume for ${data.firstname}, a ${data.jobTitle}`} />
-        <meta name="keywords" content={`${data.firstname}, ${data.lastname}, ${data.jobTitle}, resume builder `} />
+        <meta
+          name="description"
+          content={`Web portfolio and resume for ${data.firstname}, a ${data.jobTitle}`}
+        />
+        <meta
+          name="keywords"
+          content={`${data.firstname}, ${data.lastname}, ${data.jobTitle}, resume builder `}
+        />
         <meta name="author" content="Sebastian Delgado" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="apple-touch-icon" href="/img/logo_white.png"/>
+        <link rel="apple-touch-icon" href="/img/logo_white.png" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
       <VStack
-        spacing={{base: 0, md: 10}}
+        spacing={{ base: 2, md: 10 }}
         id="home"
         w={{ base: '90%', md: 'full' }}
         alignItems="center"
@@ -108,7 +114,10 @@ function Page({ data, images }: any) {
         >
           <GeneratePDF data={data} />
           <LinkBox>
-            <Tooltip label="This website is powered by job-talent.org" display={{base: 'none', md: 'auto'}}>
+            <Tooltip
+              label="This website is powered by job-talent.org"
+              display={{ base: 'none', md: 'auto' }}
+            >
               <Button
                 bgColor="#333"
                 position="fixed"
@@ -206,7 +215,7 @@ function Page({ data, images }: any) {
             <Text
               fontWeight="bold"
               textAlign={{ base: 'center', md: 'start' }}
-              fontSize={{base: 'sm', md: 'md'}}
+              fontSize={{ base: 'sm', md: 'md' }}
             >
               <Highlight
                 query={data.jobRole ?? ''}
@@ -235,7 +244,7 @@ function Page({ data, images }: any) {
         <Wrap justify="center" spacing={32} p={16} maxW="full">
           <span className="anchor" id="work"></span>
           {data.jobs.length > 0 && (
-            <VStack spacing={4} px={{base: 0, md: 16}}>
+            <VStack spacing={4} px={{ base: 0, md: 16 }}>
               <Heading mb={4}>Work Experience</Heading>
               <Tabs
                 orientation="horizontal"
@@ -254,8 +263,8 @@ function Page({ data, images }: any) {
                   border="1px solid black"
                   borderRadius="40px"
                   p={4}
-                  h="full"
-                  mt={ 4 }
+                  h="90%"
+                  mt={4}
                 >
                   {data.jobs.map((job: any) => (
                     <TabPanel pt={0} key={job.timePeriod}>
@@ -276,7 +285,6 @@ function Page({ data, images }: any) {
           {data.images.length > 0 && (
             <VStack spacing={8} alignItems="center">
               <Heading>Images from work </Heading>
-
               <HStack alignItems="start" justifyContent="center" spacing={4}>
                 {data.images &&
                   data.images.map(
@@ -297,7 +305,6 @@ function Page({ data, images }: any) {
             </VStack>
           )}
         </Wrap>
-
         <Stack
           spacing={12}
           direction={{ base: 'column', md: 'row' }}
@@ -308,11 +315,13 @@ function Page({ data, images }: any) {
           <Stack
             maxW={{ base: '90%', md: '600px' }}
             spacing={4}
-            alignItems={{base: 'center', md: 'start'}}
+            alignItems={{ base: 'center', md: 'start' }}
           >
-            <Heading textAlign={{base: 'center', md: 'start'}}>About me</Heading>
+            <Heading textAlign={{ base: 'center', md: 'start' }}>
+              About me
+            </Heading>
             {data.aboutMe.longDescription && (
-              <Text lineHeight={7} textAlign={{base: 'center', md: 'start'}}>
+              <Text lineHeight={7} textAlign={{ base: 'center', md: 'start' }}>
                 <ExtensiveHighlight
                   text={data.aboutMe.longDescription}
                   query={data.aboutMe.highlight.split(',')}
@@ -367,7 +376,7 @@ function Page({ data, images }: any) {
           border="1px solid black"
           borderRadius="40px"
           p={8}
-          width={{ base: 'full', md: '800px', xl: '1000px' }}
+          maxWidth={{ base: 'full', md: '800px', xl: '1000px' }}
           id="contact"
         >
           <Heading>Contact: </Heading>
@@ -387,31 +396,36 @@ function Page({ data, images }: any) {
                   justify="space-between"
                   spacing={4}
                   direction={{ base: 'column', md: 'row' }}
-                  maxW={{base: '200px', md: '400px'}}
-
+                  maxW={{ base: '200px', md: '400px' }}
                 >
                   <SimpleHighlight text="Mail" />
-                  <Text textOverflow="wrap" maxW="90%">{data.e_mail}</Text>
+                  <Text textOverflow="wrap" maxW="90%">
+                    {data.e_mail}
+                  </Text>
                 </Stack>
               )}
               {data.phone && (
                 <Stack
                   justify="space-between"
                   direction={{ base: 'column', md: 'row' }}
-                  maxW={{base: '200px', md: '400px'}}
+                  maxW={{ base: '200px', md: '400px' }}
                 >
                   <SimpleHighlight text="Phone" />
-                  <Text textOverflow="wrap" maxW="90%">{data.phone}</Text>
+                  <Text textOverflow="wrap" maxW="90%">
+                    {data.phone}
+                  </Text>
                 </Stack>
               )}
               {data.location && (
                 <Stack
                   justify="space-between"
                   direction={{ base: 'column', md: 'row' }}
-                  maxW={{base: '200px', md: '400px'}}
+                  maxW={{ base: '200px', md: '400px' }}
                 >
                   <SimpleHighlight text="Find me in" />
-                  <Text textOverflow="wrap" maxW="90%">{data.location}</Text>
+                  <Text textOverflow="wrap" maxW="90%">
+                    {data.location}
+                  </Text>
                 </Stack>
               )}
               <LinkBox pt={4}>
@@ -425,7 +439,11 @@ function Page({ data, images }: any) {
               </LinkBox>
             </Stack>
             {data.skills.length > 0 && (
-              <List fontSize="sm" fontWeight="bold" display={{base: 'none', md: 'inline'}}>
+              <List
+                fontSize="sm"
+                fontWeight="bold"
+                display={{ base: 'none', md: 'inline' }}
+              >
                 <Text fontWeight="bold" fontSize="lg">
                   Skills:{' '}
                 </Text>
@@ -457,7 +475,7 @@ function Page({ data, images }: any) {
         >
           {!socialLinksEmpty(data.social) && (
             <>
-              <Heading display={{base: 'none', md: 'auto'}}>Socials</Heading>
+              <Heading display={{ base: 'none', md: 'auto' }}>Socials</Heading>
               <HStack
                 align="center"
                 spacing={4}
