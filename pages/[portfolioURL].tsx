@@ -533,7 +533,7 @@ function Page({ data, images }: any) {
 }
 async function getData(portfolioURL: string) {
   const userQuery = query(
-    collection(db, 'test-users'),
+    collection(db, 'portfolios'),
     where('portfolioURL', '==', portfolioURL)
   )
   const portfolioData = await getDocs(userQuery)

@@ -232,7 +232,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
           initialValues={portfolioData}
           onSubmit={async (values) => {
             try {
-              await setDoc(doc(db, 'test-users', portfolioId), {
+              await setDoc(doc(db, 'portfolios', portfolioId), {
                 ...values,
                 skillLength: skills.length,
                 projectLength: projects.length,
@@ -400,7 +400,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
 
 export async function getServerSideProps({ params }: any) {
   const portfolioId = params.portfolioId
-  const docRef = doc(db, 'test-users', portfolioId)
+  const docRef = doc(db, 'portfolios', portfolioId)
   const docSnap = await getDoc(docRef)
   const portfolioData = docSnap.exists() ? docSnap.data() : null
 
