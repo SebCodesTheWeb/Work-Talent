@@ -41,15 +41,6 @@ export const Contact = ({
         onChange={handleChange}
         value={values.e_mail}
       />
-
-      <FormLabel htmlFor="about">
-        {' '}
-        Short text about yourself and job title:{' '}
-      </FormLabel>
-      <Textarea name="about" onChange={handleChange} value={values.about} />
-
-      <FormLabel htmlFor="image">Paste Image URL: </FormLabel>
-      <Input name="image" onChange={handleChange} value={values.image} />
     </VStack>
   )
 }

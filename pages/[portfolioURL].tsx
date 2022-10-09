@@ -142,7 +142,7 @@ function Page({ data, images }: any) {
         </Box>
         <Stack maxW="500px" spacing={4}>
           <Text as="em">
-            Hi nice to meet you!{data.firstname && 'My name is'}{' '}
+            Hi nice to meet you! {data.firstname && 'My name is'}{' '}
           </Text>
           <Heading>
             <Highlight
