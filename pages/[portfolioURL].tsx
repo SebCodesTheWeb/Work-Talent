@@ -250,7 +250,6 @@ function Page({ data, images }: any) {
           <Heading>About me</Heading>
           {data.aboutMe.longDescription && (
             <Text lineHeight={7}>
-              Hi! My name is{''}
               <SimpleHighlight
                 text={`${data.firstname} ${data.lastname}`}
                 fontWeight="normal"
@@ -300,6 +299,7 @@ function Page({ data, images }: any) {
         borderRadius="40px"
         p={8}
         minWidth="800px"
+        maxWidth="1200px"
         id="contact"
       >
         <Heading>Contact: </Heading>
