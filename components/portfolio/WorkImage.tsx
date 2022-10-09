@@ -21,8 +21,8 @@ export const WorkImage = ({
   bgColor = 'cyan.500',
 }: Props) => {
   return (
-    <Stack spacing={2}>
-      <AspectRatio ratio={4 / 3} w="300px">
+    <Stack spacing={2} alignItems={{base: 'center', md: 'start'}}>
+      <AspectRatio ratio={4 / 3} w={{base: '250px', md: '300px'}}>
         <Image
           src={src}
           objectFit="cover"
@@ -33,7 +33,7 @@ export const WorkImage = ({
       </AspectRatio>
       <CompanyTag companyName={companyName} bgColor={bgColor} />
       <Heading size="md">{title}</Heading>
-      <Text maxW="300px">{description}</Text>
+      <Text maxW="300px" textAlign={{base: 'center', md: 'start'}}>{description}</Text>
     </Stack>
   )
 }
