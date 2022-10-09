@@ -320,6 +320,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                           <Text>Make portfolio public</Text>
                           <Switch
                             value={makePublic}
+                            isChecked={ makePublic }
                             colorScheme="teal"
                             onChange={() =>
                               setMakePublic((prev: boolean) => !prev)
