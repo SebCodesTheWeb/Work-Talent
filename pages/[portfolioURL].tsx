@@ -62,7 +62,6 @@ const socialLinksEmpty = (socials: any) => {
 }
 
 function Page({ data, images }: any) {
-  console.log(data.aboutMe)
   return (
     <VStack spacing={10} id="home">
       <HStack

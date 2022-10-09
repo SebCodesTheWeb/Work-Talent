@@ -76,7 +76,7 @@ export const PortfolioProject = ({
       <HStack>
         {links.map((link: string, index: number) =>
           link === '' ? (
-            <Text></Text>
+            <Text key={`${link}-${index}`}></Text>
           ) : (
             <LinkBox key={link}>
               <SimpleButton>
