@@ -73,6 +73,7 @@ export const Education = ({
           </FormLabel>
           <Input
             name={`education[${educationNumber}].grade`}
+            placeholder="Ex: 3.2/4.0 GPA"
             onChange={handleChange}
             value={
               values.education[educationNumber]

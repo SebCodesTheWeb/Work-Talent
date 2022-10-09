@@ -30,11 +30,8 @@ export const googleAuthProvider = new GoogleAuthProvider()
 
 export const signIn = async () => {
   await signInWithPopup(auth, googleAuthProvider)
-    .then((user) => {
-      console.log(user)
-    })
     .catch((error) => {
-      console.error(error)
+      throw Error(error)
     })
 }
 
@@ -48,11 +45,8 @@ export const promiseSignOut = async () => {
 
 export const signOut = async () => {
   await googleSignOut(auth)
-    .then((user) => {
-      console.log(user)
-    })
-    .then((error) => {
-      console.error(error)
+    .catch((error) => {
+      throw Error(error)
     })
 }
 

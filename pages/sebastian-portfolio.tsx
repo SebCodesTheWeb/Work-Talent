@@ -38,21 +38,10 @@ import {
   PortfolioProject,
   SimpleButton,
 } from '../components'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase/clientApp'
 
 const man = true
 
 export default function SebastianPortfolio() {
-  const getData = async () => {
-    const querySnapshot = await getDocs(collection(db, 'test-users'))
-    console.clear()
-    console.log(querySnapshot)
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${JSON.stringify(doc.data())}`)
-    })
-  }
-  getData()
   return (
     <VStack spacing={10} id="home">
       <HStack

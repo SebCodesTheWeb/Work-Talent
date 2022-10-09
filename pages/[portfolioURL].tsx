@@ -367,7 +367,7 @@ function Page({ data, images }: any) {
           border="1px solid black"
           borderRadius="40px"
           p={8}
-          width={{ base: 'full', md: '800px', xl: '1100px' }}
+          width={{ base: 'full', md: '800px', xl: '1000px' }}
           id="contact"
         >
           <Heading>Contact: </Heading>

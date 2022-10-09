@@ -246,13 +246,9 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     storage,
                     `images/${values.images[index].title}`
                   )
-                  console.log(imageSRC)
                   uploadBytes(imageRef, imageSRC)
-                    .then(() => {
-                      console.log('upload success')
-                    })
                     .catch(() => {
-                      console.log('upload failed')
+                      throw new Error('upload failed')
                     })
                 }
               })
