@@ -54,8 +54,6 @@ const initialValues = {
   location: '',
   phone: '',
   e_mail: '',
-  about: '',
-  image: '',
   jobRole: '',
   jobs: [],
   education: [],
