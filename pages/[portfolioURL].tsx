@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../firebase/clientApp'
@@ -27,6 +27,8 @@ import {
   LinkOverlay,
   Link,
   Highlight,
+  Center,
+  Spinner,
   Tabs,
   TabList,
   Tab,
@@ -63,6 +65,19 @@ const socialLinksEmpty = (socials: any) => {
 }
 
 function Page({ data, images }: any) {
+  const [loading, setLoading ] = useState(true)
+  useEffect(() => {
+    setLoading(false)
+  }, [])
+
+  if (loading) {
+    return (
+      <Center pt={4} minH="100vh" bgColor="#fff" color="#333" py={8}>
+        <Spinner />
+      </Center>
+    )
+  }
+
   return (
     <Stack w="100vw" alignItems="center">
       <Head>
