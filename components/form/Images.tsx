@@ -56,6 +56,7 @@ export const WorkImages = ({
             Name the image:
           </FormLabel>
           <Input
+            autoFocus={true}
             name={`images[${imageNumber}].title`}
             onChange={handleChange}
             placeholder="Hanging out after work"
