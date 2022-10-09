@@ -291,10 +291,11 @@ function Page({ data, images }: any) {
                 key={project.projectTitle}
                 title={project.projectTitle}
                 description={project.description}
-                video={false}
+                video={project.isVideo}
                 src={project.image}
                 alt={project.image}
-                link={project.link}
+                links={[project.linkOne, project.linkTwo]}
+                linkTexts={[project.linkLabelOne, project.linkLabelTwo]}
               />
             ))}
           </Wrap>

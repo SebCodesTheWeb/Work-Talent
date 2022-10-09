@@ -1,23 +1,13 @@
 import React from 'react'
-import {
-  Heading,
-  Text,
-  List,
-  ListItem,
-  ListIcon,
-  Stack,
-  HStack,
-} from '@chakra-ui/react'
+import { Heading, Text, Stack, HStack } from '@chakra-ui/react'
 
-import { GrCheckboxSelected } from 'react-icons/gr'
 import { CompanyTag } from './CompanyTag'
-
 interface Props {
   jobTitle: string
   companyName: string
   location: string
   date: string
-  workTasks: string[]
+  workTasks: string
   bgColor?: 'cyan.500' | 'purple.500' | 'gray.500'
 }
 
@@ -30,7 +20,7 @@ export const ExperienceCard = ({
   bgColor = 'cyan.500',
 }: Props) => {
   return (
-    <Stack>
+    <Stack maxW="400px">
       <Heading size="md">{jobTitle}</Heading>
       <HStack>
         <CompanyTag
@@ -42,7 +32,9 @@ export const ExperienceCard = ({
       <Text color="gray.800" fontWeight="light" fontSize="sm">
         {date}
       </Text>
-      <Text maxW="75%" textOverflow="wrap" textAlign="start">{workTasks}</Text>
+      <Text maxW="80%" textOverflow="wrap" textAlign="start">
+        {workTasks}
+      </Text>
     </Stack>
   )
 }

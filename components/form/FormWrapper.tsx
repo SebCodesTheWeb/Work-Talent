@@ -11,6 +11,7 @@ export const FormWrapper = ({ spacing=12, name, onClick, children }: FormWrapper
       maxH="800px"
       spacing={spacing}
       overflowY={{ base: 'visible', '2xl': 'scroll' }}
+      pr={ 2 }
     >
       {children}
       {name && (
