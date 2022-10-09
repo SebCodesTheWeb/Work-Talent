@@ -46,10 +46,9 @@ import {
   SimpleButton,
 } from '../components'
 import dynamic from 'next/dynamic'
-const GeneratePDF = dynamic(
-  () => import('../components/resume/GeneratePDF'),
-  { ssr: false }
-)
+const GeneratePDF = dynamic(() => import('../components/resume/GeneratePDF'), {
+  ssr: false,
+})
 
 const socialLinksEmpty = (socials: any) => {
   Object.values(socials).forEach((social) => {
@@ -132,7 +131,11 @@ function Page({ data, images }: any) {
       <HStack pt={24} spacing={8}>
         <Box>
           <Image
-            src={ data.gender === 'woman' ? '/img/business-woman.svg' : '/img/business-man.svg'}
+            src={
+              data.gender === 'woman'
+                ? '/img/business-woman.svg'
+                : '/img/business-man.svg'
+            }
             alt="business-person"
             boxSize="600px"
             objectFit={data.gender === 'woman' ? 'contain' : 'cover'}
@@ -206,7 +209,7 @@ function Page({ data, images }: any) {
                       companyName={job.companyName}
                       location={job.workLocation}
                       date={job.timePeriod}
-                      workTasks={[job.achievments]}
+                      workTasks={job.achievments}
                       bgColor="purple.500"
                     />
                   </TabPanel>
@@ -265,7 +268,11 @@ function Page({ data, images }: any) {
           </LinkBox>
         </Stack>
         <Image
-          src={data.gender === 'woman' ? '../img/coding-woman.svg' : '../img/coding.svg'}
+          src={
+            data.gender === 'woman'
+              ? '../img/coding-woman.svg'
+              : '../img/coding.svg'
+          }
           objectFit="cover"
           w="400px"
           alt="Sebastian Delgado"

@@ -42,16 +42,7 @@ export const ExperienceCard = ({
       <Text color="gray.800" fontWeight="light" fontSize="sm">
         {date}
       </Text>
-      <List spacing={4}>
-        {workTasks.map((workTask) => {
-          return (
-            <ListItem key={workTask}>
-              <ListIcon as={GrCheckboxSelected} />
-              {workTask}
-            </ListItem>
-          )
-        })}
-      </List>
+      <Text maxW="75%" textOverflow="wrap" textAlign="start">{workTasks}</Text>
     </Stack>
   )
 }
