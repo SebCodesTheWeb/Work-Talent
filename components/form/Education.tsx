@@ -56,10 +56,11 @@ export const Education = ({
             }
           />
           <FormLabel htmlFor={`education[${educationNumber}].dateOfFinishing`}>
-            When did you finnish school
+            When did you graduate
           </FormLabel>
           <Input
             name={`education[${educationNumber}].dateOfFinishing`}
+            placeholder="Ex: Jun 2019 - Present"
             onChange={handleChange}
             value={
               values.education[educationNumber]

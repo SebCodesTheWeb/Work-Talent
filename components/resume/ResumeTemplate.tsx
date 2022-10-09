@@ -99,7 +99,7 @@ export const ResumeTemplate = React.forwardRef(
                   <Stack spacing={8} key={`education-${index}`}>
                     <Text>{education.school}</Text>
                     <Text color="blue.500">
-                      Class of {education.dateOfFinishing}
+                      {education.dateOfFinishing}
                     </Text>
                     <Text>{education.program}</Text>
                     <Text>Grades: {education.grade}</Text>
