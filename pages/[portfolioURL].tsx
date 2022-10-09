@@ -11,7 +11,7 @@ import {
   GrYoutube,
 } from 'react-icons/gr'
 import { VscTriangleDown } from 'react-icons/vsc'
-import { IoDocumentOutline, IoMailOutline } from 'react-icons/io5'
+import { IoMailOutline } from 'react-icons/io5'
 import {
   Heading,
   Text,
@@ -258,15 +258,7 @@ function Page({ data, images }: any) {
               {data.aboutMe.longDescription}
             </Text>
           )}
-          <LinkBox pt={4}>
-            <SimpleButton>
-              <HStack>
-                <LinkOverlay href="#" />
-                <Heading size="sm">Resume</Heading>
-                <Icon as={IoDocumentOutline} className="icon" />
-              </HStack>
-            </SimpleButton>
-          </LinkBox>
+          <GeneratePDF data={data} />
         </Stack>
         <Image
           src={
