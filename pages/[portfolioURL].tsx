@@ -51,12 +51,13 @@ const GeneratePDF = dynamic(() => import('../components/resume/GeneratePDF'), {
 })
 
 const socialLinksEmpty = (socials: any) => {
+  let empty = true
   Object.values(socials).forEach((social) => {
     if (social !== '') {
-      return false
+      empty = false
     }
   })
-  return true
+  return empty
 }
 
 function Page({ data, images }: any) {
