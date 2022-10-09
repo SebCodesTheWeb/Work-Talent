@@ -51,8 +51,6 @@ const GeneratePDF = dynamic(
   { ssr: false }
 )
 
-const man = true
-
 const socialLinksEmpty = (socials: any) => {
   Object.values(socials).forEach((social) => {
     if (social !== '') {
@@ -134,10 +132,10 @@ function Page({ data, images }: any) {
       <HStack pt={24} spacing={8}>
         <Box>
           <Image
-            src="/img/business-man.svg"
+            src={ data.gender === 'woman' ? '/img/business-woman.svg' : '/img/business-man.svg'}
             alt="business-person"
             boxSize="600px"
-            objectFit={man ? 'cover' : 'contain'}
+            objectFit={data.gender === 'woman' ? 'contain' : 'cover'}
           />
         </Box>
         <Stack maxW="500px" spacing={4}>
@@ -267,7 +265,7 @@ function Page({ data, images }: any) {
           </LinkBox>
         </Stack>
         <Image
-          src="../img/coding.svg"
+          src={data.gender === 'woman' ? '../img/coding-woman.svg' : '../img/coding.svg'}
           objectFit="cover"
           w="400px"
           alt="Sebastian Delgado"

@@ -35,7 +35,7 @@ export const About = ({ handleChange, values, currentStep }: FormStepProps) => (
       placeholder="Hi, my name is Sebastian and I'm a pupil at Procivitas Privata Gymnasium. I love to code and have been glued to my keyboard since I learned my first proramming language(python) at age eleven. One of my big passions is mathematics, which I leverage in my coding abilities. I am looking to join a new role here in Malmö where I can build stunning user experiences."
     />
     <FormLabel htmlFor="gender">Gender</FormLabel>
-    <RadioGroup name="gender">
+    <RadioGroup name="gender" value={ values.gender }>
       <HStack direction="row">
         <Radio value="man" onChange={handleChange }>Man</Radio>
         <Radio value="woman" onChange={ handleChange }>Woman</Radio>

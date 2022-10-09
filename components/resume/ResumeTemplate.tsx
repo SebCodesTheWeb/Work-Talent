@@ -94,7 +94,7 @@ export const ResumeTemplate = React.forwardRef(
                       Class of {education.dateOfFinishing}
                     </Text>
                     <Text>{education.program}</Text>
-                    <Text>{education.grade}</Text>
+                    <Text>Grades: {education.grade}</Text>
                   </Stack>
                 ))}
               </Stack>

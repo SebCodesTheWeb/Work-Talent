@@ -118,13 +118,11 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
   }
 
   const viewPortfolio = (index: number) => {
-    setLoading(true)
-    router.push(`/${portfolios[index].portfolioURL}`)
+    window.open(`/${portfolios[index].portfolioURL}`)
   }
 
   const viewPublicPortfolio = (index: number) => {
-    setLoading(true)
-    router.push(`/${publicPortfolios[index].portfolioURL}`)
+    window.open(`/${publicPortfolios[index].portfolioURL}`)
   }
 
   if (loading) {
