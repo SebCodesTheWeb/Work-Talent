@@ -19,7 +19,7 @@ export const ResumeTemplate = React.forwardRef(
             </Heading>
             <Text color="blue.500">{data.jobRole}</Text>
           </Box>
-          <HStack alignItems="start" justifyContent="space-between">
+          <HStack alignItems="start" justifyContent="space-between" spacing={8}>
             <Stack spacing={24} w="65%">
               <Stack spacing={8}>
                 <Heading fontSize="1.5em">Summary</Heading>
@@ -65,16 +65,24 @@ export const ResumeTemplate = React.forwardRef(
                 </Stack>
               </Stack>
             </Stack>
-            <Stack spacing={32}>
+            <Stack spacing={32} w="35%">
               <Stack spacing={8}>
                 <Heading fontSize="1.1em">Contact</Heading>
                 <Stack spacing={8}>
-                  <Text color="blue.500">{data.phone}</Text>
-                  <Text color="blue.500">{data.e_mail}</Text>
-                  <Text color="blue.500">{data.social.linkedin}</Text>
-                  <Text color="blue.500">{data.social.github}</Text>
-                  <Text color="blue.500">{data.social.blog}</Text>
-                  <Text color="blue.500">{data.social.youtube}</Text>
+                  {data.phone && <Text color="blue.500">{data.phone}</Text>}
+                  {data.e_mail && <Text color="blue.500">{data.e_mail}</Text>}
+                  {data.social.linkedin && (
+                    <Text color="blue.500">{data.social.linkedin}</Text>
+                  )}
+                  {data.social.github && (
+                    <Text color="blue.500">{data.social.github}</Text>
+                  )}
+                  {data.social.blog && (
+                    <Text color="blue.500">{data.social.blog}</Text>
+                  )}
+                  {data.social.youtube && (
+                    <Text color="blue.500">{data.social.youtube}</Text>
+                  )}
                 </Stack>
               </Stack>
               <Stack spacing={8}>
