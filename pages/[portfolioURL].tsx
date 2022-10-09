@@ -47,6 +47,7 @@ import {
   ExtensiveHighlight,
 } from '../components'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 const GeneratePDF = dynamic(() => import('../components/resume/GeneratePDF'), {
   ssr: false,
 })
@@ -64,6 +65,16 @@ const socialLinksEmpty = (socials: any) => {
 function Page({ data, images }: any) {
   return (
     <Stack w="100vw" alignItems="center">
+      <Head>
+        <title>{data.firstname} Portfolio</title>
+        <meta charSet="UTF-8" />
+        <meta name="description" content={`Web portfolio and resume for ${data.firstname}, a ${data.jobTitle}`} />
+        <meta name="keywords" content={`${data.firstname}, ${data.lastname}, ${data.jobTitle}, resume builder `} />
+        <meta name="author" content="Sebastian Delgado" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="apple-touch-icon" href="/img/logo_white.png"/>
+        <meta name="theme-color" content="#ffffff" />
+      </Head>
       <VStack
         spacing={{base: 0, md: 10}}
         id="home"
