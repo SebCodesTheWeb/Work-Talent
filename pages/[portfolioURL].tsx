@@ -44,6 +44,7 @@ import {
   SimpleHighlight,
   PortfolioProject,
   SimpleButton,
+  ExtensiveHighlight,
 } from '../components'
 import dynamic from 'next/dynamic'
 const GeneratePDF = dynamic(() => import('../components/resume/GeneratePDF'), {
@@ -61,6 +62,7 @@ const socialLinksEmpty = (socials: any) => {
 }
 
 function Page({ data, images }: any) {
+  console.log(data.aboutMe)
   return (
     <VStack spacing={10} id="home">
       <HStack
@@ -250,11 +252,11 @@ function Page({ data, images }: any) {
           <Heading>About me</Heading>
           {data.aboutMe.longDescription && (
             <Text lineHeight={7}>
-              <SimpleHighlight
-                text={`${data.firstname} ${data.lastname}`}
+              <ExtensiveHighlight
+                text={data.aboutMe.longDescription}
+                query={data.aboutMe.highlight.split(',')}
                 fontWeight="normal"
               />
-              {data.aboutMe.longDescription}
             </Text>
           )}
           <GeneratePDF data={data} />

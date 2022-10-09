@@ -60,6 +60,7 @@ const initialValues = {
   aboutMe: {
     shortDescription: '',
     longDescription: '',
+    highlight: '',
   },
   images: [],
   portfolio: [],
