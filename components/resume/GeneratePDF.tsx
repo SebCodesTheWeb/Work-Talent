@@ -33,7 +33,7 @@ const GeneratePdf = ({ data }: props) => {
     }
     generateImage()
     setResumeVisible(false)
-  }, [data, resumeVisible])
+  }, [data, resumeVisible, toast])
 
   return (
     <div className="button-container">

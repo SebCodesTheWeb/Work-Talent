@@ -241,7 +241,7 @@ function Page({ data, images }: any) {
           </Stack>
         </Stack>
 
-        <Wrap justify="center" spacing={32} p={16} maxW="80%">
+        <Wrap justify="center" spacing={32} p={16} maxW="90%">
           <span className="anchor" id="work"></span>
           {data.jobs.length > 0 && (
             <VStack spacing={4} px={{ base: 0, md: 16 }}>
@@ -286,7 +286,7 @@ function Page({ data, images }: any) {
           )}
           {data.images.length > 0 && (
             <VStack spacing={8} alignItems="center">
-              <Heading textAlign="center">Images from work </Heading>
+              <Heading textAlign="center" >Images from work </Heading>
               <Stack
                 alignItems="start"
                 justifyContent="center"
