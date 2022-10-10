@@ -244,7 +244,7 @@ function Page({ data, images }: any) {
         <Wrap justify="center" spacing={32} p={16} maxW="90%">
           <span className="anchor" id="work"></span>
           {data.jobs.length > 0 && (
-            <VStack spacing={4} px={{ base: 0, md: 16 }}>
+            <VStack spacing={4} px={{ base: 0, md: 16 }}w="full">
               <Heading mb={4} textAlign="center">
                 Work Experience
               </Heading>
@@ -253,6 +253,7 @@ function Page({ data, images }: any) {
                 minWidth={{ base: '200px', md: '600px' }}
                 minHeight="300px"
                 maxWidth={{ base: 'full', md: 'auto' }}
+                w="full"
               >
                 <TabList pb={4}>
                   {data.jobs.map((job: any) => (
