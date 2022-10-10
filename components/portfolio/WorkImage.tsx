@@ -1,7 +1,6 @@
 import React from 'react'
 import { CompanyTag } from './CompanyTag'
-
-import { Heading, Text, Image, AspectRatio, Stack } from '@chakra-ui/react'
+import { Heading, Text, Image, AspectRatio, Stack, Box } from '@chakra-ui/react'
 
 interface Props {
   description?: string
@@ -21,8 +20,12 @@ export const WorkImage = ({
   bgColor = 'cyan.500',
 }: Props) => {
   return (
-    <Stack spacing={2} alignItems={{base: 'center', md: 'start'}} w={{base: 'full', md: 'auto'}}>
-      <AspectRatio ratio={4 / 3} w={{base: 'full', md: '300px'}}>
+    <Stack
+      spacing={{base: 3, md: 2}}
+      alignItems={{ base: 'center', md: 'start' }}
+      w={{ base: 'full', md: 'auto' }}
+    >
+      <AspectRatio ratio={4 / 3} w={{ base: 'full', md: '300px' }}>
         <Image
           src={src}
           objectFit="cover"
@@ -31,9 +34,13 @@ export const WorkImage = ({
           border="1px solid #718096"
         />
       </AspectRatio>
-      <CompanyTag companyName={companyName} bgColor={bgColor} />
+      <Box alignSelf="start">
+        <CompanyTag companyName={companyName} bgColor={bgColor} />
+      </Box>
       <Heading size="md">{title}</Heading>
-      <Text maxW="300px" textAlign={{base: 'center', md: 'start'}}>{description}</Text>
+      <Text maxW="300px" textAlign={{ base: 'center', md: 'start' }}>
+        {description}
+      </Text>
     </Stack>
   )
 }

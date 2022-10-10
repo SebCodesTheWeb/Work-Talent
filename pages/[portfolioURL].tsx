@@ -459,6 +459,7 @@ function Page({ data, images }: any) {
             )}
           </Stack>
         </Stack>
+          <Text fontWeight="bold" textAlign="center" display={{base: 'auto', md: 'none'}} >This website is powered by job-talent</Text>
         <VStack
           w="100vw"
           h="300px"
