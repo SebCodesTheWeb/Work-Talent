@@ -3,7 +3,7 @@ import { VStack, Button, HStack, Icon, Text } from '@chakra-ui/react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { FormWrapperProps } from './types'
 
-export const FormWrapper = ({ spacing=12, name, onClick, children }: FormWrapperProps) => {
+export const FormWrapper = ({ spacing=8, name, onClick, children }: FormWrapperProps) => {
   return (
     <VStack
       alignItems="start"

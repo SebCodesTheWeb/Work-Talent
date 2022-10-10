@@ -208,7 +208,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
         <title> Job-talent.org </title>
       </Head>
       <VStack>
-        <VStack>
+        <VStack display={{base: "none", "2xl": "flex"}}>
           <LinkBox>
             <VStack>
               <NextLink href="/" passHref={true}>
@@ -271,7 +271,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 px={16}
                 borderRadius={8}
                 w={{ base: 'max-content', md: '700px' }}
-                h={{ base: '550px', '2xl': '1000px' }}
+                h={{ base: 'full', '2xl': '1000px' }}
                 spacing={4}
               >
                 <Flex
