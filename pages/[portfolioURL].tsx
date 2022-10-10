@@ -241,11 +241,13 @@ function Page({ data, images }: any) {
           </Stack>
         </Stack>
 
-        <Wrap justify="center" spacing={32} p={16} maxW="full">
+        <Wrap justify="center" spacing={32} p={16} maxW="80%">
           <span className="anchor" id="work"></span>
           {data.jobs.length > 0 && (
             <VStack spacing={4} px={{ base: 0, md: 16 }}>
-              <Heading mb={4} textAlign="center">Work Experience</Heading>
+              <Heading mb={4} textAlign="center">
+                Work Experience
+              </Heading>
               <Tabs
                 orientation="horizontal"
                 minWidth={{ base: '200px', md: '600px' }}
@@ -283,9 +285,16 @@ function Page({ data, images }: any) {
             </VStack>
           )}
           {data.images.length > 0 && (
-            <VStack spacing={8} alignItems="center" >
+            <VStack spacing={8} alignItems="center">
               <Heading textAlign="center">Images from work </Heading>
-              <Stack alignItems="start" justifyContent="center" spacing={4} direction={{base: 'column', md: 'row'}} w="80vw !important" maxW="350px">
+              <Stack
+                alignItems="start"
+                justifyContent="center"
+                spacing={4}
+                direction={{ base: 'column', md: 'row' }}
+                w="80vw !important"
+                maxW="350px"
+              >
                 {data.images &&
                   data.images.map(
                     (image: any, index: number) =>
@@ -376,7 +385,8 @@ function Page({ data, images }: any) {
           border="1px solid black"
           borderRadius="40px"
           p={8}
-          maxWidth={{ base: 'full', md: '800px', xl: '1000px' }}
+          maxWidth={{ base: 'full', md: '900px', xl: '1000px' }}
+          w="full"
           id="contact"
         >
           <Heading>Contact: </Heading>
@@ -390,13 +400,14 @@ function Page({ data, images }: any) {
             align="start"
             direction={{ base: 'column', md: 'row' }}
           >
-            <Stack spacing={4} maxW="50%">
+            <Stack spacing={4} maxW={{ base: 'full', md: '50%' }} w="100%">
               {data.e_mail && (
                 <Stack
                   justify="space-between"
                   spacing={4}
-                  direction={{ base: 'column', md: 'row' }}
+                  direction="row"
                   maxW={{ base: '200px', md: '400px' }}
+                  w="full"
                 >
                   <SimpleHighlight text="Mail" />
                   <Text textOverflow="wrap" maxW="90%">
@@ -407,8 +418,9 @@ function Page({ data, images }: any) {
               {data.phone && (
                 <Stack
                   justify="space-between"
-                  direction={{ base: 'column', md: 'row' }}
+                  direction="row"
                   maxW={{ base: '200px', md: '400px' }}
+                  w="full"
                 >
                   <SimpleHighlight text="Phone" />
                   <Text textOverflow="wrap" maxW="90%">
@@ -419,7 +431,8 @@ function Page({ data, images }: any) {
               {data.location && (
                 <Stack
                   justify="space-between"
-                  direction={{ base: 'column', md: 'row' }}
+                  direction="row"
+                  w="full"
                   maxW={{ base: '200px', md: '400px' }}
                 >
                   <SimpleHighlight text="Find me in" />
@@ -447,7 +460,7 @@ function Page({ data, images }: any) {
                 <Text fontWeight="bold" fontSize="lg">
                   Skills:{' '}
                 </Text>
-                <SimpleGrid spacing={4} columns={{ base: 1, sm: 2, md: 4 }}>
+                <SimpleGrid spacing={4} columns={{ base: 1, sm: 2, lg: 3, '2xl': 4 }}>
                   {data.skills.map((skill: any) => (
                     <ListItem key={skill}>
                       <ListIcon as={GrCheckboxSelected} />
@@ -459,7 +472,13 @@ function Page({ data, images }: any) {
             )}
           </Stack>
         </Stack>
-          <Text fontWeight="bold" textAlign="center" display={{base: 'auto', md: 'none'}} >This website is powered by job-talent</Text>
+        <Text
+          fontWeight="bold"
+          textAlign="center"
+          display={{ base: 'auto', md: 'none' }}
+        >
+          This website is powered by job-talent
+        </Text>
         <VStack
           w="100vw"
           h="300px"
