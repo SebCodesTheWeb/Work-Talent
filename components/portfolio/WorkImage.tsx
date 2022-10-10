@@ -21,8 +21,8 @@ export const WorkImage = ({
   bgColor = 'cyan.500',
 }: Props) => {
   return (
-    <Stack spacing={2} alignItems={{base: 'center', md: 'start'}}>
-      <AspectRatio ratio={4 / 3} w={{base: '250px', md: '300px'}}>
+    <Stack spacing={2} alignItems={{base: 'center', md: 'start'}} w={{base: 'full', md: 'auto'}}>
+      <AspectRatio ratio={4 / 3} w={{base: 'full', md: '300px'}}>
         <Image
           src={src}
           objectFit="cover"

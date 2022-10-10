@@ -245,7 +245,7 @@ function Page({ data, images }: any) {
           <span className="anchor" id="work"></span>
           {data.jobs.length > 0 && (
             <VStack spacing={4} px={{ base: 0, md: 16 }}>
-              <Heading mb={4}>Work Experience</Heading>
+              <Heading mb={4} textAlign="center">Work Experience</Heading>
               <Tabs
                 orientation="horizontal"
                 minWidth={{ base: '200px', md: '600px' }}
@@ -283,9 +283,9 @@ function Page({ data, images }: any) {
             </VStack>
           )}
           {data.images.length > 0 && (
-            <VStack spacing={8} alignItems="center">
-              <Heading>Images from work </Heading>
-              <HStack alignItems="start" justifyContent="center" spacing={4}>
+            <VStack spacing={8} alignItems="center" >
+              <Heading textAlign="center">Images from work </Heading>
+              <Stack alignItems="start" justifyContent="center" spacing={4} direction={{base: 'column', md: 'row'}} w="80vw !important" maxW="350px">
                 {data.images &&
                   data.images.map(
                     (image: any, index: number) =>
@@ -301,7 +301,7 @@ function Page({ data, images }: any) {
                         />
                       )
                   )}
-              </HStack>
+              </Stack>
             </VStack>
           )}
         </Wrap>
