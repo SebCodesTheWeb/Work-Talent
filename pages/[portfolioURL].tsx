@@ -196,7 +196,7 @@ function Page({ data, images }: any) {
             spacing={8}
             alignItems={{ base: 'center', md: 'start' }}
           >
-            <Text as="em" display={{ base: 'none', md: 'auto' }}>
+            <Text as="em" display={{ base: 'none', md: 'inherit' }}>
               Hi nice to meet you! {data.firstname && 'My name is'}{' '}
             </Text>
             <Heading size={{ base: '2xl', md: 'xl' }} textAlign="center">
@@ -215,7 +215,7 @@ function Page({ data, images }: any) {
             <Text
               fontWeight="bold"
               textAlign={{ base: 'center', md: 'start' }}
-              fontSize={{ base: 'sm', md: 'md' }}
+              fontSize={{ base: 'md', md: 'lg' }}
             >
               <Highlight
                 query={data.jobRole ?? ''}
