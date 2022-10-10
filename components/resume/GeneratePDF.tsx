@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { jsPDF } from 'jspdf'
 import { toPng } from 'html-to-image'
 import { ResumeTemplate } from './ResumeTemplate'
-import { HStack, Heading, Icon } from '@chakra-ui/react'
+import { HStack, Heading, Icon, useToast } from '@chakra-ui/react'
 import { SimpleButton } from '../portfolio'
 import { IoDocumentOutline } from 'react-icons/io5'
 
@@ -13,14 +13,23 @@ type props = {
 const GeneratePdf = ({ data }: props) => {
   const ref = React.useRef<HTMLDivElement>(null)
   const [resumeVisible, setResumeVisible] = React.useState(false)
+  const toast = useToast()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const generateImage = async () => {
       if (ref.current === null) return
       const image = await toPng(ref.current, { quality: 1, cacheBust: true })
       const doc = new jsPDF()
       doc.addImage(image, 'JPEG', 0, 0, 210, 297)
       doc.save(data.firstname + data.lastname + '-resume.pdf')
+    toast({
+      title: `${data.firstname}${data.lastname}-resume.pdf saved`,
+      description: "Check your downloads folder",
+      status: 'success',
+      duration: 9000,
+      position: 'top-right',
+      isClosable: true,
+    })
     }
     generateImage()
     setResumeVisible(false)
