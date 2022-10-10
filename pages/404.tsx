@@ -16,7 +16,7 @@ export default function FourOhFour() {
         <Heading size="4xl" fontFamily="monospace">
           404
         </Heading>
-        <Text>
+        <Text textAlign="center">
           Sorry, the portfolio you are looking for seems to be missing, check
           for valid URL?
         </Text>

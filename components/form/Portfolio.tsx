@@ -6,6 +6,7 @@ import {
   FormLabel,
   Stack,
   Switch,
+  HStack,
 } from '@chakra-ui/react'
 import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
@@ -63,7 +64,7 @@ export const Portfolio = ({
             }
           />
           <FormLabel htmlFor={`portfolio[${projectNumber}].image`}>
-            Image or video of project
+            Link to an image or embedded video of project
           </FormLabel>
           <Input
             name={`portfolio[${projectNumber}].image`}
@@ -74,69 +75,82 @@ export const Portfolio = ({
                 : undefined
             }
           />
-          <FormLabel htmlFor={`portfolio[${projectNumber}].isVideo`}>
-            Is this link a video?
-          </FormLabel>
-          <Switch
-            name={`portfolio[${projectNumber}].isVideo`}
-            onChange={handleChange}
-            isChecked={
-              values.portfolio[projectNumber]
-                ? values.portfolio[projectNumber].isVideo
-                : undefined
-            }
-          />
-
-          <FormLabel htmlFor={`portfolio[${projectNumber}].linkOne`}>
-            External Link
-          </FormLabel>
-          <Input
-            name={`portfolio[${projectNumber}].linkOne`}
-            onChange={handleChange}
-            value={
-              values.portfolio[projectNumber]
-                ? values.portfolio[projectNumber].linkOne
-                : undefined
-            }
-          />
-          <FormLabel htmlFor={`portfolio[${projectNumber}].linkLabelOne`}>
-            Where does this link lead to
-          </FormLabel>
-          <Input
-            name={`portfolio[${projectNumber}].linkLabelOne`}
-            onChange={handleChange}
-            placeholder="Facebook"
-            value={
-              values.portfolio[projectNumber]
-                ? values.portfolio[projectNumber].linkLabelOne
-                : undefined
-            }
-          />
-          <FormLabel htmlFor={`portfolio[${projectNumber}].linkTwo`}>
-            External Link
-          </FormLabel>
-          <Input
-            name={`portfolio[${projectNumber}].linkTwo`}
-            onChange={handleChange}
-            value={
-              values.portfolio[projectNumber]
-                ? values.portfolio[projectNumber].linkTwo
-                : undefined
-            }
-          />
-          <FormLabel htmlFor={`portfolio[${projectNumber}].linkLabelTwo`}>
-            Where does this link lead to
-          </FormLabel>
-          <Input
-            name={`portfolio[${projectNumber}].linkLabelTwo`}
-            onChange={handleChange}
-            placeholder="Facebook"
-            value={
-              values.portfolio[projectNumber]
-                ? values.portfolio[projectNumber].linkLabelTwo
-                : undefined
-            }
-          />
+          <HStack>
+            <FormLabel htmlFor={`portfolio[${projectNumber}].isVideo`}>
+              This link embeds a video
+            </FormLabel>
+            <Switch
+              name={`portfolio[${projectNumber}].isVideo`}
+              onChange={handleChange}
+              isChecked={
+                values.portfolio[projectNumber]
+                  ? values.portfolio[projectNumber].isVideo
+                  : undefined
+              }
+            />
+          </HStack>
+            <HStack alignItems="end">
+              <Stack>
+                <FormLabel htmlFor={`portfolio[${projectNumber}].linkOne`}>
+                  External Link one
+                </FormLabel>
+                <Input
+                  name={`portfolio[${projectNumber}].linkOne`}
+                  onChange={handleChange}
+                  value={
+                    values.portfolio[projectNumber]
+                      ? values.portfolio[projectNumber].linkOne
+                      : undefined
+                  }
+                />
+              </Stack>
+              <Stack>
+                <FormLabel htmlFor={`portfolio[${projectNumber}].linkLabelOne`}>
+                  The link leads to
+                </FormLabel>
+                <Input
+                  name={`portfolio[${projectNumber}].linkLabelOne`}
+                  onChange={handleChange}
+                  placeholder="Facebook"
+                  value={
+                    values.portfolio[projectNumber]
+                      ? values.portfolio[projectNumber].linkLabelOne
+                      : undefined
+                  }
+                />
+              </Stack>
+            </HStack>
+            <HStack alignItems="end">
+              <Stack>
+                <FormLabel htmlFor={`portfolio[${projectNumber}].linkTwo`}>
+                  External Link two
+                </FormLabel>
+                <Input
+                  name={`portfolio[${projectNumber}].linkTwo`}
+                  onChange={handleChange}
+                  value={
+                    values.portfolio[projectNumber]
+                      ? values.portfolio[projectNumber].linkTwo
+                      : undefined
+                  }
+                />
+              </Stack>
+              <Stack>
+                <FormLabel htmlFor={`portfolio[${projectNumber}].linkLabelTwo`}>
+                  This link leads to
+                </FormLabel>
+                <Input
+                  name={`portfolio[${projectNumber}].linkLabelTwo`}
+                  onChange={handleChange}
+                  placeholder="Facebook"
+                  value={
+                    values.portfolio[projectNumber]
+                      ? values.portfolio[projectNumber].linkLabelTwo
+                      : undefined
+                  }
+                />
+              </Stack>
+            </HStack>
         </Stack>
       ))}
     </FormWrapper>
