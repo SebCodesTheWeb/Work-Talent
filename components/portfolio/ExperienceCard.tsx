@@ -20,7 +20,7 @@ export const ExperienceCard = ({
   bgColor = 'cyan.500',
 }: Props) => {
   return (
-    <Stack maxW="400px">
+    <Stack maxW="600px">
       <Heading size="md">{jobTitle}</Heading>
       <HStack>
         <CompanyTag
@@ -32,7 +32,7 @@ export const ExperienceCard = ({
       <Text color="gray.800" fontWeight="light" fontSize="sm">
         {date}
       </Text>
-      <Text maxW="80%" textOverflow="wrap" textAlign="start">
+      <Text maxW="100%" textOverflow="wrap" textAlign="start" lineHeight="1.6">
         {workTasks}
       </Text>
     </Stack>

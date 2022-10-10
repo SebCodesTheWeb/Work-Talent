@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../firebase/clientApp'
+import { isEmpty } from "../utils"
 import {
   GrCheckboxSelected,
   GrLinkedin,
@@ -53,16 +54,6 @@ import Head from 'next/head'
 const GeneratePDF = dynamic(() => import('../components/resume/GeneratePDF'), {
   ssr: false,
 })
-
-const socialLinksEmpty = (socials: any) => {
-  let empty = true
-  Object.values(socials).forEach((social) => {
-    if (social !== '') {
-      empty = false
-    }
-  })
-  return empty
-}
 
 function Page({ data, images }: any) {
   const [loading, setLoading] = useState(true)
@@ -241,7 +232,7 @@ function Page({ data, images }: any) {
           </Stack>
         </Stack>
 
-        <Wrap justify="center" spacing={32} p={16} maxW="90%">
+        <Wrap justify="center" spacing={32} px={16} pb={ 8 } pt={ 16 } maxW="90%">
           <span className="anchor" id="work"></span>
           {data.jobs.length > 0 && (
             <VStack spacing={4} px={{ base: 0, md: 16 }}w="full">
@@ -255,7 +246,7 @@ function Page({ data, images }: any) {
                 maxWidth={{ base: 'full', md: 'auto' }}
                 w="full"
               >
-                <TabList pb={4}>
+                <TabList pb={4} overflowX="scroll">
                   {data.jobs.map((job: any) => (
                     <Tab w="full" key={job.jobTitle}>
                       {job.jobTitle}
@@ -263,14 +254,16 @@ function Page({ data, images }: any) {
                   ))}
                 </TabList>
                 <TabPanels
-                  border="1px solid black"
-                  borderRadius="40px"
-                  p={4}
                   h="90%"
                   mt={4}
                 >
                   {data.jobs.map((job: any) => (
-                    <TabPanel pt={0} key={job.timePeriod}>
+                    <TabPanel 
+                  p={8}
+                    key={job.timePeriod}
+                  border="1px solid black"
+                  borderRadius="40px"
+                    >
                       <ExperienceCard
                         jobTitle={job.jobTitle}
                         companyName={job.companyName}
@@ -320,6 +313,7 @@ function Page({ data, images }: any) {
           direction={{ base: 'column', md: 'row' }}
           py={{ base: 0, md: 8 }}
           alignItems="center"
+          pb={ 8 }
         >
           <span className="anchor" id="about"></span>
           <Stack
@@ -407,7 +401,7 @@ function Page({ data, images }: any) {
                   justify="space-between"
                   spacing={4}
                   direction="row"
-                  maxW={{ base: '200px', md: '400px' }}
+                  maxW={{ base: 'full', md: '400px' }}
                   w="full"
                 >
                   <SimpleHighlight text="Mail" />
@@ -420,7 +414,7 @@ function Page({ data, images }: any) {
                 <Stack
                   justify="space-between"
                   direction="row"
-                  maxW={{ base: '200px', md: '400px' }}
+                  maxW={{ base: 'full', md: '400px' }}
                   w="full"
                 >
                   <SimpleHighlight text="Phone" />
@@ -434,7 +428,7 @@ function Page({ data, images }: any) {
                   justify="space-between"
                   direction="row"
                   w="full"
-                  maxW={{ base: '200px', md: '400px' }}
+                  maxW={{ base: 'full', md: '400px' }}
                 >
                   <SimpleHighlight text="Find me in" />
                   <Text textOverflow="wrap" maxW="90%">
@@ -452,7 +446,7 @@ function Page({ data, images }: any) {
                 </SimpleButton>
               </LinkBox>
             </Stack>
-            {data.skills.length > 0 && (
+            {data.skills.length > 0 && !isEmpty(data.skills) && (
               <List
                 fontSize="sm"
                 fontWeight="bold"
@@ -494,7 +488,7 @@ function Page({ data, images }: any) {
           bgPosition="bottom"
           justifyContent="start"
         >
-          {!socialLinksEmpty(data.social) && (
+          {!isEmpty(data.social) && (
             <>
               <Heading display={{ base: 'none', md: 'auto' }}>Socials</Heading>
               <HStack

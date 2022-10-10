@@ -56,7 +56,7 @@ export const Education = ({
             }
           />
           <FormLabel htmlFor={`education[${educationNumber}].dateOfFinishing`}>
-            When did you graduate
+            Start and end date
           </FormLabel>
           <Input
             name={`education[${educationNumber}].dateOfFinishing`}

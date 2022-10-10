@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, HStack, Stack, Text, Heading, Link } from '@chakra-ui/react'
+import { isEmpty } from "../../utils"
 
 export const ResumeTemplate = React.forwardRef(
   ({ data }: any, ref: React.LegacyRef<HTMLDivElement>) => {
@@ -37,16 +38,13 @@ export const ResumeTemplate = React.forwardRef(
                 <Stack spacing={12}>
                   <Heading fontSize="1.4em">Work Experience</Heading>
                   <Stack spacing={16}>
-                    {data.jobs?.map(
-                      (job: any, index: number) =>
-                        index < 3 && (
-                          <Stack key={`${job.jobTitle}-${index}`}>
-                            <Heading>{job.jobTitle}</Heading>
-                            <Text color="blue.500">{job.timePeriod} </Text>
-                            <Text>{job.achievments}</Text>
-                          </Stack>
-                        )
-                    )}
+                    {data.jobs?.map((job: any, index: number) => (
+                      <Stack key={`${job.jobTitle}-${index}`}>
+                        <Heading>{job.jobTitle}</Heading>
+                        <Text color="blue.500">{job.timePeriod} </Text>
+                        <Text>{job.achievments}</Text>
+                      </Stack>
+                    ))}
                   </Stack>
                 </Stack>
               )}
@@ -91,7 +89,7 @@ export const ResumeTemplate = React.forwardRef(
                   )}
                 </Stack>
               </Stack>
-              {data.skills.length > 0 && (
+              {!isEmpty(data.skills) && (
                 <Stack spacing={8}>
                   <Heading fontSize="1.1em">Skills</Heading>
                   <Stack spacing={8}>
@@ -105,7 +103,7 @@ export const ResumeTemplate = React.forwardRef(
                 <Stack spacing={8}>
                   <Heading fontSize="1.1em">Education</Heading>
                   {data.education?.map((education: any, index: number) => (
-                    <Stack spacing={8} key={`education-${index}`}>
+                    <Stack spacing={4} key={`education-${index}`}>
                       <Text>{education.school}</Text>
                       <Text color="blue.500">{education.dateOfFinishing}</Text>
                       <Text>{education.program}</Text>
