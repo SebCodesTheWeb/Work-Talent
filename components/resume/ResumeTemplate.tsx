@@ -34,7 +34,7 @@ export const ResumeTemplate = React.forwardRef(
                   </Text>
                 </Stack>
               )}
-              {data.jobs.length > 0 && (
+              {!isEmpty(data.jobs) && (
                 <Stack spacing={12}>
                   <Heading fontSize="1.4em">Work Experience</Heading>
                   <Stack spacing={16}>
@@ -48,7 +48,7 @@ export const ResumeTemplate = React.forwardRef(
                   </Stack>
                 </Stack>
               )}
-              {data.portfolio.length > 0 && (
+              {!isEmpty(data.portfolio) && (
                 <Stack spacing={8}>
                   <Heading fontSize="1.3em">Projects</Heading>
                   <Stack spacing={16}>
@@ -99,7 +99,7 @@ export const ResumeTemplate = React.forwardRef(
                   </Stack>
                 </Stack>
               )}
-              {data.education.length > 0 && (
+              {!isEmpty(data.education) && (
                 <Stack spacing={8}>
                   <Heading fontSize="1.1em">Education</Heading>
                   {data.education?.map((education: any, index: number) => (

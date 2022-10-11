@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Heading, VStack, FormLabel } from '@chakra-ui/react'
+import { Input, Heading, VStack, FormLabel, Textarea } from '@chakra-ui/react'
 import { FormStepProps } from './types'
 
 export const Contact = ({
@@ -40,6 +40,14 @@ export const Contact = ({
         type="email"
         onChange={handleChange}
         value={values.e_mail}
+      />
+
+      <FormLabel htmlFor="contactInfo">Contact info text</FormLabel>
+      <Textarea
+        name="contactInfo"
+        onChange={handleChange}
+        value={values.contactInfo}
+        placeholder="I am looking for new job opportunities! If you need a JOB_ROLE, I would love to talk"
       />
     </VStack>
   )

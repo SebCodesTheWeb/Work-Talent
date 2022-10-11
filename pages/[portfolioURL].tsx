@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../firebase/clientApp'
-import { isEmpty } from "../utils"
+import { isEmpty } from '../utils'
 import {
   GrCheckboxSelected,
   GrLinkedin,
@@ -232,10 +232,10 @@ function Page({ data, images }: any) {
           </Stack>
         </Stack>
 
-        <Wrap justify="center" spacing={32} px={16} pb={ 8 } pt={ 16 } maxW="90%">
+        <Wrap justify="center" spacing={32} px={16} pb={8} pt={16} maxW="90%">
           <span className="anchor" id="work"></span>
-          {data.jobs.length > 0 && (
-            <VStack spacing={4} px={{ base: 0, md: 16 }}w="full">
+          {!isEmpty(data.jobs) && (
+            <VStack spacing={4} px={{ base: 0, md: 16 }} w="full">
               <Heading mb={4} textAlign="center">
                 Work Experience
               </Heading>
@@ -253,16 +253,14 @@ function Page({ data, images }: any) {
                     </Tab>
                   ))}
                 </TabList>
-                <TabPanels
-                  h="90%"
-                  mt={4}
-                >
+                <TabPanels h="90%" mt={4}>
                   {data.jobs.map((job: any) => (
-                    <TabPanel 
-                  p={8}
-                    key={job.timePeriod}
-                  border="1px solid black"
-                  borderRadius="40px"
+                    <TabPanel
+                      p={8}
+                      key={job.timePeriod}
+                      border="1px solid black"
+                      borderRadius="40px"
+                      w="max-content"
                     >
                       <ExperienceCard
                         jobTitle={job.jobTitle}
@@ -278,9 +276,9 @@ function Page({ data, images }: any) {
               </Tabs>
             </VStack>
           )}
-          {data.images.length > 0 && (
+          {!isEmpty(images) && (
             <VStack spacing={8} alignItems="center">
-              <Heading textAlign="center" >Images from work </Heading>
+              <Heading textAlign="center">Images from work </Heading>
               <Stack
                 alignItems="start"
                 justifyContent="center"
@@ -313,7 +311,7 @@ function Page({ data, images }: any) {
           direction={{ base: 'column', md: 'row' }}
           py={{ base: 0, md: 8 }}
           alignItems="center"
-          pb={ 8 }
+          pb={8}
         >
           <span className="anchor" id="about"></span>
           <Stack
@@ -347,7 +345,7 @@ function Page({ data, images }: any) {
           />
         </Stack>
 
-        {data.portfolio.length > 0 && (
+        {!isEmpty(data.portfolio) && (
           <Stack
             spacing={8}
             alignItems="center"
@@ -381,27 +379,33 @@ function Page({ data, images }: any) {
           borderRadius="40px"
           p={8}
           maxWidth={{ base: 'full', md: '900px', xl: '1000px' }}
-          w="full"
+          w="max-content"
           id="contact"
         >
           <Heading>Contact: </Heading>
-          <Text>
-            I am looking for new job opportunities! If you need a{' '}
-            {data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'}, I would
-            love to talk.
+          <Text maxW="60ch">
+            {data.contactInfo || `I am looking for new job opportunities! If you need a ${data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'}, I would love to talk`
+            }
           </Text>
           <Stack
             spacing={12}
             align="start"
             direction={{ base: 'column', md: 'row' }}
           >
-            <Stack spacing={4} maxW={{ base: 'full', md: '50%' }} w="100%">
+            <Stack
+              spacing={4}
+              maxW={{ base: 'full', md: isEmpty(data.skills) ? 'full' : '50%' }}
+              w="100%"
+            >
               {data.e_mail && (
                 <Stack
                   justify="space-between"
                   spacing={4}
                   direction="row"
-                  maxW={{ base: 'full', md: '400px' }}
+                  maxW={{
+                    base: 'full',
+                    md: isEmpty(data.skills) ? 'full' : '400px',
+                  }}
                   w="full"
                 >
                   <SimpleHighlight text="Mail" />
@@ -414,7 +418,10 @@ function Page({ data, images }: any) {
                 <Stack
                   justify="space-between"
                   direction="row"
-                  maxW={{ base: 'full', md: '400px' }}
+                  maxW={{
+                    base: 'full',
+                    md: isEmpty(data.skills) ? 'full' : '400px',
+                  }}
                   w="full"
                 >
                   <SimpleHighlight text="Phone" />
@@ -428,7 +435,10 @@ function Page({ data, images }: any) {
                   justify="space-between"
                   direction="row"
                   w="full"
-                  maxW={{ base: 'full', md: '400px' }}
+                  maxW={{
+                    base: 'full',
+                    md: isEmpty(data.skills) ? 'full' : '400px',
+                  }}
                 >
                   <SimpleHighlight text="Find me in" />
                   <Text textOverflow="wrap" maxW="90%">
@@ -446,7 +456,7 @@ function Page({ data, images }: any) {
                 </SimpleButton>
               </LinkBox>
             </Stack>
-            {data.skills.length > 0 && !isEmpty(data.skills) && (
+            {!isEmpty(data.skills) && (
               <List
                 fontSize="sm"
                 fontWeight="bold"
@@ -455,7 +465,10 @@ function Page({ data, images }: any) {
                 <Text fontWeight="bold" fontSize="lg">
                   Skills:{' '}
                 </Text>
-                <SimpleGrid spacing={4} columns={{ base: 1, sm: 2, lg: 3, '2xl': 4 }}>
+                <SimpleGrid
+                  spacing={4}
+                  columns={{ base: 1, sm: 2, lg: 3, '2xl': 4 }}
+                >
                   {data.skills.map((skill: any) => (
                     <ListItem key={skill}>
                       <ListIcon as={GrCheckboxSelected} />
