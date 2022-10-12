@@ -17,7 +17,7 @@ const Home: NextPage = () => {
     <Center pt={4} h="100vh" bgColor="#333" color="#fff">
       <VStack>
         <VStack>
-          <Heading>Job Talent</Heading>
+          <Heading>Work Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>

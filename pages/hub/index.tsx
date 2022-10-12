@@ -34,12 +34,12 @@ const Home: NextPage = () => {
   return (
     <Center pt={4} minH="100vh" bgColor="gray.700" color="#fff" py={8}>
       <Head>
-        <title> Job-talent.org </title>
+        <title> worktalent.org </title>
       </Head>
       <VStack>
         <VStack p={4}>
           <Image src="./img/logo_white.png" alt="Job-talent logo" w="150px" />
-          <Heading>Job Talent</Heading>
+          <Heading>Work Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>

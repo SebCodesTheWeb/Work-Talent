@@ -220,7 +220,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 w={{ base: '100px', '2xl': '150px' }}
               />
               <Heading size={{ base: 'sm', '2xl': '150px' }}>
-                Job Talent
+                Work Talent
               </Heading>
             </VStack>
           </LinkBox>
@@ -309,7 +309,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                     <ModalBody>
                       <Stack spacing={4}>
                         <HStack>
-                          <Text fontSize="lg">https://jobtalent.org/</Text>
+                          <Text fontSize="lg">https://worktalent.org/</Text>
                           <Input
                             value={portfolioURL}
                             onChange={(e) => setPortfolioURL(e.target.value)}

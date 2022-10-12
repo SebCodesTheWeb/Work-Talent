@@ -154,7 +154,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
             alt="Job-talent logo"
             w={{ base: '100px', '2xl': '150px' }}
           />
-          <Heading size={{ base: 'sm', '2xl': '150px' }}>Job Talent</Heading>
+          <Heading size={{ base: 'sm', '2xl': '150px' }}>Work Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>
@@ -300,7 +300,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                   Public portfolios
                 </Heading>
                 <Text>
-                  This are portfolios that have been generated using Job Talent
+                  This are portfolios that have been generated using Work Talent
                 </Text>
                 <SimpleGrid
                   columns={4}

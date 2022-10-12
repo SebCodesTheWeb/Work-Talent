@@ -29,7 +29,7 @@ export const ResumeTemplate = React.forwardRef(
                     {data.aboutMe.longDescription}
                     <br />
                     <Link pl={4} color="blue.500">
-                      Read more: job-talent.org/{data.firstname}
+                      Read more: worktalent.org/{data.firstname}
                     </Link>
                   </Text>
                 </Stack>
@@ -60,7 +60,7 @@ export const ResumeTemplate = React.forwardRef(
                             {project.description}
                             <br />
                             <Link color="blue.600" pl={8}>
-                              Link: {project.link}
+                              Link to {project.linkLabelOne}: {project.linkOne}
                             </Link>
                           </Text>
                         )

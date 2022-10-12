@@ -50,7 +50,7 @@ const Home: NextPage = () => {
             alt="Job-talent logo"
             w={{ base: '100px', '2xl': '150px' }}
           />
-          <Heading size={{ base: 'sm', '2xl': '150px' }}>Job Talent</Heading>
+          <Heading size={{ base: 'sm', '2xl': '150px' }}>Work Talent</Heading>
           <Text as="em">
             Write <strong>your</strong> resume
           </Text>

@@ -232,7 +232,7 @@ function Page({ data, images }: any) {
           </Stack>
         </Stack>
 
-        <Wrap justify="center" spacing={32} px={16} pb={8} pt={16} maxW="90%">
+        <Stack justify="center" spacing={32} px={{base: 4, md: 16}} w={{base: 'full','2xl': 'max-content' }} pb={8} pt={16} direction={{base: 'column', '2xl': 'row'}}>
           <span className="anchor" id="work"></span>
           {!isEmpty(data.jobs) && (
             <VStack spacing={4} px={{ base: 0, md: 16 }} w="full">
@@ -261,6 +261,7 @@ function Page({ data, images }: any) {
                       border="1px solid black"
                       borderRadius="40px"
                       w="max-content"
+                      maxW="100%"
                     >
                       <ExperienceCard
                         jobTitle={job.jobTitle}
@@ -305,7 +306,7 @@ function Page({ data, images }: any) {
               </Stack>
             </VStack>
           )}
-        </Wrap>
+        </Stack>
         <Stack
           spacing={12}
           direction={{ base: 'column', md: 'row' }}
@@ -323,7 +324,7 @@ function Page({ data, images }: any) {
               About me
             </Heading>
             {data.aboutMe.longDescription && (
-              <Text lineHeight={7} textAlign={{ base: 'center', md: 'start' }}>
+              <Text lineHeight={8} textAlign={{ base: 'center', md: 'start' }}>
                 <ExtensiveHighlight
                   text={data.aboutMe.longDescription}
                   query={data.aboutMe.highlight.split(',')}
@@ -378,7 +379,7 @@ function Page({ data, images }: any) {
           border="1px solid black"
           borderRadius="40px"
           p={8}
-          maxWidth={{ base: 'full', md: '900px', xl: '1000px' }}
+          maxWidth={{ base: 'full', md: '900px', xl: '1200px' }}
           w="max-content"
           id="contact"
         >
@@ -395,7 +396,7 @@ function Page({ data, images }: any) {
             <Stack
               spacing={4}
               maxW={{ base: 'full', md: isEmpty(data.skills) ? 'full' : '50%' }}
-              w="100%"
+              w={isEmpty(data.skills)? 'full': '50%'}
             >
               {data.e_mail && (
                 <Stack
@@ -461,6 +462,7 @@ function Page({ data, images }: any) {
                 fontSize="sm"
                 fontWeight="bold"
                 display={{ base: 'none', md: 'inline' }}
+                w="full"
               >
                 <Text fontWeight="bold" fontSize="lg">
                   Skills:{' '}
