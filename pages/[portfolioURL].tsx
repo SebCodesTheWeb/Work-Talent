@@ -489,6 +489,9 @@ function Page({ data, images }: any) {
         >
           This website is powered by job-talent
         </Text>
+        <Link href="https://firebasestorage.googleapis.com/v0/b/job-talent-7e9cd.appspot.com/o/images%2FBeataDelgado-resume%20(13).pdf?alt=media&token=4e7d5de3-850d-4ce3-8334-cfa5ac673ae1">
+          View resume
+        </Link>
         <VStack
           w="100vw"
           h="300px"
