@@ -316,7 +316,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                           />
                         </HStack>
                         <HStack>
-                          <Text>Make portfolio public</Text>
+                          <Text>Put portfolio on worktalent public page</Text>
                           <Switch
                             value={makePublic}
                             isChecked={makePublic}
