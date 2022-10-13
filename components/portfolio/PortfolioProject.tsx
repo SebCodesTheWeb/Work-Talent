@@ -38,8 +38,8 @@ export const PortfolioProject = ({
 }: Props) => {
   const srcWithAutplay = `${src}?autoplay=1&mute=1`
   return (
-    <Stack maxW="500px" spacing={4}>
-      <AspectRatio ratio={16 / 9} w={{base: 'full', md: '500px'}}>
+    <Stack maxW="500px" spacing={4} w="100%">
+      <AspectRatio ratio={16 / 9} w={{base: '90vw', md: '500px'}}>
         <Box
           display="block"
           overflow="hidden"
