@@ -487,7 +487,7 @@ function Page({ data, images }: any) {
           textAlign="center"
           display={{ base: 'auto', md: 'none' }}
         >
-          This website is powered by job-talent
+          This website is powered by work-talent
         </Text>
         <Link href="https://firebasestorage.googleapis.com/v0/b/job-talent-7e9cd.appspot.com/o/images%2FBeataDelgado-resume%20(13).pdf?alt=media&token=4e7d5de3-850d-4ce3-8334-cfa5ac673ae1">
           View resume
