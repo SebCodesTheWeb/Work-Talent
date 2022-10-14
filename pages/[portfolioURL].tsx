@@ -244,7 +244,6 @@ function Page({ data, images }: any) {
                 minWidth={{ base: '200px', md: '600px' }}
                 minHeight="300px"
                 maxWidth={{ base: 'full', md: 'auto' }}
-                w="full"
               >
                 <TabList pb={4} overflowX="scroll">
                   {data.jobs.map((job: any) => (

@@ -32,7 +32,7 @@ export const ExperienceCard = ({
       <Text color="gray.800" fontWeight="light" fontSize="sm">
         {date}
       </Text>
-      <Text maxW="100%" textOverflow="wrap" textAlign="start" lineHeight="1.6">
+      <Text maxW="100%" textOverflow="wrap" textAlign="start" lineHeight={7}>
         {workTasks}
       </Text>
     </Stack>
