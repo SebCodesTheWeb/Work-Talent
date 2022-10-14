@@ -379,7 +379,7 @@ function Page({ data, images }: any) {
           borderRadius="40px"
           p={8}
           maxWidth={{ base: 'full', md: '900px', xl: '1200px' }}
-          w="max-content"
+          w={{base: 'full', md: 'max-content'}}
           id="contact"
         >
           <Heading>Contact: </Heading>
@@ -395,7 +395,7 @@ function Page({ data, images }: any) {
             <Stack
               spacing={4}
               maxW={{ base: 'full', md: isEmpty(data.skills) ? 'full' : '50%' }}
-              w={isEmpty(data.skills)? 'full': '50%'}
+              w={{base: 'full', md: isEmpty(data.skills) ? 'full' : '50%'}}
             >
               {data.e_mail && (
                 <Stack
