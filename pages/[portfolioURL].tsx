@@ -178,7 +178,7 @@ function Page({ data, images }: any) {
                   : '/img/business-man.svg'
               }
               alt="business-person"
-              boxSize={{ base: '300px', md: '600px' }}
+              boxSize={{ base: '300px', md: data.gender === 'woman' ? '600px' : '550px', '2xl': '600px' }}
               objectFit={data.gender === 'woman' ? 'contain' : 'cover'}
             />
           </Box>
