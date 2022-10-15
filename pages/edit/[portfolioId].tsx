@@ -18,7 +18,7 @@ import {
 } from '../../components'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
-import { ref, uploadBytes } from 'firebase/storage'
+import { ref, uploadBytes, deleteObject } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
@@ -71,6 +71,17 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     arrayWithLength(portfolioData.imageLength)
   )
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
+
+  const [items, setItems] = useState([
+    'Work',
+    'Portfolio',
+    'About Me',
+    'Cover Letter',
+  ])
+  const [mainImage, setMainImage] = useState<File | null>(null)
+  const [secondaryImage, setSecondaryImage] = useState<File | null>(null)
+  const [ primaryColor, setPrimaryColor ] = useState('teal.500')
+  const [ secondaryColor, setSecondaryColor ] = useState('purple.500')
 
   const [resumeVisible, setResumeVisible] = useState(false)
   const resumeRef = useRef<HTMLDivElement>(null)
@@ -198,7 +209,16 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
         )
       case 8:
         return (
-          <Theming />
+          <Theming 
+            items={ items }
+            setItems={ setItems }
+            mainImage={ mainImage }
+            setMainImage={ setMainImage }
+            secondaryImage={ secondaryImage }
+            setSecondaryImage={ setSecondaryImage }
+            setPrimaryColor={ setPrimaryColor }
+            setSecondaryColor={ setSecondaryColor }
+          />
         )
       case 9:
         return (
@@ -277,18 +297,35 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 imageLength: images.length,
                 portfolioURL,
                 makePublic,
+                items,
+                primaryColor,
+                secondaryColor,
               })
               imageSRCS.forEach((imageSRC: any, index: number) => {
+                const imageRef = ref(
+                  storage,
+                  `images/${values.images[index].title}`
+                )
                 if (imageSRC && values.images[index].title) {
-                  const imageRef = ref(
-                    storage,
-                    `images/${values.images[index].title}`
-                  )
                   uploadBytes(imageRef, imageSRC).catch(() => {
                     throw new Error('upload failed')
                   })
+                } else {
+                  deleteObject(imageRef)
                 }
               })
+              if(mainImage) {
+                uploadBytes(ref(storage, `images/${portfolioId}-main-image`), mainImage)
+              } else {
+                deleteObject(ref(storage, `images/${portfolioId}-main-image`))
+              }
+
+              if(secondaryImage) {
+                uploadBytes(ref(storage, `images/${portfolioId}-secondary-image`), secondaryImage)
+              } else {
+                deleteObject(ref(storage, `images/${portfolioId}-main-image`))
+              }
+
               generateImage(values)
               if (redirect.current) {
                 router.push(`/${portfolioURL}`)

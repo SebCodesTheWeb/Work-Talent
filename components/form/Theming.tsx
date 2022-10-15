@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Link,
   Image,
@@ -29,12 +29,12 @@ const colors = [
   'pink.500',
 ]
 
-const SortableItem = SortableElement(({ value }: any) => (
+const SortableItem = SortableElement<any>(({ value }: { value: string }) => (
   <AccordionItem>
     <h2>
       <AccordionButton>
         <Box flex="1" textAlign="center">
-          <Text color="#fff !important" fontWeight="bold" cursor="grabbing">
+          <Text color="#fff" fontWeight="bold" cursor="grabbing">
             {value}
           </Text>
         </Box>
@@ -43,28 +43,24 @@ const SortableItem = SortableElement(({ value }: any) => (
   </AccordionItem>
 ))
 
-const SortableWrapper = SortableContainer(({ children }: any) => (
+const SortableWrapper = SortableContainer<any>(({ children }: any) => (
   <Accordion w="full" borderRadius={8}>
     {children}
   </Accordion>
 ))
 
-export const Theming = () => {
-  const [items, setItems] = useState([
-    'Work',
-    'Portfolio',
-    'About Me',
-    'Cover Letter',
-  ])
-  const [mainImage, setMainImage] = useState<File | null>(null)
-  const [secondaryImage, setSecondaryImage] = useState<File | null>(null)
-
-  const handleChange = (value: string) => {
-    console.log(value)
-  }
-
+export const Theming = ({
+  items,
+  setItems,
+  mainImage,
+  setMainImage,
+  secondaryImage,
+  setSecondaryImage,
+  setPrimaryColor,
+  setSecondaryColor,
+}: any) => {
   const onSortEnd = ({ oldIndex, newIndex }: any) => {
-    setItems((prev) => arrayMoveImmutable(prev, oldIndex, newIndex))
+    setItems((prev: any) => arrayMoveImmutable(prev, oldIndex, newIndex))
   }
 
   return (
@@ -81,7 +77,7 @@ export const Theming = () => {
       <FormLabel>Choose primary portfolio color</FormLabel>
       <Box>
         <ColorPicker
-          onChange={handleChange}
+          onChange={(c) => setPrimaryColor(c)}
           defaultColor="purple.500"
           colors={colors}
         />
@@ -89,7 +85,7 @@ export const Theming = () => {
       <FormLabel>Choose secondary portfolio color</FormLabel>
       <Box>
         <ColorPicker
-          onChange={handleChange}
+          onChange={(c) => setSecondaryColor(c)}
           defaultColor="teal.500"
           colors={colors}
         />
@@ -138,7 +134,9 @@ export const Theming = () => {
           }
         />
       </Box>
-      <Link href="https://undraw.co/illustrations" isExternal={true }>(Find more illustrations at undraw.co)</Link>
+      <Link href="https://undraw.co/illustrations" isExternal={true}>
+        (Find more illustrations at undraw.co)
+      </Link>
     </FormWrapper>
   )
 }
