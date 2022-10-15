@@ -7,6 +7,7 @@ import { toPng } from 'html-to-image'
 import { jsPDF } from 'jspdf'
 import {
   Contact,
+  Theming,
   WorkExperience,
   Education,
   Links,
@@ -197,6 +198,10 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
         )
       case 8:
         return (
+          <Theming />
+        )
+      case 9:
+        return (
           <Stack spacing={4}>
             <Heading size="md">Portfolio Data:</Heading>
             <Text
@@ -223,6 +228,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     { label: 'Portfolio' },
     { label: 'Skills' },
     { label: 'Links' },
+    { label: 'Theming' },
   ]
 
   return (
