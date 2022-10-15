@@ -228,7 +228,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     { label: 'Portfolio' },
     { label: 'Skills' },
     { label: 'Links' },
-    { label: 'Theming' },
+    { label: 'Customize' },
   ]
 
   return (
@@ -241,7 +241,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
       alignItems="start"
     >
       <Head>
-        <title> Job-talent.org </title>
+        <title> Work Talent </title>
       </Head>
       <VStack>
         <VStack display={{ base: 'none', '2xl': 'flex' }}>

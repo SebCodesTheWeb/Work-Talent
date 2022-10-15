@@ -1972,6 +1972,11 @@ canvg@^3.0.6:
     stackblur-canvas "^2.0.0"
     svg-pathdata "^6.0.3"
 
+chakra-color-picker@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/chakra-color-picker/-/chakra-color-picker-0.0.6.tgz#95c119e923fea6685f3f89587651bcf1974474de"
+  integrity sha512-QQ/PWjeOiBICWgbs5Bc30LURaxKM1rsVVZ9h9JdE7W7dkyzmCf+rquaIqSlNsKCSyphMpqL31QTQjKS/Ap38vQ==
+
 chakra-ui-file-picker@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/chakra-ui-file-picker/-/chakra-ui-file-picker-0.2.0.tgz#db3b69b657764dcfe62a03820920d4272eb5530a"

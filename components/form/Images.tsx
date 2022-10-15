@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Heading, FormLabel, Textarea, Stack } from '@chakra-ui/react'
+import { Input, Heading, FormLabel, Textarea, Stack, Box, Image } from '@chakra-ui/react'
 import { FormStepProps } from './types'
 import { arrayWithLength } from '../../utils'
 import FilePicker from 'chakra-ui-file-picker'
@@ -36,22 +36,26 @@ export const WorkImages = ({
         <Stack key={imageNumber} w="full" spacing={4}>
           <Heading size="md">Add work related images: </Heading>
           <FormLabel htmlFor={`images[${imageNumber}].src`}></FormLabel>
-          <FilePicker
-            onFileChange={(files) => {
-              setImageSRCS((prev: any) =>
-                prev.map((item: any, index: number) =>
-                  index === imageNumber ? files[0] : item
+          {!!imageSRCS[imageNumber] && (
+            <Image src={URL.createObjectURL(imageSRCS[imageNumber])} alt="test-preview" maxW="300px"/>
+          )}
+          <Box color="gray.500">
+            <FilePicker
+              onFileChange={(files) => {
+                setImageSRCS((prev: any) =>
+                  prev.map((item: any, index: number) =>
+                    index === imageNumber ? files[0] : item
+                  )
                 )
-              )
-            }}
-            hideClearButton={true}
-            placeholder={
-              imageSRCS[imageNumber]
-                ? `${URL.createObjectURL(imageSRCS[imageNumber])}`
-                : 'Click to upload image'
-            }
-          />
-
+              }}
+              hideClearButton={false}
+              placeholder={
+                imageSRCS[imageNumber]
+                  ? `${URL.createObjectURL(imageSRCS[imageNumber])}`
+                  : 'Click to upload image'
+              }
+            />
+          </Box>
           <FormLabel htmlFor={`images[${imageNumber}].title`}>
             Name the image:
           </FormLabel>
