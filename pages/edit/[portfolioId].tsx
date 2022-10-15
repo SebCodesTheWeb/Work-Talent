@@ -76,12 +76,23 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
 
   const generateImage = async (data: any) => {
     if (resumeRef.current === null) return
+    const pageHeight = 297
+    const imageHeight = resumeRef.current.clientHeight * (pageHeight / 3500)
+    let overflowingHeight = imageHeight
     const image = await toPng(resumeRef.current, {
       quality: 1,
       cacheBust: true,
     })
     const doc = new jsPDF()
-    doc.addImage(image, 'JPEG', 0, 0, 210, 297)
+    let offsetY = 0
+    doc.addImage(image, 'JPEG', 0, offsetY , 210, imageHeight)
+    overflowingHeight -= pageHeight
+    while(overflowingHeight > pageHeight) {
+      offsetY += overflowingHeight - imageHeight
+      doc.addPage()
+      doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight)
+      overflowingHeight -= pageHeight
+    }
     const docRef = ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
     uploadBytes(docRef, doc.output('blob'))
     setResumeVisible(false)

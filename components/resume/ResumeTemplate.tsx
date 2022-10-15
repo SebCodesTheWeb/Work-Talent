@@ -6,13 +6,12 @@ export const ResumeTemplate = React.forwardRef(
   ({ data }: any, ref: React.LegacyRef<HTMLDivElement>) => {
     return (
       <Box
-        h="3500px"
+        minH="3500px"
         w="2480px"
         border="2px solid pink"
         ref={ref}
         bg="white"
         fontSize="2.75rem"
-        zIndex={ 10}
         color="#000"
       >
         <Stack py={32} px={32} spacing={24}>
