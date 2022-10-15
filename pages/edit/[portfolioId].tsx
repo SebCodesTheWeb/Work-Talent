@@ -1,8 +1,10 @@
+import { useState, useRef } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { toPng } from 'html-to-image'
+import { jsPDF } from 'jspdf'
 import {
   Contact,
   WorkExperience,
@@ -43,6 +45,7 @@ import {
   Flex,
   Icon,
 } from '@chakra-ui/react'
+import { ResumeTemplate } from '../../components/resume/ResumeTemplate'
 import { Formik, Form } from 'formik'
 import { arrayWithLength } from '../../utils'
 import { AiFillFileAdd } from 'react-icons/ai'
@@ -52,7 +55,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     initialStep: 0,
   })
   const router = useRouter()
-  let redirect = false
+  const redirect = useRef(false)
   const [skills, setSkills] = useState(
     arrayWithLength(portfolioData.skillLength)
   )
@@ -68,6 +71,22 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   )
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
 
+  const [resumeVisible, setResumeVisible] = useState(false)
+  const resumeRef = useRef<HTMLDivElement>(null)
+
+  const generateImage = async (data: any) => {
+    if (resumeRef.current === null) return
+    const image = await toPng(resumeRef.current, {
+      quality: 1,
+      cacheBust: true,
+    })
+    const doc = new jsPDF()
+    doc.addImage(image, 'JPEG', 0, 0, 210, 297)
+    const docRef = ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
+    uploadBytes(docRef, doc.output('blob'))
+    setResumeVisible(false)
+  }
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [portfolioURL, setPortfolioURL] = useState(portfolioData.portfolioURL)
   const [makePublic, setMakePublic] = useState(portfolioData.makePublic)
@@ -81,9 +100,9 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   }
 
   const handleWebPageGeneration = (handleSubmit: any) => {
-    redirect = true
+    setResumeVisible(true)
+    redirect.current = true
     handleSubmit()
-    setLoading(true)
   }
 
   const renderForm = (handleChange: any, values: any) => {
@@ -208,7 +227,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
         <title> Job-talent.org </title>
       </Head>
       <VStack>
-        <VStack display={{base: "none", "2xl": "flex"}}>
+        <VStack display={{ base: 'none', '2xl': 'flex' }}>
           <LinkBox>
             <VStack>
               <NextLink href="/" passHref={true}>
@@ -253,8 +272,10 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                   })
                 }
               })
-              if (redirect) {
+              generateImage(values)
+              if (redirect.current) {
                 router.push(`/${portfolioURL}`)
+                setLoading(true)
               }
             } catch (e) {
               console.error('Error adding document: ', e)
@@ -390,6 +411,9 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                   </Flex>
                 )}
               </VStack>
+              {resumeVisible && (
+                <ResumeTemplate ref={resumeRef} data={values} />
+              )}
             </Form>
           )}
         </Formik>

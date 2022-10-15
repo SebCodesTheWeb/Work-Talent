@@ -12,6 +12,8 @@ export const ResumeTemplate = React.forwardRef(
         ref={ref}
         bg="white"
         fontSize="2.75rem"
+        zIndex={ 10}
+        color="#000"
       >
         <Stack py={32} px={32} spacing={24}>
           <Box>

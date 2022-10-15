@@ -48,14 +48,11 @@ import {
   PortfolioProject,
   SimpleButton,
   ExtensiveHighlight,
+  GeneratePDF,
 } from '../components'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
-const GeneratePDF = dynamic(() => import('../components/resume/GeneratePDF'), {
-  ssr: false,
-})
 
-function Page({ data, images }: any) {
+function Page({ data, images, resumeLink }: any) {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(false)
@@ -103,7 +100,7 @@ function Page({ data, images }: any) {
           zIndex={1}
           display={{ base: 'none', md: 'flex' }}
         >
-          <GeneratePDF data={data} />
+          <GeneratePDF link={resumeLink} />
           <LinkBox>
             <Tooltip
               label="This website is powered by job-talent.org"
@@ -178,7 +175,11 @@ function Page({ data, images }: any) {
                   : '/img/business-man.svg'
               }
               alt="business-person"
-              boxSize={{ base: '300px', md: data.gender === 'woman' ? '600px' : '550px', '2xl': '600px' }}
+              boxSize={{
+                base: '300px',
+                md: data.gender === 'woman' ? '600px' : '550px',
+                '2xl': '600px',
+              }}
               objectFit={data.gender === 'woman' ? 'contain' : 'cover'}
             />
           </Box>
@@ -190,7 +191,10 @@ function Page({ data, images }: any) {
             <Text as="em" display={{ base: 'none', md: 'inherit' }}>
               Hi nice to meet you! {data.firstname && 'My name is'}{' '}
             </Text>
-            <Heading size={{ base: '2xl', md: 'xl' }} textAlign="center">
+            <Heading
+              size={{ base: '2xl', md: 'xl' }}
+              textAlign={{ base: 'center', md: 'start' }}
+            >
               <Highlight
                 query={data.lastname}
                 styles={{
@@ -232,7 +236,15 @@ function Page({ data, images }: any) {
           </Stack>
         </Stack>
 
-        <Stack justify="center" spacing={32} px={{base: 4, md: 16}} w={{base: 'full','2xl': 'max-content' }} pb={8} pt={16} direction={{base: 'column', '2xl': 'row'}}>
+        <Stack
+          justify="center"
+          spacing={32}
+          px={{ base: 4, md: 16 }}
+          w={{ base: 'full', '2xl': 'max-content' }}
+          pb={8}
+          pt={16}
+          direction={{ base: 'column', '2xl': 'row' }}
+        >
           <span className="anchor" id="work"></span>
           {!isEmpty(data.jobs) && (
             <VStack spacing={4} px={{ base: 0, md: 16 }} w="full">
@@ -331,7 +343,7 @@ function Page({ data, images }: any) {
                 />
               </Text>
             )}
-            <GeneratePDF data={data} />
+            <GeneratePDF link={resumeLink} />
           </Stack>
           <Image
             src={
@@ -379,13 +391,15 @@ function Page({ data, images }: any) {
           borderRadius="40px"
           p={8}
           maxWidth={{ base: 'full', md: '900px', xl: '1200px' }}
-          w={{base: 'full', md: 'max-content'}}
+          w={{ base: 'full', md: 'max-content' }}
           id="contact"
         >
           <Heading>Contact: </Heading>
           <Text maxW="60ch">
-            {data.contactInfo || `I am looking for new job opportunities! If you need a ${data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'}, I would love to talk`
-            }
+            {data.contactInfo ||
+              `I am looking for new job opportunities! If you need a ${
+                data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'
+              }, I would love to talk`}
           </Text>
           <Stack
             spacing={12}
@@ -395,7 +409,7 @@ function Page({ data, images }: any) {
             <Stack
               spacing={4}
               maxW={{ base: 'full', md: isEmpty(data.skills) ? 'full' : '50%' }}
-              w={{base: 'full', md: isEmpty(data.skills) ? 'full' : '50%'}}
+              w={{ base: 'full', md: isEmpty(data.skills) ? 'full' : '50%' }}
             >
               {data.e_mail && (
                 <Stack
@@ -488,9 +502,6 @@ function Page({ data, images }: any) {
         >
           This website is powered by work-talent
         </Text>
-        <Link href="https://firebasestorage.googleapis.com/v0/b/job-talent-7e9cd.appspot.com/o/images%2FBeataDelgado-resume%20(13).pdf?alt=media&token=4e7d5de3-850d-4ce3-8334-cfa5ac673ae1">
-          View portfolio
-        </Link>
         <VStack
           w="100vw"
           h="300px"
@@ -581,6 +592,11 @@ export async function getServerSideProps({ params }: any) {
       notFound: true,
     }
   }
+
+  const resumeLink = await getDownloadURL(
+    ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
+  )
+
   const images = await Promise.all(
     data.images.map(async (image: any) => {
       return await getDownloadURL(ref(storage, `images/${image.title}`))
@@ -591,6 +607,7 @@ export async function getServerSideProps({ params }: any) {
     props: {
       data,
       images,
+      resumeLink,
     },
   }
 }

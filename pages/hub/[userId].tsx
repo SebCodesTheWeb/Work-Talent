@@ -145,7 +145,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
       alignItems="start"
     >
       <Head>
-        <title> Job-talent.org </title>
+        <title> Work Talent </title>
       </Head>
       <VStack>
         <VStack p={2}>
