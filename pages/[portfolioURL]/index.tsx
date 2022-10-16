@@ -162,13 +162,11 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
         >
           <Box>
             <Image
-              src={
-                data.gender === 'woman' ? '/img/business-woman.svg' : mainImage
-              }
+              src={mainImage}
               alt="business-person"
               boxSize={{
                 base: '300px',
-                md: data.gender === 'woman' ? '600px' : '550px',
+                md: '550px',
                 '2xl': '600px',
               }}
               objectFit={mainImage === '/img/business-man.svg' ? 'cover': 'contain'}

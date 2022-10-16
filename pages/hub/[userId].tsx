@@ -82,7 +82,6 @@ const initialValues = {
   educationLength: 0,
   imageLength: 0,
   makePublic: false,
-  gender: 'man',
   contactInfo: '',
   items: ['Work', 'Portfolio', 'About Me', 'Cover Letter'],
   primaryColor: 'teal.500',

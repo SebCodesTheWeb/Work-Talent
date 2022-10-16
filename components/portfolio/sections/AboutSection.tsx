@@ -29,11 +29,7 @@ export const AboutSection = ({ data, resumeLink, secondaryImage }: any) => (
       <GeneratePDF link={resumeLink} secondaryColor={data.secondaryColor} />
     </Stack>
     <Image
-      src={
-        data.gender === 'woman'
-          ? '../img/coding-woman.svg'
-          : secondaryImage
-      }
+      src={secondaryImage}
       objectFit="cover"
       w={{ base: '250px', md: '400px' }}
       alt="Working"

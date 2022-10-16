@@ -4,9 +4,6 @@ import {
   VStack,
   Heading,
   FormLabel,
-  Radio,
-  RadioGroup,
-  HStack,
   Input,
 } from '@chakra-ui/react'
 import { FormStepProps } from './types'
@@ -43,19 +40,5 @@ export const About = ({ handleChange, values, currentStep }: FormStepProps) => (
       value={values.aboutMe.highlight}
       onChange={handleChange}
     />
-    <FormLabel htmlFor="gender">Gender</FormLabel>
-    <RadioGroup name="gender" value={values.gender}>
-      <HStack direction="row">
-        <Radio value="man" onChange={handleChange}>
-          Man
-        </Radio>
-        <Radio value="woman" onChange={handleChange}>
-          Woman
-        </Radio>
-        <Radio value="non-binary" onChange={handleChange}>
-          Other
-        </Radio>
-      </HStack>
-    </RadioGroup>
   </VStack>
 )
