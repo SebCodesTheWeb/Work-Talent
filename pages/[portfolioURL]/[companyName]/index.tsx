@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getDocs, collection, query, where } from 'firebase/firestore'
 import { ref, getDownloadURL } from 'firebase/storage'
-import { db, storage } from '../firebase/clientApp'
-import { isEmpty } from '../utils'
+import { db, storage } from '../../../firebase/clientApp'
+import { isEmpty } from '../../../utils'
 import {
   GrCheckboxSelected,
   GrLinkedin,
@@ -42,14 +42,23 @@ import {
   WorkSection,
   AboutSection,
   PortfolioSection,
-} from '../components'
+  CoverLetterSection,
+} from '../../../components'
 import Head from 'next/head'
 
-function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
+function Page({
+  data,
+  images,
+  resumeLink,
+  mainImage,
+  secondaryImage,
+  coverLetter,
+}: any) {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(false)
   }, [])
+  console.log(coverLetter)
 
   if (loading) {
     return (
@@ -171,7 +180,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
                 md: data.gender === 'woman' ? '600px' : '550px',
                 '2xl': '600px',
               }}
-              objectFit={data.gender === 'woman' ? 'contain' : 'cover'}
+              objectFit={mainImage === '/img/business-man.svg' ? 'cover': 'contain'}
             />
           </Box>
           <Stack
@@ -228,7 +237,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
         </Stack>
 
         {data.items.map((item: string, index: number) => {
-          if (item === 'Work') {
+          if (item === 'Work' && !isEmpty(data.jobs)) {
             return (
               <WorkSection
                 data={data}
@@ -246,6 +255,9 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
                 key={`${item}-${index}`}
               />
             )
+          }
+          if (item === 'Cover Letter' && Object.keys(coverLetter).length > 0) {
+            return <CoverLetterSection coverLetter={ coverLetter}/>
           }
           if (item === 'Portfolio' && !isEmpty(data.portfolio)) {
             return <PortfolioSection data={data} key={`${item}-${index}`} />
@@ -495,6 +507,9 @@ export async function getServerSideProps({ params }: any) {
     })
   )
 
+  const coverLetter = (data.coverLetters.find((coverLetter: any) => coverLetter.url === params.companyName)
+  )  || {}
+
   return {
     props: {
       data,
@@ -502,6 +517,7 @@ export async function getServerSideProps({ params }: any) {
       resumeLink,
       mainImage,
       secondaryImage,
+      coverLetter,
     },
   }
 }

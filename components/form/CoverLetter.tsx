@@ -28,6 +28,7 @@ export const CoverLetter = ({
       arrayWithLength(prevCoverLetterCount.length + 1)
     )
   }
+  console.log(coverLetters)
 
   return (
     <FormWrapper name="Cover letter" onClick={addNewCoverLetter}>
@@ -42,6 +43,19 @@ export const CoverLetter = ({
       {coverLetters.map((coverLetterNumber) => (
         <Stack key={coverLetterNumber} w="full" spacing={4}>
           <Heading size="md">Cover Letter {coverLetterNumber + 1}</Heading>
+          <FormLabel htmlFor={`coverLetters[${coverLetterNumber}].title`}>
+            Heading
+          </FormLabel>
+          <Input
+            name={`coverLetters[${coverLetterNumber}].title`}
+            onChange={handleChange}
+            placeholder="A special message for COMPANY_NAME"
+            value={
+              values.coverLetters[coverLetterNumber]
+                ? values.coverLetters[coverLetterNumber].title
+                : undefined
+            }
+          />
           <FormLabel htmlFor={`coverLetters[${coverLetterNumber}].message`}>
             Write cover letter
           </FormLabel>

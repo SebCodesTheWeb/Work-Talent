@@ -19,7 +19,7 @@ import {
 } from '../../components'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
-import { ref, uploadBytes, deleteObject } from 'firebase/storage'
+import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
@@ -52,7 +52,7 @@ import { Formik, Form } from 'formik'
 import { arrayWithLength } from '../../utils'
 import { AiFillFileAdd } from 'react-icons/ai'
 
-const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
+const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any) => {
   const { nextStep, prevStep, setStep, activeStep } = useSteps({
     initialStep: 0,
   })
@@ -68,7 +68,6 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     arrayWithLength(portfolioData.coverLetterLength)
   )
 
-  console.log(coverLetters)
   const [jobs, setJobs] = useState(arrayWithLength(portfolioData.jobLength))
   const [education, setEducation] = useState(
     arrayWithLength(portfolioData.educationLength)
@@ -78,14 +77,10 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   )
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
 
-  const [items, setItems] = useState([
-    'Work',
-    'Portfolio',
-    'About Me',
-    'Cover Letter',
-  ])
-  const [mainImage, setMainImage] = useState<File | null>(null)
-  const [secondaryImage, setSecondaryImage] = useState<File | null>(null)
+  const [items, setItems] = useState(portfolioData.items)
+
+  const [mainImage, setMainImage] = useState<File | null>(imageOne)
+  const [secondaryImage, setSecondaryImage] = useState<File | null>(imageTwo)
   const [primaryColor, setPrimaryColor] = useState('teal.500')
   const [secondaryColor, setSecondaryColor] = useState('purple.500')
 
@@ -313,6 +308,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 jobLength: jobs.length,
                 educationLength: education.length,
                 imageLength: images.length,
+                coverLetterLength: coverLetters.length,
                 portfolioURL,
                 makePublic,
                 items,
@@ -332,7 +328,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                   }
                 }
               })
-              if (mainImage) {
+              if (mainImage && typeof mainImage !== 'string') {
                 uploadBytes(
                   ref(storage, `images/${portfolioId}-main-image`),
                   mainImage
@@ -347,7 +343,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 }
               }
 
-              if (secondaryImage) {
+              if (secondaryImage && typeof secondaryImage !== 'string') {
                 uploadBytes(
                   ref(storage, `images/${portfolioId}-secondary-image`),
                   secondaryImage
@@ -517,11 +513,25 @@ export async function getServerSideProps({ params }: any) {
   const docRef = doc(db, 'portfolios', portfolioId)
   const docSnap = await getDoc(docRef)
   const portfolioData = docSnap.exists() ? docSnap.data() : null
+  let imageOne 
+  try {
+    imageOne = await getDownloadURL(ref(storage, `images/${portfolioId}-main-image`))
+  } catch {
+    imageOne = null
+  }
+  let imageTwo
+  try {
+    imageTwo = await getDownloadURL(ref(storage, `images/${portfolioId}-secondary-image`))
+  } catch {
+    imageTwo = null
+  }
 
   return {
     props: {
       portfolioData,
       portfolioId,
+      imageOne,
+      imageTwo,
     },
   }
 }

@@ -8,7 +8,7 @@ export const AboutSection = ({ data, resumeLink, secondaryImage }: any) => (
     direction={{ base: 'column', md: 'row' }}
     py={{ base: 0, md: 8 }}
     alignItems="center"
-    pb={8}
+    pb={{base: 16, md: 8}}
   >
     <span className="anchor" id="about"></span>
     <Stack
@@ -18,7 +18,7 @@ export const AboutSection = ({ data, resumeLink, secondaryImage }: any) => (
     >
       <Heading textAlign={{ base: 'center', md: 'start' }}>About me</Heading>
       {data.aboutMe.longDescription && (
-        <Text lineHeight={8} textAlign={{ base: 'center', md: 'start' }}>
+        <Text lineHeight={8} textAlign="start">
           <ExtensiveHighlight
             text={data.aboutMe.longDescription}
             query={data.aboutMe.highlight.split(',')}

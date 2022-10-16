@@ -95,7 +95,7 @@ export const Theming = ({
       <FormLabel>Change main image</FormLabel>
       <Image
         src={
-          mainImage ? URL.createObjectURL(mainImage) : '/img/business-man.svg'
+          mainImage ? typeof mainImage === 'string' ? mainImage :  URL.createObjectURL(mainImage) : '/img/business-man.svg'
         }
         maxW="300px"
         alt="main-image"
@@ -108,7 +108,7 @@ export const Theming = ({
           hideClearButton={false}
           placeholder={
             mainImage
-              ? `${URL.createObjectURL(mainImage)}`
+              ? typeof mainImage === 'string'? mainImage: `${URL.createObjectURL(mainImage)}`
               : 'Click to upload image'
           }
         />
@@ -117,7 +117,7 @@ export const Theming = ({
       <Image
         src={
           secondaryImage
-            ? URL.createObjectURL(secondaryImage)
+            ? typeof secondaryImage === 'string' ? secondaryImage : URL.createObjectURL(secondaryImage)
             : '/img/coding.svg'
         }
         maxW="300px"
@@ -131,7 +131,7 @@ export const Theming = ({
           hideClearButton={false}
           placeholder={
             secondaryImage
-              ? `${URL.createObjectURL(secondaryImage)}`
+              ? typeof secondaryImage === 'string'? secondaryImage :  `${URL.createObjectURL(secondaryImage)}`
               : 'Click to upload image'
           }
         />
