@@ -18,7 +18,12 @@ import {
 } from '../../components'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
-import { ref, uploadBytes, deleteObject } from 'firebase/storage'
+import {
+  ref,
+  uploadBytes,
+  deleteObject,
+  getDownloadURL,
+} from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
@@ -80,8 +85,8 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   ])
   const [mainImage, setMainImage] = useState<File | null>(null)
   const [secondaryImage, setSecondaryImage] = useState<File | null>(null)
-  const [ primaryColor, setPrimaryColor ] = useState('teal.500')
-  const [ secondaryColor, setSecondaryColor ] = useState('purple.500')
+  const [primaryColor, setPrimaryColor] = useState('teal.500')
+  const [secondaryColor, setSecondaryColor] = useState('purple.500')
 
   const [resumeVisible, setResumeVisible] = useState(false)
   const resumeRef = useRef<HTMLDivElement>(null)
@@ -97,9 +102,9 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     })
     const doc = new jsPDF()
     let offsetY = 0
-    doc.addImage(image, 'JPEG', 0, offsetY , 210, imageHeight)
+    doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight)
     overflowingHeight -= pageHeight
-    while(overflowingHeight > pageHeight) {
+    while (overflowingHeight > pageHeight) {
       offsetY += overflowingHeight - imageHeight
       doc.addPage()
       doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight)
@@ -209,15 +214,15 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
         )
       case 8:
         return (
-          <Theming 
-            items={ items }
-            setItems={ setItems }
-            mainImage={ mainImage }
-            setMainImage={ setMainImage }
-            secondaryImage={ secondaryImage }
-            setSecondaryImage={ setSecondaryImage }
-            setPrimaryColor={ setPrimaryColor }
-            setSecondaryColor={ setSecondaryColor }
+          <Theming
+            items={items}
+            setItems={setItems}
+            mainImage={mainImage}
+            setMainImage={setMainImage}
+            secondaryImage={secondaryImage}
+            setSecondaryImage={setSecondaryImage}
+            setPrimaryColor={setPrimaryColor}
+            setSecondaryColor={setSecondaryColor}
           />
         )
       case 9:
@@ -302,28 +307,46 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
                 secondaryColor,
               })
               imageSRCS.forEach((imageSRC: any, index: number) => {
-                const imageRef = ref(
-                  storage,
-                  `images/${values.images[index].title}`
-                )
-                if (imageSRC && values.images[index].title) {
-                  uploadBytes(imageRef, imageSRC).catch(() => {
-                    throw new Error('upload failed')
-                  })
-                } else {
-                  deleteObject(imageRef)
+                if (values.images[index]) {
+                  const imageRef = ref(
+                    storage,
+                    `images/${values.images[index].title}`
+                  )
+                  if (imageSRC && values.images[index].title) {
+                    uploadBytes(imageRef, imageSRC).catch(() => {
+                      throw new Error('upload failed')
+                    })
+                  }
                 }
               })
-              if(mainImage) {
-                uploadBytes(ref(storage, `images/${portfolioId}-main-image`), mainImage)
+              if (mainImage) {
+                uploadBytes(
+                  ref(storage, `images/${portfolioId}-main-image`),
+                  mainImage
+                )
               } else {
-                deleteObject(ref(storage, `images/${portfolioId}-main-image`))
+                try {
+                  await deleteObject(
+                    ref(storage, `images/${portfolioId}-main-image`)
+                  )
+                } catch {
+                  console.clear()
+                }
               }
 
-              if(secondaryImage) {
-                uploadBytes(ref(storage, `images/${portfolioId}-secondary-image`), secondaryImage)
+              if (secondaryImage) {
+                uploadBytes(
+                  ref(storage, `images/${portfolioId}-secondary-image`),
+                  secondaryImage
+                )
               } else {
-                deleteObject(ref(storage, `images/${portfolioId}-main-image`))
+                try {
+                  await deleteObject(
+                    ref(storage, `images/${portfolioId}-secondary-image`)
+                  )
+                } catch {
+                  console.clear()
+                }
               }
 
               generateImage(values)
