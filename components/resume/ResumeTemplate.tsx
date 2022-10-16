@@ -1,14 +1,51 @@
-import React from 'react'
+import React, { forwardRef, useRef, createRef } from 'react'
 import { Box, HStack, Stack, Text, Heading, Link } from '@chakra-ui/react'
-import { isEmpty } from "../../utils"
+import { isEmpty, arrayWithLength } from '../../utils'
 
-export const ResumeTemplate = React.forwardRef(
-  ({ data }: any, ref: React.LegacyRef<HTMLDivElement>) => {
+export const ResumeTemplate = forwardRef(
+  ({ data }: any, ref: any) => {
+    const jobRef = useRef([])
+    jobRef.current = data.jobs?.map(
+      (_element: any, index: number) => jobRef.current[index] ?? createRef()
+    )
+
+    const portfolioRef = useRef([])
+    portfolioRef.current = data.portfolio?.map(
+      (_element: any, index: number) => portfolioRef.current[index] ?? createRef()
+    )
+
+    const educationRef = useRef([])
+    educationRef.current = data.education?.map(
+      (_element: any, index: number) => educationRef.current[index] ?? createRef()
+    )
+
+    const calculateMargin = (sectionRef: any) => {
+      if (!sectionRef?.current || !ref.current) return 0
+      const positionY = sectionRef.current.getBoundingClientRect().y
+      const height = sectionRef.current.clientHeight
+      const pageY = ref.current.getBoundingClientRect().y
+      const yDelta = positionY - pageY
+      const pageHeight = ref.current.clientHeight
+      const pages = Math.ceil(pageHeight / 3500)
+      const edges = arrayWithLength(pages).map(
+        (pageNumber) => 3500 * (pageNumber + 1)
+      )
+      const edgesDistances = edges.map((edge) => Math.abs(edge - yDelta))
+      const distanceToEdge = Math.min(...edgesDistances)
+      if (distanceToEdge < 0 && Math.abs(distanceToEdge) < 128) {
+        return `${128 - Math.abs(distanceToEdge)}px`
+      }
+      if (distanceToEdge < height) {
+        return `${distanceToEdge + 128}px`
+      } else {
+        return 0
+      }
+    }
+
     return (
       <Box
         minH="3500px"
         w="2480px"
-        border="2px solid pink"
         ref={ref}
         bg="white"
         fontSize="2.75rem"
@@ -40,8 +77,13 @@ export const ResumeTemplate = React.forwardRef(
                   <Heading fontSize="1.4em">Work Experience</Heading>
                   <Stack spacing={16}>
                     {data.jobs?.map((job: any, index: number) => (
-                      <Stack key={`${job.jobTitle}-${index}`}>
-                        <Heading>{job.jobTitle}</Heading>
+                      <Stack
+                        key={`${job.jobTitle}-${index}`}
+                        ref={jobRef.current[index]}
+                      >
+                        <Heading pt={calculateMargin(jobRef.current[index])}>
+                          {job.jobTitle}
+                        </Heading>
                         <Text color="blue.500">{job.timePeriod} </Text>
                         <Text>{job.achievments}</Text>
                       </Stack>
@@ -56,7 +98,7 @@ export const ResumeTemplate = React.forwardRef(
                     {data.portfolio?.map(
                       (project: any, index: number) =>
                         index < 2 && (
-                          <Text key={`${project.projectTitle}-index`}>
+                          <Text key={`${project.projectTitle}-index`} ref={portfolioRef.current[index]}pt={calculateMargin(portfolioRef.current[index])}>
                             <strong>{project.projectTitle}</strong> <br />
                             {project.description}
                             <br />
@@ -104,7 +146,7 @@ export const ResumeTemplate = React.forwardRef(
                 <Stack spacing={8}>
                   <Heading fontSize="1.1em">Education</Heading>
                   {data.education?.map((education: any, index: number) => (
-                    <Stack spacing={4} key={`education-${index}`}>
+                    <Stack spacing={4} key={`education-${index}`} ref={ educationRef.current[index]} pt={calculateMargin(educationRef.current[index])}>
                       <Text>{education.school}</Text>
                       <Text color="blue.500">{education.dateOfFinishing}</Text>
                       <Text>{education.program}</Text>

@@ -58,7 +58,6 @@ function Page({
   useEffect(() => {
     setLoading(false)
   }, [])
-  console.log(coverLetter)
 
   if (loading) {
     return (

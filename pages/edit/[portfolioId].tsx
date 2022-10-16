@@ -100,8 +100,8 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
     let offsetY = 0
     doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight)
     overflowingHeight -= pageHeight
-    while (overflowingHeight > pageHeight) {
-      offsetY += overflowingHeight - imageHeight
+    while (overflowingHeight > 0) {
+      offsetY -= pageHeight
       doc.addPage()
       doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight)
       overflowingHeight -= pageHeight

@@ -28,7 +28,6 @@ export const CoverLetter = ({
       arrayWithLength(prevCoverLetterCount.length + 1)
     )
   }
-  console.log(coverLetters)
 
   return (
     <FormWrapper name="Cover letter" onClick={addNewCoverLetter}>
