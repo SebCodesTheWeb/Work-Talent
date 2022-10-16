@@ -278,7 +278,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                           >
                             <HStack>
                               <Text>View</Text>
-                              <Icon as={AiOutlineEye} color="#fff" />
+                              <Icon as={AiOutlineEye} color="inherit" />
                             </HStack>
                           </Button>
                         </Stack>
