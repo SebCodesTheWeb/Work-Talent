@@ -45,6 +45,7 @@ import {
   AiFillFileAdd,
   AiOutlineEye,
   AiOutlinePlusCircle,
+  AiOutlineCopy,
 } from 'react-icons/ai'
 import { TbEdit } from 'react-icons/tb'
 
@@ -103,16 +104,16 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
     })
   }
 
-  const initializeUserPortfolio = async () => {
+  const initializeUserPortfolio = async (values=initialValues, isCopy=false) => {
     try {
       setLoading(true)
       const portfolioId = uniqid()
       await setDoc(doc(db, 'portfolios', portfolioId), {
         userId: user?.uid,
-        portfolioName,
+        portfolioName: isCopy? `${values?.portfolioName || ''}-copy` : portfolioName,
         portfolioId,
         portfolioURL: uniqid(),
-        ...initialValues,
+        ...values,
       })
       router.reload()
     } catch (e) {
@@ -220,7 +221,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                       <Button
                         colorScheme="teal"
                         mr={3}
-                        onClick={initializeUserPortfolio}
+                        onClick={() => initializeUserPortfolio(initialValues, false)}
                       >
                         <HStack>
                           <Text>Create</Text>
@@ -241,8 +242,8 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 >
                   {portfolios.map((portfolio: any, index: number) => (
                     <Center
-                      w={{ base: '150px', '2xl': '200px' }}
-                      h={{ base: '150px', '2xl': '200px' }}
+                      w={{ base: '175px', '2xl': '200px' }}
+                      h={{ base: '175px', '2xl': '200px' }}
                       border="1px solid #fff"
                       key={`${user?.uid}-${portfolio.portfolioName}`}
                       borderRadius={8}
@@ -268,7 +269,19 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                               <Text>Edit</Text>
                               <Icon as={TbEdit} />
                             </HStack>
-                          </Button>
+                        </Button>
+                          <Button
+                            size={{ base: 'sm', '2xl': 'md' }}
+                            variant="ghost"
+                            border="1px solid #fff"
+                            _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            onClick={() => initializeUserPortfolio(portfolio, true)}
+                          >
+                            <HStack>
+                              <Text>Copy</Text>
+                              <Icon as={AiOutlineCopy} />
+                            </HStack>
+                        </Button>
                           <Button
                             size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
