@@ -83,7 +83,7 @@ const initialValues = {
   makePublic: false,
   gender: 'man',
   contactInfo: '',
-  layoutOrder: ['Work', 'Portfolio', 'About Me', 'Cover Letter'],
+  items: ['Work', 'Portfolio', 'About Me', 'Cover Letter'],
   primaryColor: 'teal.500',
   secondaryColor: 'purple.500',
   mainImage: '/img/business-man.svg',

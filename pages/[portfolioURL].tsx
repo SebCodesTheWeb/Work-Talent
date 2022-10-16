@@ -242,7 +242,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
               <AboutSection
                 data={data}
                 resumeLink={resumeLink}
-                secondaryImage={ secondaryImage }
+                secondaryImage={secondaryImage}
                 key={`${item}-${index}`}
               />
             )
@@ -463,9 +463,14 @@ export async function getServerSideProps({ params }: any) {
     }
   }
 
-  const resumeLink = await getDownloadURL(
-    ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
-  )
+  let resumeLink
+  try {
+    resumeLink = await getDownloadURL(
+      ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
+    )
+  } catch {
+    resumeLink = '#'
+  }
 
   let mainImage
   try {
@@ -476,9 +481,11 @@ export async function getServerSideProps({ params }: any) {
     mainImage = '/img/business-man.svg'
   }
 
-  let secondaryImage 
+  let secondaryImage
   try {
-    secondaryImage = await getDownloadURL(ref(storage, `images/${data.portfolioId}-secondary-image`))
+    secondaryImage = await getDownloadURL(
+      ref(storage, `images/${data.portfolioId}-secondary-image`)
+    )
   } catch {
     secondaryImage = '/img/coding.svg'
   }
