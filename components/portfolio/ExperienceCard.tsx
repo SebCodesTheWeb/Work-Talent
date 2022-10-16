@@ -8,7 +8,7 @@ interface Props {
   location: string
   date: string
   workTasks: string
-  bgColor?: 'cyan.500' | 'purple.500' | 'gray.500'
+  bgColor?: string
 }
 
 export const ExperienceCard = ({

@@ -58,6 +58,8 @@ export const Theming = ({
   setSecondaryImage,
   setPrimaryColor,
   setSecondaryColor,
+  currentStep,
+  values,
 }: any) => {
   const onSortEnd = ({ oldIndex, newIndex }: any) => {
     setItems((prev: any) => arrayMoveImmutable(prev, oldIndex, newIndex))
@@ -66,7 +68,7 @@ export const Theming = ({
   return (
     <FormWrapper>
       <Heading as="h2" size="lg">
-        Customize
+        Step { currentStep } Customize
       </Heading>
       <FormLabel>Sort order of which to display portfolio</FormLabel>
       <SortableWrapper onSortEnd={onSortEnd}>
@@ -77,16 +79,16 @@ export const Theming = ({
       <FormLabel>Choose primary portfolio color</FormLabel>
       <Box>
         <ColorPicker
-          onChange={(c) => setPrimaryColor(c)}
-          defaultColor="purple.500"
+          onChange={(c) => setSecondaryColor(c)}
+          defaultColor={values.secondaryColor}
           colors={colors}
         />
       </Box>
       <FormLabel>Choose secondary portfolio color</FormLabel>
       <Box>
         <ColorPicker
-          onChange={(c) => setSecondaryColor(c)}
-          defaultColor="teal.500"
+          onChange={(c) => setPrimaryColor(c)}
+          defaultColor={values.primaryColor}
           colors={colors}
         />
       </Box>

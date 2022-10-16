@@ -30,29 +30,22 @@ import {
   Highlight,
   Center,
   Spinner,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
   List,
   ListItem,
   SimpleGrid,
   ListIcon,
-  Wrap,
 } from '@chakra-ui/react'
 import {
-  WorkImage,
-  ExperienceCard,
   SimpleHighlight,
-  PortfolioProject,
   SimpleButton,
-  ExtensiveHighlight,
   GeneratePDF,
+  WorkSection,
+  AboutSection,
+  PortfolioSection,
 } from '../components'
 import Head from 'next/head'
 
-function Page({ data, images, resumeLink }: any) {
+function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(false)
@@ -100,7 +93,7 @@ function Page({ data, images, resumeLink }: any) {
           zIndex={1}
           display={{ base: 'none', md: 'flex' }}
         >
-          <GeneratePDF link={resumeLink} />
+          <GeneratePDF link={resumeLink} secondaryColor={data.secondaryColor} />
           <LinkBox>
             <Tooltip
               label="This website is powered by job-talent.org"
@@ -128,31 +121,31 @@ function Page({ data, images, resumeLink }: any) {
           </LinkBox>
           <HStack fontSize="lg" spacing={4} fontWeight="bold">
             <Link
-              _hover={{ textDecoration: 'none', color: 'cyan.500' }}
+              _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#home"
             >
               Home
             </Link>
             <Link
-              _hover={{ textDecoration: 'none', color: 'cyan.500' }}
+              _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#work"
             >
               Work
             </Link>
             <Link
-              _hover={{ textDecoration: 'none', color: 'cyan.500' }}
+              _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#about"
             >
               About
             </Link>
             <Link
-              _hover={{ textDecoration: 'none', color: 'cyan.500' }}
+              _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#portfolio"
             >
               Porfolio
             </Link>
             <Link
-              _hover={{ textDecoration: 'none', color: 'cyan.500' }}
+              _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#contact"
             >
               Contact
@@ -170,9 +163,7 @@ function Page({ data, images, resumeLink }: any) {
           <Box>
             <Image
               src={
-                data.gender === 'woman'
-                  ? '/img/business-woman.svg'
-                  : '/img/business-man.svg'
+                data.gender === 'woman' ? '/img/business-woman.svg' : mainImage
               }
               alt="business-person"
               boxSize={{
@@ -198,7 +189,7 @@ function Page({ data, images, resumeLink }: any) {
               <Highlight
                 query={data.lastname}
                 styles={{
-                  bg: 'purple.500',
+                  bg: data.secondaryColor,
                   p: '1',
                   borderRadius: '40',
                   color: '#fff',
@@ -215,7 +206,7 @@ function Page({ data, images, resumeLink }: any) {
               <Highlight
                 query={data.jobRole ?? ''}
                 styles={{
-                  bg: 'cyan.500',
+                  bg: data.primaryColor,
                   p: '1',
                   borderRadius: '20',
                   color: '#fff',
@@ -225,7 +216,7 @@ function Page({ data, images, resumeLink }: any) {
               </Highlight>
             </Text>
             <LinkBox>
-              <SimpleButton>
+              <SimpleButton secondaryColor={data.secondaryColor}>
                 <HStack>
                   <LinkOverlay href="#work" />
                   <Heading size="sm">See my works</Heading>
@@ -236,154 +227,30 @@ function Page({ data, images, resumeLink }: any) {
           </Stack>
         </Stack>
 
-        <Stack
-          justify="center"
-          spacing={32}
-          px={{ base: 4, md: 16 }}
-          w={{ base: 'full', '2xl': 'max-content' }}
-          pb={8}
-          pt={16}
-          direction={{ base: 'column', '2xl': 'row' }}
-        >
-          <span className="anchor" id="work"></span>
-          {!isEmpty(data.jobs) && (
-            <VStack spacing={4} px={{ base: 0, md: 16 }} w="full">
-              <Heading mb={4} textAlign="center">
-                Work Experience
-              </Heading>
-              <Tabs
-                orientation="horizontal"
-                minWidth={{ base: '200px', md: '600px' }}
-                minHeight="300px"
-                maxWidth={{ base: 'full', md: 'auto' }}
-              >
-                <TabList pb={4} overflowX="scroll">
-                  {data.jobs.map((job: any) => (
-                    <Tab w="full" key={job.jobTitle}>
-                      {job.jobTitle}
-                    </Tab>
-                  ))}
-                </TabList>
-                <TabPanels h="90%" mt={4}>
-                  {data.jobs.map((job: any) => (
-                    <TabPanel
-                      p={8}
-                      key={job.timePeriod}
-                      border="1px solid black"
-                      borderRadius="40px"
-                      w="max-content"
-                      maxW="100%"
-                    >
-                      <ExperienceCard
-                        jobTitle={job.jobTitle}
-                        companyName={job.companyName}
-                        location={job.workLocation}
-                        date={job.timePeriod}
-                        workTasks={job.achievments}
-                        bgColor="purple.500"
-                      />
-                    </TabPanel>
-                  ))}
-                </TabPanels>
-              </Tabs>
-            </VStack>
-          )}
-          {!isEmpty(images) && (
-            <VStack spacing={8} alignItems="center">
-              <Heading textAlign="center">Images from work </Heading>
-              <Stack
-                alignItems="start"
-                justifyContent="center"
-                spacing={4}
-                direction={{ base: 'column', md: 'row' }}
-                w="80vw !important"
-                maxW="350px"
-              >
-                {data.images &&
-                  data.images.map(
-                    (image: any, index: number) =>
-                      image && (
-                        <WorkImage
-                          key={image.title}
-                          title={image.title}
-                          description={image.description}
-                          src={images[index]}
-                          alt={image.title}
-                          companyName={image.context}
-                          bgColor="cyan.500"
-                        />
-                      )
-                  )}
-              </Stack>
-            </VStack>
-          )}
-        </Stack>
-        <Stack
-          spacing={12}
-          direction={{ base: 'column', md: 'row' }}
-          py={{ base: 0, md: 8 }}
-          alignItems="center"
-          pb={8}
-        >
-          <span className="anchor" id="about"></span>
-          <Stack
-            maxW={{ base: '90%', md: '600px' }}
-            spacing={4}
-            alignItems={{ base: 'center', md: 'start' }}
-          >
-            <Heading textAlign={{ base: 'center', md: 'start' }}>
-              About me
-            </Heading>
-            {data.aboutMe.longDescription && (
-              <Text lineHeight={8} textAlign={{ base: 'center', md: 'start' }}>
-                <ExtensiveHighlight
-                  text={data.aboutMe.longDescription}
-                  query={data.aboutMe.highlight.split(',')}
-                  fontWeight="normal"
-                />
-              </Text>
-            )}
-            <GeneratePDF link={resumeLink} />
-          </Stack>
-          <Image
-            src={
-              data.gender === 'woman'
-                ? '../img/coding-woman.svg'
-                : '../img/coding.svg'
-            }
-            objectFit="cover"
-            w={{ base: '250px', md: '400px' }}
-            alt="Sebastian Delgado"
-          />
-        </Stack>
-
-        {!isEmpty(data.portfolio) && (
-          <Stack
-            spacing={8}
-            alignItems="center"
-            py={8}
-            pb={16}
-            maxW={{ base: 'full', md: '600px' }}
-          >
-            <span className="anchor" id="portfolio" />
-            <Heading>Portfolio</Heading>
-            <Text>A collection of personal projects and other work</Text>
-            <Wrap spacing={4} justify="center">
-              {data.portfolio.map((project: any) => (
-                <PortfolioProject
-                  key={project.projectTitle}
-                  title={project.projectTitle}
-                  description={project.description}
-                  video={project.isVideo}
-                  src={project.image}
-                  alt={project.image}
-                  links={[project.linkOne, project.linkTwo]}
-                  linkTexts={[project.linkLabelOne, project.linkLabelTwo]}
-                />
-              ))}
-            </Wrap>
-          </Stack>
-        )}
+        {data.items.map((item: string, index: number) => {
+          if (item === 'Work') {
+            return (
+              <WorkSection
+                data={data}
+                images={images}
+                key={`${item}-${index}`}
+              />
+            )
+          }
+          if (item === 'About Me') {
+            return (
+              <AboutSection
+                data={data}
+                resumeLink={resumeLink}
+                secondaryImage={ secondaryImage }
+                key={`${item}-${index}`}
+              />
+            )
+          }
+          if (item === 'Portfolio' && !isEmpty(data.portfolio)) {
+            return <PortfolioSection data={data} key={`${item}-${index}`} />
+          }
+        })}
 
         <Stack
           spacing={4}
@@ -422,7 +289,7 @@ function Page({ data, images, resumeLink }: any) {
                   }}
                   w="full"
                 >
-                  <SimpleHighlight text="Mail" />
+                  <SimpleHighlight text="Mail" bgColor={data.primaryColor} />
                   <Text textOverflow="wrap" maxW="90%">
                     {data.e_mail}
                   </Text>
@@ -438,7 +305,7 @@ function Page({ data, images, resumeLink }: any) {
                   }}
                   w="full"
                 >
-                  <SimpleHighlight text="Phone" />
+                  <SimpleHighlight text="Phone" bgColor={data.primaryColor} />
                   <Text textOverflow="wrap" maxW="90%">
                     {data.phone}
                   </Text>
@@ -454,14 +321,17 @@ function Page({ data, images, resumeLink }: any) {
                     md: isEmpty(data.skills) ? 'full' : '400px',
                   }}
                 >
-                  <SimpleHighlight text="Find me in" />
+                  <SimpleHighlight
+                    text="Find me in"
+                    bgColor={data.primaryColor}
+                  />
                   <Text textOverflow="wrap" maxW="90%">
                     {data.location}
                   </Text>
                 </Stack>
               )}
               <LinkBox pt={4}>
-                <SimpleButton>
+                <SimpleButton secondaryColor={data.secondaryColor}>
                   <HStack>
                     <LinkOverlay href={`mailto: ${data.e_mail}`} />
                     <Heading size="sm">Contact</Heading>
@@ -528,7 +398,7 @@ function Page({ data, images, resumeLink }: any) {
                 p={8}
               >
                 {data.social.linkedin && (
-                  <LinkBox _hover={{ color: 'cyan.500' }}>
+                  <LinkBox _hover={{ color: data.primaryColor }}>
                     <LinkOverlay
                       href={data.social.linkedin}
                       isExternal={true}
@@ -537,7 +407,7 @@ function Page({ data, images, resumeLink }: any) {
                   </LinkBox>
                 )}
                 {data.social.facebook && (
-                  <LinkBox _hover={{ color: 'cyan.500' }}>
+                  <LinkBox _hover={{ color: data.primaryColor }}>
                     <LinkOverlay
                       href={data.social.facebook}
                       isExternal={true}
@@ -546,7 +416,7 @@ function Page({ data, images, resumeLink }: any) {
                   </LinkBox>
                 )}
                 {data.social.instagram && (
-                  <LinkBox _hover={{ color: 'cyan.500' }}>
+                  <LinkBox _hover={{ color: data.primaryColor }}>
                     <LinkOverlay
                       href={data.social.instagram}
                       isExternal={true}
@@ -555,13 +425,13 @@ function Page({ data, images, resumeLink }: any) {
                   </LinkBox>
                 )}
                 {data.social.github && (
-                  <LinkBox _hover={{ color: 'cyan.500' }}>
+                  <LinkBox _hover={{ color: data.primaryColor }}>
                     <LinkOverlay href={data.social.github} isExternal={true} />
                     <Icon as={GrGithub} boxSize="30px" />
                   </LinkBox>
                 )}
                 {data.social.youtube && (
-                  <LinkBox _hover={{ color: 'cyan.500' }}>
+                  <LinkBox _hover={{ color: data.primaryColor }}>
                     <LinkOverlay href={data.social.youtube} isExternal={true} />
                     <Icon as={GrYoutube} boxSize="30px" />
                   </LinkBox>
@@ -597,6 +467,21 @@ export async function getServerSideProps({ params }: any) {
     ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
   )
 
+  let mainImage
+  try {
+    mainImage = await getDownloadURL(
+      ref(storage, `images/${data.portfolioId}-main-image`)
+    )
+  } catch {
+    mainImage = '/img/business-man.svg'
+  }
+
+  let secondaryImage 
+  try {
+    secondaryImage = await getDownloadURL(ref(storage, `images/${data.portfolioId}-secondary-image`))
+  } catch {
+    secondaryImage = '/img/coding.svg'
+  }
   const images = await Promise.all(
     data.images.map(async (image: any) => {
       return await getDownloadURL(ref(storage, `images/${image.title}`))
@@ -608,6 +493,8 @@ export async function getServerSideProps({ params }: any) {
       data,
       images,
       resumeLink,
+      mainImage,
+      secondaryImage,
     },
   }
 }

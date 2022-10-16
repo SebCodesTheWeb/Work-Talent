@@ -18,12 +18,7 @@ import {
 } from '../../components'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
-import {
-  ref,
-  uploadBytes,
-  deleteObject,
-  getDownloadURL,
-} from 'firebase/storage'
+import { ref, uploadBytes, deleteObject } from 'firebase/storage'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
@@ -77,12 +72,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   )
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
 
-  const [items, setItems] = useState([
-    'Work',
-    'Portfolio',
-    'About Me',
-    'Cover Letter',
-  ])
+  const [items, setItems] = useState(portfolioData.items)
   const [mainImage, setMainImage] = useState<File | null>(null)
   const [secondaryImage, setSecondaryImage] = useState<File | null>(null)
   const [primaryColor, setPrimaryColor] = useState('teal.500')
@@ -223,6 +213,8 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             setSecondaryImage={setSecondaryImage}
             setPrimaryColor={setPrimaryColor}
             setSecondaryColor={setSecondaryColor}
+            values={ values }
+            currentStep={ activeStep + 1}
           />
         )
       case 9:
