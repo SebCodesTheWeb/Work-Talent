@@ -150,7 +150,9 @@ export const ResumeTemplate = forwardRef(
                       <Text>{education.school}</Text>
                       <Text color="blue.500">{education.dateOfFinishing}</Text>
                       <Text>{education.program}</Text>
-                      <Text>Grades: {education.grade}</Text>
+                      {education.grade && (
+                        <Text>Grades: {education.grade}</Text>
+                      )}
                     </Stack>
                   ))}
                 </Stack>
