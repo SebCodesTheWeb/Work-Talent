@@ -73,6 +73,8 @@ const initialValues = {
     blog: '',
   },
   skills: [],
+  coverLetters: [],
+  coverLetterLength: 0,
   skillLength: 0,
   projectLength: 0,
   jobLength: 0,

@@ -13,6 +13,7 @@ import {
   Links,
   Portfolio,
   About,
+  CoverLetter,
   Skills,
   WorkImages,
 } from '../../components'
@@ -63,6 +64,11 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   const [projects, setProjects] = useState(
     arrayWithLength(portfolioData.projectLength)
   )
+  const [coverLetters, setCoverLetters] = useState(
+    arrayWithLength(portfolioData.coverLetterLength)
+  )
+
+  console.log(coverLetters)
   const [jobs, setJobs] = useState(arrayWithLength(portfolioData.jobLength))
   const [education, setEducation] = useState(
     arrayWithLength(portfolioData.educationLength)
@@ -72,7 +78,12 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
   )
   const [imageSRCS, setImageSRCS] = useState([0, 0, 0, 0, 0, 0, 0])
 
-  const [items, setItems] = useState(portfolioData.items)
+  const [items, setItems] = useState([
+    'Work',
+    'Portfolio',
+    'About Me',
+    'Cover Letter',
+  ])
   const [mainImage, setMainImage] = useState<File | null>(null)
   const [secondaryImage, setSecondaryImage] = useState<File | null>(null)
   const [primaryColor, setPrimaryColor] = useState('teal.500')
@@ -165,7 +176,6 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             setEducation={setEducation}
           />
         )
-        break
       case 4:
         return (
           <About
@@ -176,6 +186,16 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
         )
       case 5:
         return (
+          <CoverLetter
+            handleChange={handleChange}
+            values={values}
+            currentStep={activeStep + 1}
+            coverLetters={coverLetters}
+            setCoverLetters={setCoverLetters}
+          />
+        )
+      case 6:
+        return (
           <Portfolio
             handleChange={handleChange}
             values={values}
@@ -184,7 +204,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             setProjects={setProjects}
           />
         )
-      case 6:
+      case 7:
         return (
           <Skills
             handleChange={handleChange}
@@ -194,7 +214,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             setSkills={setSkills}
           />
         )
-      case 7:
+      case 8:
         return (
           <Links
             handleChange={handleChange}
@@ -202,7 +222,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             currentStep={activeStep + 1}
           />
         )
-      case 8:
+      case 9:
         return (
           <Theming
             items={items}
@@ -213,11 +233,11 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
             setSecondaryImage={setSecondaryImage}
             setPrimaryColor={setPrimaryColor}
             setSecondaryColor={setSecondaryColor}
-            values={ values }
-            currentStep={ activeStep + 1}
+            values={values}
+            currentStep={activeStep + 1}
           />
         )
-      case 9:
+      case 10:
         return (
           <Stack spacing={4}>
             <Heading size="md">Portfolio Data:</Heading>
@@ -242,6 +262,7 @@ const Home: NextPage = ({ portfolioData, portfolioId }: any) => {
     { label: 'Images' },
     { label: 'Education' },
     { label: 'About Me' },
+    { label: 'Cover Letter'},
     { label: 'Portfolio' },
     { label: 'Skills' },
     { label: 'Links' },
