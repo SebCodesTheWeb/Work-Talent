@@ -21,7 +21,7 @@ export const WorkImage = ({
 }: Props) => {
   return (
     <Stack
-      spacing={{base: 3, md: 2}}
+      spacing={{ base: 3, md: 2 }}
       alignItems={{ base: 'center', md: 'start' }}
       w={{ base: 'full', md: 'auto' }}
     >
@@ -35,7 +35,9 @@ export const WorkImage = ({
         />
       </AspectRatio>
       <Box alignSelf="start">
-        <CompanyTag companyName={companyName} bgColor={bgColor} />
+        {companyName && (
+          <CompanyTag companyName={companyName} bgColor={bgColor} />
+        )}
       </Box>
       <Heading size="md">{title}</Heading>
       <Text maxW="300px" textAlign={{ base: 'center', md: 'start' }}>
