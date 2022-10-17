@@ -108,11 +108,11 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
       setLoading(true)
       const portfolioId = uniqid()
       await setDoc(doc(db, 'portfolios', portfolioId), {
+        ...values,
         userId: user?.uid,
         portfolioName: isCopy? `${values?.portfolioName || ''}-copy` : portfolioName,
         portfolioId,
         portfolioURL: uniqid(),
-        ...values,
       })
       router.reload()
     } catch (e) {
