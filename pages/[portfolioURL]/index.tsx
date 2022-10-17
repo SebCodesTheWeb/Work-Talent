@@ -92,6 +92,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
           bgColor="#fff"
           zIndex={1}
           display={{ base: 'none', md: 'flex' }}
+          maxWidth="2700px"
         >
           <GeneratePDF link={resumeLink} secondaryColor={data.secondaryColor} />
           <LinkBox>
