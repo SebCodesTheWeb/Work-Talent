@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       alignItems="start"
     >
       <Head>
-        <title> Job-talent.org </title>
+        <title> Work Talent </title>
       </Head>
       <VStack>
         <VStack p={4}>
