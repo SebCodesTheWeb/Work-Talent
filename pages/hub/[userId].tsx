@@ -88,6 +88,7 @@ const initialValues = {
   secondaryColor: 'purple.500',
   mainImage: '/img/business-man.svg',
   secondaryImage: '/img/coding.svg',
+  portfolioName: '',
 }
 
 const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
@@ -103,7 +104,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
     })
   }
 
-  const initializeUserPortfolio = async (values=initialValues, isCopy=false) => {
+  const initializeUserPortfolio = async (values = initialValues, isCopy=false) => {
     try {
       setLoading(true)
       const portfolioId = uniqid()
