@@ -36,7 +36,7 @@ export const WorkSection = ({ data, images }: any) => (
         >
           <TabList pb={4} overflowX="scroll">
             {data.jobs.map((job: any) => (
-              <Tab w="full" key={job.jobTitle}>
+              <Tab w="full" key={job.jobTitle} display={isEmpty(job) ? 'none' : 'inherit'}>
                 {job.jobTitle}
               </Tab>
             ))}
