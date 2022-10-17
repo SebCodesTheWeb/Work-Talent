@@ -110,7 +110,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
                 w="60px"
                 h="60px"
               >
-                <LinkOverlay href="/" isExternal={true} />
+                <LinkOverlay href="/" isExternal={true} aria-label="Go to work talent"/>
                 <Image
                   src="/img/logo_white.png"
                   alt="job-talent logo"
@@ -217,7 +217,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
             <LinkBox>
               <SimpleButton secondaryColor={data.secondaryColor}>
                 <HStack>
-                  <LinkOverlay href="#work" />
+                  <LinkOverlay href="#work" aria-label="Scroll down to work section"/>
                   <Heading size="sm">See my works</Heading>
                   <Icon as={VscTriangleDown} className="icon" />
                 </HStack>
@@ -332,7 +332,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
               <LinkBox pt={4}>
                 <SimpleButton secondaryColor={data.secondaryColor}>
                   <HStack>
-                    <LinkOverlay href={`mailto: ${data.e_mail}`} />
+                    <LinkOverlay href={`mailto: ${data.e_mail}`} aria-label="Open mail" />
                     <Heading size="sm">Contact</Heading>
                     <Icon as={IoMailOutline} className="icon" />
                   </HStack>
@@ -401,6 +401,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
                     <LinkOverlay
                       href={data.social.linkedin}
                       isExternal={true}
+                      aria-label="Link to Linkedin"
                     />
                     <Icon as={GrLinkedin} boxSize="30px" />
                   </LinkBox>
@@ -410,6 +411,7 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
                     <LinkOverlay
                       href={data.social.facebook}
                       isExternal={true}
+                      aria-label="Link to Facebook"
                     />
                     <Icon as={GrFacebook} boxSize="30px" />
                   </LinkBox>
@@ -419,19 +421,28 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
                     <LinkOverlay
                       href={data.social.instagram}
                       isExternal={true}
+                      aria-label="Link to Instagram"
                     />
                     <Icon as={GrInstagram} boxSize="30px" />
                   </LinkBox>
                 )}
                 {data.social.github && (
                   <LinkBox _hover={{ color: data.primaryColor }}>
-                    <LinkOverlay href={data.social.github} isExternal={true} />
+                    <LinkOverlay 
+                    href={data.social.github} 
+                    isExternal={true} 
+                    aria-label="Link to Github"
+                    />
                     <Icon as={GrGithub} boxSize="30px" />
                   </LinkBox>
                 )}
                 {data.social.youtube && (
                   <LinkBox _hover={{ color: data.primaryColor }}>
-                    <LinkOverlay href={data.social.youtube} isExternal={true} />
+                    <LinkOverlay 
+                      href={data.social.youtube} 
+                      isExternal={true} 
+                      aria-label="Link to youtube "
+                    />
                     <Icon as={GrYoutube} boxSize="30px" />
                   </LinkBox>
                 )}

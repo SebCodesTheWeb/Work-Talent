@@ -8,7 +8,7 @@ export const GeneratePDF = ({ link, secondaryColor }: { link: string, secondaryC
     <LinkBox>
       <SimpleButton secondaryColor={secondaryColor}>
         <HStack>
-          <LinkOverlay href={link} isExternal={true} />
+          <LinkOverlay href={link} isExternal={true} aria-label="Go to PDF"/>
           <Heading size="sm">Resume</Heading>
           <Icon as={IoDocumentOutline} className="icon" />
         </HStack>

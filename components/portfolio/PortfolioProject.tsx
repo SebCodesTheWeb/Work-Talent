@@ -81,7 +81,7 @@ export const PortfolioProject = ({
             <LinkBox key={link}>
               <SimpleButton>
                 <HStack>
-                  <LinkOverlay href={link} isExternal={true} />
+                  <LinkOverlay href={link} isExternal={true} aria-label="portfolio external link"/>
                   <Text>{linkTexts && linkTexts[index]}</Text>
                   <Icon as={BiLinkExternal} />
                 </HStack>
