@@ -71,10 +71,8 @@ export const WorkSection = ({ data, images }: any) => (
         <Stack
           alignItems="start"
           justifyContent="center"
-          spacing={4}
+          spacing={{base: 8, md: 4}}
           direction={{ base: 'column', md: 'row' }}
-          w="80vw !important"
-          maxW="350px"
         >
           {data.images &&
             data.images.map(

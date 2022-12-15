@@ -7,12 +7,12 @@ export const PortfolioSection = ({ data }: any) => (
     alignItems="center"
     py={8}
     pb={16}
-    maxW={{ base: 'full', md: '600px' }}
+    maxW={{ base: 'full', md: '2000px' }}
   >
     <span className="anchor" id="portfolio" />
     <Heading>Portfolio</Heading>
     <Text>A collection of personal projects and other work</Text>
-    <Wrap spacing={4} justify="center">
+    <Wrap spacing={8} justify="center">
       {data.portfolio.map((project: any) => (
         <PortfolioProject
           key={project.projectTitle}
