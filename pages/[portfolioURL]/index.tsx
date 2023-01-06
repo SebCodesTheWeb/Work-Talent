@@ -44,6 +44,7 @@ import {
   PortfolioSection,
 } from '../../components'
 import Head from 'next/head'
+import { formatPageLink } from './utils'
 
 function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
   const [loading, setLoading] = useState(true)
@@ -121,30 +122,24 @@ function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
             </Tooltip>
           </LinkBox>
           <HStack fontSize="lg" spacing={4} fontWeight="bold">
-            <Link
+          <Link
               _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#home"
             >
               Home
             </Link>
+            {data.items.map((page: string, i: number) => {
+              const pageText = formatPageLink(page)
+              
+              return pageText && (
             <Link
               _hover={{ textDecoration: 'none', color: data.primaryColor }}
-              href="#work"
+              href={`#${pageText}`}
+              key={i}
             >
-              Work
+              {page}
             </Link>
-            <Link
-              _hover={{ textDecoration: 'none', color: data.primaryColor }}
-              href="#about"
-            >
-              About
-            </Link>
-            <Link
-              _hover={{ textDecoration: 'none', color: data.primaryColor }}
-              href="#portfolio"
-            >
-              Porfolio
-            </Link>
+            )})}
             <Link
               _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#contact"
