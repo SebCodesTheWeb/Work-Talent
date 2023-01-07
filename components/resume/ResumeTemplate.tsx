@@ -67,7 +67,7 @@ export const ResumeTemplate = forwardRef(
                     {data.aboutMe.longDescription}
                     <br />
                     <Link pl={4} color="blue.500">
-                      Read more: worktalent.org/{data.firstname}
+                      Read more: worktalent.org/{data.portfolioURL}
                     </Link>
                   </Text>
                 </Stack>
