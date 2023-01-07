@@ -74,8 +74,8 @@ export const PortfolioProject = ({
       </Heading>
       <Text>{description}</Text>
       <HStack>
-        {links.map((link: string, index: number) =>
-          link === '' ? (
+        {links.map((link: string, index: number) => 
+          link === '' || !link ? (
             <Text key={`${link}-${index}`}></Text>
           ) : (
             <LinkBox key={link}>
