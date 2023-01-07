@@ -93,7 +93,7 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
     const imageHeight = resumeRef.current.clientHeight * (pageHeight / 3500)
     let overflowingHeight = imageHeight
     const image = await toPng(resumeRef.current, {
-      quality: 1,
+      quality: 0.7,
       cacheBust: true,
     })
     const doc = new jsPDF()
@@ -103,7 +103,7 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
     while (overflowingHeight > 0) {
       offsetY -= pageHeight
       doc.addPage()
-      doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight)
+      doc.addImage(image, 'JPEG', 0, offsetY, 210, imageHeight, undefined, 'FAST')
       overflowingHeight -= pageHeight
     }
     const docRef = ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
