@@ -44,7 +44,7 @@ import {
   PortfolioSection,
 } from '../../components'
 import Head from 'next/head'
-import { formatPageLink } from './utils'
+import { formatPageLink } from '../../utils'
 
 function Page({ data, images, resumeLink, mainImage, secondaryImage }: any) {
   const [loading, setLoading] = useState(true)
