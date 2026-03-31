@@ -3,7 +3,7 @@ import { VStack, Button, HStack, Icon, Text } from '@chakra-ui/react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { FormWrapperProps } from './types'
 
-export const FormWrapper = ({ spacing=8, name, onClick, children }: FormWrapperProps) => {
+export const FormWrapper = ({ spacing = 8, name, onClick, children }: FormWrapperProps) => {
   return (
     <VStack
       alignItems="start"
@@ -11,7 +11,7 @@ export const FormWrapper = ({ spacing=8, name, onClick, children }: FormWrapperP
       maxH="800px"
       spacing={spacing}
       overflowY={{ base: 'visible', '2xl': 'scroll' }}
-      pr={ 2 }
+      pr={2}
     >
       {children}
       {name && (
@@ -21,7 +21,7 @@ export const FormWrapper = ({ spacing=8, name, onClick, children }: FormWrapperP
           border="1px solid #fff"
           _hover={{ color: 'gray.700', bgColor: '#fff' }}
           p={2}
-          autoFocus={ true }
+          autoFocus={true}
           color="white"
         >
           <HStack>
