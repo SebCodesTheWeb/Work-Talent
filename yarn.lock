@@ -1977,11 +1977,6 @@ chakra-color-picker@^0.0.6:
   resolved "https://registry.npmjs.org/chakra-color-picker/-/chakra-color-picker-0.0.6.tgz#95c119e923fea6685f3f89587651bcf1974474de"
   integrity sha512-QQ/PWjeOiBICWgbs5Bc30LURaxKM1rsVVZ9h9JdE7W7dkyzmCf+rquaIqSlNsKCSyphMpqL31QTQjKS/Ap38vQ==
 
-chakra-ui-file-picker@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/chakra-ui-file-picker/-/chakra-ui-file-picker-0.2.0.tgz#db3b69b657764dcfe62a03820920d4272eb5530a"
-  integrity sha512-4keap7EkiorCMV/FomunmvUJRUtNtPjAyL4jOhuaiISM0D9P2dGoZfOPRyVDvt1y9vhsmebUu3DTwEwCDDS3hw==
-
 chakra-ui-steps@^1.7.4:
   version "1.7.4"
   resolved "https://registry.npmjs.org/chakra-ui-steps/-/chakra-ui-steps-1.7.4.tgz#9174c87b66f530f83ad7ab2568e5dd450b1e5576"

@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Link,
+  Input,
   Image,
   FormLabel,
   Heading,
@@ -13,7 +14,6 @@ import {
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
 import { arrayMoveImmutable } from 'array-move'
 import { ColorPicker } from 'chakra-color-picker'
-import FilePicker from 'chakra-ui-file-picker'
 import { FormWrapper } from './FormWrapper'
 
 const colors = [
@@ -68,7 +68,7 @@ export const Theming = ({
   return (
     <FormWrapper>
       <Heading as="h2" size="lg">
-        Step { currentStep } Customize
+        Step {currentStep} Customize
       </Heading>
       <FormLabel>Sort order of which to display portfolio</FormLabel>
       <SortableWrapper onSortEnd={onSortEnd}>
@@ -95,22 +95,20 @@ export const Theming = ({
       <FormLabel>Change main image</FormLabel>
       <Image
         src={
-          mainImage ? typeof mainImage === 'string' ? mainImage :  URL.createObjectURL(mainImage) : '/img/business-man.svg'
+          mainImage ? typeof mainImage === 'string' ? mainImage : URL.createObjectURL(mainImage) : '/img/business-man.svg'
         }
         maxW="300px"
         alt="main-image"
       />
       <Box color="gray.500">
-        <FilePicker
-          onFileChange={(files) => {
-            setMainImage(files[0])
+        <Input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+            setMainImage(file)
           }}
-          hideClearButton={false}
-          placeholder={
-            mainImage
-              ? typeof mainImage === 'string'? mainImage: `${URL.createObjectURL(mainImage)}`
-              : 'Click to upload image'
-          }
         />
       </Box>
       <FormLabel>Change secondary image</FormLabel>
@@ -124,16 +122,15 @@ export const Theming = ({
         alt="secondary-image"
       />
       <Box color="gray.500">
-        <FilePicker
-          onFileChange={(files) => {
-            setSecondaryImage(files[0])
+        <Input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            setSecondaryImage(file)
           }}
-          hideClearButton={false}
-          placeholder={
-            secondaryImage
-              ? typeof secondaryImage === 'string'? secondaryImage :  `${URL.createObjectURL(secondaryImage)}`
-              : 'Click to upload image'
-          }
         />
       </Box>
       <Link href="https://undraw.co/illustrations" isExternal={true}>
