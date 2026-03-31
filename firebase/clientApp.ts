@@ -8,19 +8,19 @@ import {
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyBEwMXHwItdHxDIjx-u5-weKz4fwiz2eR8',
-  authDomain: 'job-talent-7e9cd.firebaseapp.com',
-  projectId: 'job-talent-7e9cd',
-  storageBucket: 'job-talent-7e9cd.appspot.com',
-  messagingSenderId: '369077255894',
-  appId: '1:369077255894:web:3850bb6aba72766cb0d377',
-  measurementId: 'G-15C1VQDMG7',
+const newFirebaseConfig = {
+  apiKey: "AIzaSyDNjpx-_FAGaTJpTuQCSVzHDUaZlXJch-g",
+  authDomain: "work-talent-c5dd8.firebaseapp.com",
+  projectId: "work-talent-c5dd8",
+  storageBucket: "work-talent-c5dd8.firebasestorage.app",
+  messagingSenderId: "951138012441",
+  appId: "1:951138012441:web:f59d3cbd9ce171147cc988",
+  measurementId: "G-EWYCBDJCMP"
 }
 
 let app
 if (!getApps().length) {
-  app = initializeApp(firebaseConfig)
+  app = initializeApp(newFirebaseConfig)
 }
 
 export const auth = getAuth()
@@ -50,4 +50,4 @@ export const signOut = async () => {
     })
 }
 
-export default firebaseConfig
+export default newFirebaseConfig
