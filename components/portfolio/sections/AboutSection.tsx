@@ -1,4 +1,4 @@
-import { Stack, Image, Text, Heading } from '@chakra-ui/react'
+import { Stack, Image, Text, Heading, Skeleton, Center } from '@chakra-ui/react'
 import { ExtensiveHighlight } from '../ExtensiveHighlight'
 import { GeneratePDF } from '../../resume'
 
@@ -28,11 +28,21 @@ export const AboutSection = ({ data, resumeLink, secondaryImage }: any) => (
       )}
       <GeneratePDF link={resumeLink} secondaryColor={data.secondaryColor} />
     </Stack>
-    <Image
-      src={secondaryImage}
-      objectFit="cover"
-      w={{ base: '250px', md: '400px' }}
-      alt="Working"
-    />
+    {secondaryImage && (
+      <Image
+        src={secondaryImage}
+        objectFit="cover"
+        w={{ base: '250px', md: '400px' }}
+        alt="Working"
+      />
+    )}
+    {!secondaryImage && (
+      <Skeleton>
+        <Center boxSize={{
+          base: '250px',
+          md: '400px',
+        }} />
+      </Skeleton>
+    )}
   </Stack>
 )

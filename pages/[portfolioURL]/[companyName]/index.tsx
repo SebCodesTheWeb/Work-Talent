@@ -18,6 +18,7 @@ import {
   Text,
   Button,
   Tooltip,
+  Skeleton,
   Image,
   Stack,
   VStack,
@@ -33,7 +34,7 @@ import {
   List,
   ListItem,
   SimpleGrid,
-  ListIcon,
+  ListIcon
 } from '@chakra-ui/react'
 import {
   SimpleHighlight,
@@ -45,19 +46,53 @@ import {
   CoverLetterSection,
 } from '../../../components'
 import Head from 'next/head'
+import { formatPageLink } from '../../../utils'
 
-function Page({
-  data,
-  images,
-  resumeLink,
-  mainImage,
-  secondaryImage,
-  coverLetter,
-}: any) {
+function Page({ data, coverLetter }: any) {
   const [loading, setLoading] = useState(true)
+  const [resumeLink, setResumeLink] = useState<string | null>(null)
+  const [mainImage, setMainImage] = useState<string | null>(null)
+  const [secondaryImage, setSecondaryImage] = useState<string | null>(null)
+  const [images, setImages] = useState(data.images.map(() => null))
+
+
   useEffect(() => {
     setLoading(false)
-  }, [])
+    const getImages = async () => {
+      const newResumeLink = await getDownloadURL(
+        ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
+      )
+      setResumeLink(newResumeLink)
+      try {
+        const newMainImage = await getDownloadURL(
+          ref(storage, `images/${data.portfolioId}-main-image`)
+        )
+        setMainImage(newMainImage)
+      } catch {
+        setMainImage('/img/business-man.svg')
+      }
+      try {
+        const newSecondaryImage = await getDownloadURL(
+          ref(storage, `images/${data.portfolioId}-secondary-image`)
+        )
+        setSecondaryImage(newSecondaryImage)
+      } catch {
+        setSecondaryImage('/img/coding.svg')
+
+      }
+      try {
+        const newImages = await Promise.all(
+          data.images.map(async (image: any) => {
+            return await getDownloadURL(ref(storage, `images/${image.title}`))
+          })
+        )
+        setImages(newImages)
+      } catch {
+      }
+    }
+    getImages()
+  }, [data.portfolioId, data.images])
+
 
   if (loading) {
     return (
@@ -100,8 +135,11 @@ function Page({
           bgColor="#fff"
           zIndex={1}
           display={{ base: 'none', md: 'flex' }}
+          maxWidth="2700px"
         >
-          <GeneratePDF link={resumeLink} secondaryColor={data.secondaryColor} />
+          {resumeLink && (
+            <GeneratePDF link={resumeLink} secondaryColor={data.secondaryColor} />
+          )}
           <LinkBox>
             <Tooltip
               label="This website is powered by job-talent.org"
@@ -134,24 +172,19 @@ function Page({
             >
               Home
             </Link>
-            <Link
-              _hover={{ textDecoration: 'none', color: data.primaryColor }}
-              href="#work"
-            >
-              Work
-            </Link>
-            <Link
-              _hover={{ textDecoration: 'none', color: data.primaryColor }}
-              href="#about"
-            >
-              About
-            </Link>
-            <Link
-              _hover={{ textDecoration: 'none', color: data.primaryColor }}
-              href="#portfolio"
-            >
-              Porfolio
-            </Link>
+            {data.items.map((page: string, i: number) => {
+              const pageText = formatPageLink(page)
+
+              return pageText && (
+                <Link
+                  _hover={{ textDecoration: 'none', color: data.primaryColor }}
+                  href={`#${pageText}`}
+                  key={i}
+                >
+                  {page}
+                </Link>
+              )
+            })}
             <Link
               _hover={{ textDecoration: 'none', color: data.primaryColor }}
               href="#contact"
@@ -169,16 +202,27 @@ function Page({
           justifyContent="center"
         >
           <Box>
-            <Image
-              src={mainImage}
-              alt="business-person"
-              boxSize={{
-                base: '300px',
-                md: '550px',
-                '2xl': '600px',
-              }}
-              objectFit={mainImage === '/img/business-man.svg' ? 'cover': 'contain'}
-            />
+            {mainImage && (
+              <Image
+                src={mainImage}
+                alt="business-person"
+                boxSize={{
+                  base: '300px',
+                  md: '550px',
+                  '2xl': '600px',
+                }}
+                objectFit={mainImage === '/img/business-man.svg' ? 'cover' : 'contain'}
+              />
+            )}
+            {!mainImage && (
+              <Skeleton>
+                <Center boxSize={{
+                  base: '300px',
+                  md: '550px',
+                  '2xl': '600px',
+                }} />
+              </Skeleton>
+            )}
           </Box>
           <Stack
             maxW="500px"
@@ -224,7 +268,7 @@ function Page({
             <LinkBox>
               <SimpleButton secondaryColor={data.secondaryColor}>
                 <HStack>
-                  <LinkOverlay href="#work" aria-label="go to work section" />
+                  <LinkOverlay href="#work" aria-label="Scroll down to work section" />
                   <Heading size="sm">See my works</Heading>
                   <Icon as={VscTriangleDown} className="icon" />
                 </HStack>
@@ -234,7 +278,7 @@ function Page({
         </Stack>
 
         {data.items.map((item: string, index: number) => {
-          if (item === 'Work' && !isEmpty(data.jobs)) {
+          if (item === 'Work') {
             return (
               <WorkSection
                 data={data}
@@ -254,7 +298,7 @@ function Page({
             )
           }
           if (item === 'Cover Letter' && Object.keys(coverLetter).length > 0) {
-            return <CoverLetterSection coverLetter={ coverLetter}/>
+            return <CoverLetterSection coverLetter={coverLetter} />
           }
           if (item === 'Portfolio' && !isEmpty(data.portfolio)) {
             return <PortfolioSection data={data} key={`${item}-${index}`} />
@@ -273,8 +317,7 @@ function Page({
           <Heading>Contact: </Heading>
           <Text maxW="60ch">
             {data.contactInfo ||
-              `I am looking for new job opportunities! If you need a ${
-                data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'
+              `I am looking for new job opportunities! If you need a ${data.jobs[0] ? data.jobs[0].jobTitle : 'new employee'
               }, I would love to talk`}
           </Text>
           <Stack
@@ -438,9 +481,9 @@ function Page({
                 )}
                 {data.social.github && (
                   <LinkBox _hover={{ color: data.primaryColor }}>
-                    <LinkOverlay 
-                      href={data.social.github} 
-                      isExternal={true} 
+                    <LinkOverlay
+                      href={data.social.github}
+                      isExternal={true}
                       aria-label="Link to Github"
                     />
                     <Icon as={GrGithub} boxSize="30px" />
@@ -448,9 +491,9 @@ function Page({
                 )}
                 {data.social.youtube && (
                   <LinkBox _hover={{ color: data.primaryColor }}>
-                    <LinkOverlay 
-                      href={data.social.youtube} 
-                      isExternal={true} 
+                    <LinkOverlay
+                      href={data.social.youtube}
+                      isExternal={true}
                       aria-label="Link to youtube "
                     />
                     <Icon as={GrYoutube} boxSize="30px" />
@@ -483,50 +526,14 @@ export async function getServerSideProps({ params }: any) {
     }
   }
 
-  let resumeLink
-  try {
-    resumeLink = await getDownloadURL(
-      ref(storage, `resumes/${data.portfolioId}-resume.pdf`)
-    )
-  } catch {
-    resumeLink = '#'
-  }
-
-  let mainImage
-  try {
-    mainImage = await getDownloadURL(
-      ref(storage, `images/${data.portfolioId}-main-image`)
-    )
-  } catch {
-    mainImage = '/img/business-man.svg'
-  }
-
-  let secondaryImage
-  try {
-    secondaryImage = await getDownloadURL(
-      ref(storage, `images/${data.portfolioId}-secondary-image`)
-    )
-  } catch {
-    secondaryImage = '/img/coding.svg'
-  }
-  const images = await Promise.all(
-    data.images.map(async (image: any) => {
-      return await getDownloadURL(ref(storage, `images/${image.title}`))
-    })
-  )
-
   const coverLetter = (data.coverLetters.find((coverLetter: any) => coverLetter.url === params.companyName)
-  )  || {}
+  ) || {}
 
   return {
     props: {
       data,
-      images,
-      resumeLink,
-      mainImage,
-      secondaryImage,
       coverLetter,
-    },
+    }
   }
 }
 

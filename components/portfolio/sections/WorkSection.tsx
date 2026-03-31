@@ -71,24 +71,32 @@ export const WorkSection = ({ data, images }: any) => (
         <Stack
           alignItems="start"
           justifyContent="center"
-          spacing={{base: 8, md: 4}}
+          spacing={{ base: 8, md: 4 }}
           direction={{ base: 'column', md: 'row' }}
         >
           {data.images &&
             data.images.map(
-              (image: any, index: number) =>
-                image && (
-                  <WorkImage
-                    key={image.title}
-                    title={image.title}
-                    description={image.description}
-                    src={images[index]}
-                    alt={image.title}
-                    companyName={image.context}
-                    bgColor={data.primaryColor}
-                  />
+              (image: any, index: number) => {
+                return (
+                  <>
+                    {
+                      image && (
+                        <WorkImage
+                          key={image.title}
+                          title={image.title}
+                          description={image.description}
+                          src={images[index]}
+                          alt={image.title}
+                          companyName={image.context}
+                          bgColor={data.primaryColor}
+                        />
+                      )
+                    }
+                  </>
                 )
+              }
             )}
+          {}
         </Stack>
       </VStack>
     )}
