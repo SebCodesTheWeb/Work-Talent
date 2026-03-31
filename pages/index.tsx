@@ -74,6 +74,7 @@ const Home: NextPage = () => {
             size={{ base: 'sm', '2xl': 'md' }}
             variant="ghost"
             border="1px solid #fff"
+            sx={{ color: 'white' }}
             _hover={{ color: 'gray.700', bgColor: '#fff' }}
             onClick={handleLogin}
           >

@@ -22,6 +22,7 @@ export const FormWrapper = ({ spacing=8, name, onClick, children }: FormWrapperP
           _hover={{ color: 'gray.700', bgColor: '#fff' }}
           p={2}
           autoFocus={ true }
+          color="white"
         >
           <HStack>
             <Text>Add new {name}</Text>

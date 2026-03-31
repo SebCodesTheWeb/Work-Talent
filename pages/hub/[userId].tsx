@@ -192,6 +192,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
             variant="ghost"
             border="1px solid #fff"
             _hover={{ color: 'gray.700', bgColor: '#fff' }}
+            color="white"
             onClick={handleLogOut}
           >
             Sign Out
@@ -283,6 +284,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            color="white"
                             onClick={() => editPortfolio(index)}
                           >
                             <HStack>
@@ -295,6 +297,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            color="white"
                             onClick={() => deleteUserPortfolio(index)}
                           >
                             <HStack>
@@ -306,6 +309,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
                             border="1px solid #fff"
+                            color="white"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
                             onClick={() => initializeUserPortfolio(portfolio, true)}
                           >
@@ -319,6 +323,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                             variant="ghost"
                             border="1px solid #fff"
                             _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            color="white"
                             onClick={() => viewPortfolio(index)}
                           >
                             <HStack>
@@ -338,6 +343,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                     variant="ghost"
                     border="1px solid #fff"
                     _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                    color="white"
                     onClick={onOpen}
                   >
                     <HStack>

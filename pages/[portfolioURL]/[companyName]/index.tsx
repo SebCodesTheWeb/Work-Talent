@@ -298,7 +298,7 @@ function Page({ data, coverLetter }: any) {
             )
           }
           if (item === 'Cover Letter' && Object.keys(coverLetter).length > 0) {
-            return <CoverLetterSection coverLetter={coverLetter} />
+            return <CoverLetterSection coverLetter={coverLetter} key={`${item}-${index}`} />
           }
           if (item === 'Portfolio' && !isEmpty(data.portfolio)) {
             return <PortfolioSection data={data} key={`${item}-${index}`} />

@@ -20,7 +20,6 @@ import {
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
 import { ref, uploadBytes, deleteObject, getDownloadURL } from 'firebase/storage'
-import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import {
   Box,
   Switch,
@@ -53,9 +52,14 @@ import { arrayWithLength } from '../../utils'
 import { AiFillFileAdd } from 'react-icons/ai'
 
 const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any) => {
-  const { nextStep, prevStep, setStep, activeStep } = useSteps({
-    initialStep: 0,
-  })
+  const [activeStep, setActiveStep] = useState(0)
+  const nextStep = () => {
+    setActiveStep((prev) => prev + 1)
+  }
+  const prevStep = () => {
+    setActiveStep((prev) => prev - 1)
+  }
+
   const router = useRouter()
   const redirect = useRef(false)
   const [skills, setSkills] = useState(
@@ -257,7 +261,7 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
     { label: 'Images' },
     { label: 'Education' },
     { label: 'About Me' },
-    { label: 'Cover Letter'},
+    { label: 'Cover Letter' },
     { label: 'Portfolio' },
     { label: 'Skills' },
     { label: 'Links' },
@@ -389,17 +393,6 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
                   pr={2}
                   pt={8}
                 >
-                  <Box w="200px" h="full">
-                    <Steps
-                      orientation="vertical"
-                      activeStep={activeStep}
-                      onClickStep={(step) => setStep(step)}
-                    >
-                      {steps.map(({ label }) => (
-                        <Step label={label} key={label} color="#fff" />
-                      ))}
-                    </Steps>
-                  </Box>
                   <Box w="350px" h="full">
                     {renderForm(handleChange, values)}
                   </Box>
@@ -480,6 +473,7 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
                       size="sm"
                       variant="ghost"
                       _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                      color="white"
                     >
                       Prev
                     </Button>
@@ -490,6 +484,7 @@ const Home: NextPage = ({ portfolioData, portfolioId, imageOne, imageTwo }: any)
                       variant="ghost"
                       mr={4}
                       border="1px solid #fff"
+                      color="white"
                       _hover={{ color: 'gray.700', bgColor: '#fff' }}
                     >
                       {activeStep === steps.length - 1 ? 'Check Final' : 'Next'}
@@ -513,7 +508,7 @@ export async function getServerSideProps({ params }: any) {
   const docRef = doc(db, 'portfolios', portfolioId)
   const docSnap = await getDoc(docRef)
   const portfolioData = docSnap.exists() ? docSnap.data() : null
-  let imageOne 
+  let imageOne
   try {
     imageOne = await getDownloadURL(ref(storage, `images/${portfolioId}-main-image`))
   } catch {
