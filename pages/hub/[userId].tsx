@@ -6,6 +6,7 @@ import { useState } from 'react'
 import {
   doc,
   setDoc,
+  deleteDoc,
   collection,
   query,
   where,
@@ -48,6 +49,7 @@ import {
   AiOutlineCopy,
 } from 'react-icons/ai'
 import { TbEdit } from 'react-icons/tb'
+import { MdDelete } from 'react-icons/md'
 
 const initialValues = {
   firstname: '',
@@ -104,14 +106,14 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
     })
   }
 
-  const initializeUserPortfolio = async (values = initialValues, isCopy=false) => {
+  const initializeUserPortfolio = async (values = initialValues, isCopy = false) => {
     try {
       setLoading(true)
       const portfolioId = uniqid()
       await setDoc(doc(db, 'portfolios', portfolioId), {
         ...values,
         userId: user?.uid,
-        portfolioName: isCopy? `${values?.portfolioName || ''}-copy` : portfolioName,
+        portfolioName: isCopy ? `${values?.portfolioName || ''}-copy` : portfolioName,
         portfolioId,
         portfolioURL: uniqid(),
       })
@@ -121,6 +123,24 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
     }
     onClose()
   }
+
+  const deleteUserPortfolio = async (index: number) => {
+    const portfolioId = portfolios[index].portfolioId
+
+    try {
+      setLoading(true)
+
+      await deleteDoc(doc(db, 'portfolios', portfolioId))
+
+      router.reload()
+    } catch (e) {
+      console.error('Error deleting document: ', e)
+    } finally {
+      setLoading(false)
+      onClose()
+    }
+  }
+
 
   const editPortfolio = (index: number) => {
     setLoading(true)
@@ -242,8 +262,8 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                 >
                   {portfolios.map((portfolio: any, index: number) => (
                     <Center
-                      w={{ base: '175px', '2xl': '200px' }}
-                      h={{ base: '175px', '2xl': '200px' }}
+                      w={{ base: '200px', '2xl': '230px' }}
+                      h={{ base: '200px', '2xl': '230px' }}
                       border="1px solid #fff"
                       key={`${user?.uid}-${portfolio.portfolioName}`}
                       borderRadius={8}
@@ -269,7 +289,19 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                               <Text>Edit</Text>
                               <Icon as={TbEdit} />
                             </HStack>
-                        </Button>
+                          </Button>
+                          <Button
+                            size={{ base: 'sm', '2xl': 'md' }}
+                            variant="ghost"
+                            border="1px solid #fff"
+                            _hover={{ color: 'gray.700', bgColor: '#fff' }}
+                            onClick={() => deleteUserPortfolio(index)}
+                          >
+                            <HStack>
+                              <Text>Delete</Text>
+                              <Icon as={MdDelete} />
+                            </HStack>
+                          </Button>
                           <Button
                             size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
@@ -281,7 +313,7 @@ const Home: NextPage = ({ portfolios, publicPortfolios }: any) => {
                               <Text>Copy</Text>
                               <Icon as={AiOutlineCopy} />
                             </HStack>
-                        </Button>
+                          </Button>
                           <Button
                             size={{ base: 'sm', '2xl': 'md' }}
                             variant="ghost"
