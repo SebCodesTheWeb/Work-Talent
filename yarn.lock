@@ -102,13 +102,6 @@
     copy-to-clipboard "3.3.3"
     framesync "6.1.2"
 
-"@chakra-ui/icon@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@chakra-ui/icon/-/icon-3.2.0.tgz#92b9454aa0d561b4994bcd6a1b3bb1fdd5c67bef"
-  integrity sha512-xxjGLvlX2Ys4H0iHrI16t74rG9EBcpFvJ3Y3B7KMQTrnW34Kf7Da/UC8J67Gtx85mTHW020ml85SVPKORWNNKQ==
-  dependencies:
-    "@chakra-ui/shared-utils" "2.0.5"
-
 "@chakra-ui/react@^2.10.9":
   version "2.10.9"
   resolved "https://registry.npmjs.org/@chakra-ui/react/-/react-2.10.9.tgz#f268c83c435df09c96a8eafb066e76641057c24b"
@@ -124,11 +117,6 @@
     react-fast-compare "3.2.2"
     react-focus-lock "^2.9.6"
     react-remove-scroll "^2.5.7"
-
-"@chakra-ui/shared-utils@2.0.5":
-  version "2.0.5"
-  resolved "https://registry.npmjs.org/@chakra-ui/shared-utils/-/shared-utils-2.0.5.tgz#cb2b49705e113853647f1822142619570feba081"
-  integrity sha512-4/Wur0FqDov7Y0nCXl7HbHzCg4aq86h+SXdoUeuCMD3dSj7dpsVnStLYhng1vxvlbUnLpdF4oz5Myt3i/a7N3Q==
 
 "@chakra-ui/styled-system@2.12.4":
   version "2.12.4"
@@ -1011,10 +999,17 @@
   resolved "https://registry.npmjs.org/@types/long/-/long-4.0.2.tgz#b74129719fc8d11c01868010082d483b7545591a"
   integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
 
-"@types/node@18.0.3", "@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@18.0.3":
   version "18.0.3"
   resolved "https://registry.npmjs.org/@types/node/-/node-18.0.3.tgz#463fc47f13ec0688a33aec75d078a0541a447199"
   integrity sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ==
+
+"@types/node@>=12.12.47", "@types/node@>=13.7.0":
+  version "25.5.0"
+  resolved "https://registry.npmjs.org/@types/node/-/node-25.5.0.tgz#5c99f37c443d9ccc4985866913f1ed364217da31"
+  integrity sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==
+  dependencies:
+    undici-types "~7.18.0"
 
 "@types/parse-json@^4.0.0":
   version "4.0.2"
@@ -1038,7 +1033,14 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.0.15":
+"@types/react@*":
+  version "19.2.14"
+  resolved "https://registry.npmjs.org/@types/react/-/react-19.2.14.tgz#39604929b5e3957e3a6fa0001dafb17c7af70bad"
+  integrity sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==
+  dependencies:
+    csstype "^3.2.2"
+
+"@types/react@18.0.15":
   version "18.0.15"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.15.tgz#d355644c26832dc27f3e6cbf0c4f4603fc4ab7fe"
   integrity sha512-iz3BtLuIYH1uWdsv6wXYdhozhqj20oD4/Hk2DNXIn1kFsmp9x8d9QB6FnPhfkbhd2PgEONt9Q1x/ebkwjfFLow==
@@ -1439,11 +1441,6 @@ chakra-color-picker@^0.0.6:
   resolved "https://registry.npmjs.org/chakra-color-picker/-/chakra-color-picker-0.0.6.tgz#95c119e923fea6685f3f89587651bcf1974474de"
   integrity sha512-QQ/PWjeOiBICWgbs5Bc30LURaxKM1rsVVZ9h9JdE7W7dkyzmCf+rquaIqSlNsKCSyphMpqL31QTQjKS/Ap38vQ==
 
-chakra-ui-steps@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/chakra-ui-steps/-/chakra-ui-steps-2.2.1.tgz#8d8b6e536dfbc5093fb9c3ab49d538d3965c8ef1"
-  integrity sha512-Nox+SJys+j9HXoR11T4ZFDdBHXSFPMofeRvCqfFLxJwZN0ACeMj4Mk8mTLr0dsmim/KoinSekt1nBVq9RhhkHw==
-
 chalk@^4.0.0:
   version "4.1.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
@@ -1536,7 +1533,7 @@ css-line-break@^2.1.0:
   dependencies:
     utrie "^1.0.2"
 
-csstype@^3.0.2, csstype@^3.1.2:
+csstype@^3.0.2, csstype@^3.1.2, csstype@^3.2.2:
   version "3.2.3"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz#ec48c0f3e993e50648c86da559e2610995cf989a"
   integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
@@ -2830,9 +2827,9 @@ lodash.mergewith@4.6.2:
   integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash@^4.17.21:
-  version "4.17.23"
-  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
-  integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
+  version "4.17.21"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 long@^4.0.0:
   version "4.0.0"
@@ -3707,7 +3704,7 @@ tsconfig-paths@^3.14.1, tsconfig-paths@^3.15.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@2.4.0, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.1, tslib@^2.4.0:
+tslib@2.4.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
@@ -3716,6 +3713,11 @@ tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.1, tslib@^2.4.0:
+  version "2.8.1"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
+  integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
 
 tsutils@^3.21.0:
   version "3.21.0"
@@ -3795,6 +3797,11 @@ unbox-primitive@^1.1.0:
     has-bigints "^1.0.2"
     has-symbols "^1.1.0"
     which-boxed-primitive "^1.1.1"
+
+undici-types@~7.18.0:
+  version "7.18.2"
+  resolved "https://registry.npmjs.org/undici-types/-/undici-types-7.18.2.tgz#29357a89e7b7ca4aef3bf0fd3fd0cd73884229e9"
+  integrity sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==
 
 uniqid@^5.4.0:
   version "5.4.0"
