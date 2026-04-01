@@ -65,7 +65,8 @@ export const WorkSection = ({ data, images }: any) => (
         </Tabs>
       </VStack>
     )}
-    {!isEmpty(images) && (
+    {/*Temporarily disabled*/}
+    {!isEmpty(images) && false && (
       <VStack spacing={8} alignItems="center">
         <Heading textAlign="center">Images from work </Heading>
         <Stack
